@@ -20,21 +20,18 @@
 ;
 ; ***** END LICENSE BLOCK *****
 
-; EDITMOD.PRJ 
-; for general edit modules
-; Schlumpfine Modulschnittstelle V0.6, 28.12.1995 Olaf Piesche
-; fr Smurf
 
-..\..\modules\edit\strudel.sem                  ; name of executable program is topmost window
-=                  ; list of modules follows...
-edstart.s          ; startup code
+..\..\..\..\modules\edit\texbump.sem
+.C [-C -K -Z -M -P -S]
+.L [-S=1024]
+=
+..\..\edstart.s ; Startup-Code fr EDIT-Module
 
-strudel.c
+texbump5.c
 
-PCFLTLIB.LIB       ; floating point library
-PCSTDLIB.LIB       ; standard library
-PCEXTLIB.LIB       ; extended library
-PCTOSLIB.LIB       ; TOS library
-PCGEMLIB.LIB       ; AES and VDI library
-DEMOLIB.LIB       ; AES and VDI library
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+PCFLTLIB.LIB    ; Floating Point LIB
+PCSTDLIB.LIB  ; Standard LIB
+PCEXTLIB.LIB  ; Extended LIB
+PCTOSLIB.LIB  ; TOS LIB
+PCGEMLIB.LIB  ; GEM LIB
+

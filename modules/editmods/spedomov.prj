@@ -25,11 +25,13 @@
 ; Schlumpfine Modulschnittstelle V0.6, 28.12.1995 Olaf Piesche
 ; fÅr Smurf
 
-..\..\modules\edit\strudel.sem                  ; name of executable program is topmost window
+..\..\modules\edit\spedomov.sem                  ; name of executable program is topmost window
+.C [-C -K -Z -M -P -S]
+.L [-S=1024]
 =                  ; list of modules follows...
 edstart.s          ; startup code
 
-strudel.c
+spedomov.c
 
 PCFLTLIB.LIB       ; floating point library
 PCSTDLIB.LIB       ; standard library

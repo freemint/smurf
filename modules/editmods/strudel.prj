@@ -26,6 +26,8 @@
 ; fÅr Smurf
 
 ..\..\modules\edit\strudel.sem                  ; name of executable program is topmost window
+.C [-C -K -Z -M -P -S]
+.L [-S=1024]
 =                  ; list of modules follows...
 edstart.s          ; startup code
 
