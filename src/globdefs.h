@@ -1,3 +1,6 @@
+#ifndef _globdefs_h_
+#define _globdefs_h_
+
 /*
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -88,6 +91,47 @@
 
     #define AV_IMAGE    0
     #define AV_BLOCK    1
+
+/* a bunch of MiNT defines put in here by Baldrick */
+/* proper use of newer GEMLIB would get rid of these
+ * But that caused a bunch of other routines  to have 
+ * problems.  And I'm trying to get this compiled at
+ */
+#ifndef EINVFN
+#define EINVFN 	-32
+#endif
+
+#ifndef FEATURES
+#define FEATURES 0x0007
+#endif
+
+#ifndef GETCOOKIE
+#define GETCOOKIE 0x0008
+#endif
+
+#ifndef SHW_BROADCAST
+#define SHW_BROADCAST 	7
+#endif
+
+#ifndef SH_WDRAW
+#define SH_WDRAW	72
+#endif
+
+#ifndef SC_CHANGED
+#define SC_CHANGED	80
+#endif
+
+#ifndef EACCDN
+#define EACCDN	-36
+#endif
+
+#ifndef ENMFIL
+#define ENMFIL	-47
+#endif
+
+
+/* end of Baldricks insertion */
+
 
 #define UDO     21
 
@@ -207,3 +251,5 @@ extern  int TOOLBAR_HEIGHT;
 #define DD_TRASH      4    /* Ziel ist ein Papierkorb-Icon      */
 #define DD_PRINTER    5    /* Ziel ist ein Drucker-Icon         */
 #define DD_CLIPBOARD  6    /* Ziel ist ein Klemmbrett-Icon      */
+
+#endif
