@@ -931,7 +931,7 @@ struct DIRENTRY *build_up_filelist(char *path, char *ext, int pathlen)
 				 * of the list.  This modification isn't perfect but
 				 * does catch the error condition
 				 */
-				if((back = Dreaddir(buflen, dirhandle, buf)) >= 0) /*!= ENMFIL)*/	/* Noch eine Datei vorhanden */
+				if((back = Dreaddir(buflen, dirhandle, buf)) != ENMFIL)	/* Noch eine Datei vorhanden */
 				{
 					_buf = buf + 4;										/* Dateiindex Åbergehen */
 
