@@ -90,12 +90,12 @@ MOD_ABILITY  module_ability = {
                         0 /* Extra-Flag */ 
                         };
 
+SMURF_PIC *picture[3];
 
 /*---------------------------  FUNCTION MAIN -----------------------------*/
 void edit_module_main(GARGAMEL *smurf_struct)
 {
 int my_id;
-SMURF_PIC *picture[3];
 int width, height;
 int x,y;
 long slidval=0;
@@ -121,10 +121,10 @@ if(smurf_struct->module_mode==MSTART)
     Nummer des Bildes, das beim Eintreten der Message in der
     Gargamel h„ngt, steht in GARGAMEL -> event_par und liegt
     zwischen 1 und 6.               */
-else if(smurf_struct->module_mode=MPICTURE)
+else if(smurf_struct->module_mode == MPICTURE)
 {
     /* Bild holen */
-    picture[smurf_struct->event_par] = smurf_struct->picture;
+    picture[smurf_struct->event_par] = smurf_struct->smurf_pic; /*picture;*/
 
     /* und weiter warten */
     smurf_struct->module_mode=M_WAITING;
@@ -134,7 +134,7 @@ else if(smurf_struct->module_mode=MPICTURE)
 
 
 /*--------- MEXEC-Message (Los gehts!) */
-else if(smurf_struct->module_mode=MEXEC)
+else if(smurf_struct->module_mode == MEXEC)
 {
     slidval=smurf_struct->slide1;       /* Slider holen */
 
@@ -144,11 +144,11 @@ else if(smurf_struct->module_mode=MEXEC)
 
 
 /* Mterm empfangen - Speicher freigeben und beenden */
-else if(smurf_struct->module_mode==MTERM)
-    {
+else if(smurf_struct->module_mode == MTERM)
+{
     smurf_struct->module_mode=M_EXIT;
     return;
-    }
+}
 
 
 }
