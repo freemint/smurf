@@ -1,3 +1,6 @@
+#ifndef _smurfine_h_
+#define _smurfine_h_
+
 /*
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -27,7 +30,7 @@
 /* has to be absolute because with relative addressing */
 /* PURE-C would use the start path of the file that */
 /* includes SMURFINE.H */
-#include "e:\opensmurf\mod_devl\dither\dit_mod.h"
+#include "c:\smurf\modules\dither\dit_mod.h"
 
 
 int start_imp_module(char *modpath, SMURF_PIC *imp_pic);
@@ -114,3 +117,5 @@ BASPAG *start_dither_module(int mode, int mod_id, DITHER_DATA *ditherdata);
 #define FORM_PIXELPAK   0       /* Pixelpacked-Format */
 #define FORM_STANDARD   1       /* Standard - Format */
 #define FORM_BOTH       2       /* Beide (f. MOD_ABILITY) */
+
+#endif
