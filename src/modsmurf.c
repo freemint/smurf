@@ -40,7 +40,8 @@
 #include <screen.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <vdi.h>
 #include <ext.h>
 #include <math.h>
