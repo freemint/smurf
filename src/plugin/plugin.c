@@ -44,7 +44,8 @@
 
 #include <tos.h>
 #include <ext.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <string.h>
 #include <stddef.h>
 #include <stdlib.h>
