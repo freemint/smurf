@@ -21,11 +21,13 @@
 ; ***** END LICENSE BLOCK *****
 
 
-..\..\..\modules\edit\*.sem
+..\..\..\..\modules\edit\bumpmap.sem
+.C [-C -K -Z -M -P -S]
+.L [-S=1024]
 =
 ..\..\edstart.s ; Startup-Code fÅr EDIT-Module
 
-*
+bumpmap7.c
 
 PCFLTLIB.LIB    ; Floating Point LIB
 PCSTDLIB.LIB  ; Standard LIB
