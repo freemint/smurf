@@ -41,7 +41,7 @@
 #include <screen.h>
 #include <portab.h>
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 #include "trp_gfx.h"
 #include "trp_gfx.rh"
 #include "trp_gfx.rsh"

@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 /* Infostruktur fÅr Hauptmodul */
 MOD_INFO module_info = {"SEF-Importer",

@@ -46,7 +46,7 @@
 #include <ext.h>
 
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 #define GARS    1
 #define MCIDAS  2

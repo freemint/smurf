@@ -29,7 +29,7 @@
 #include <string.h>
 #include <time.h>
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 /* Infostruktur fÅr Hauptmodul */
 MOD_INFO module_info = {"QRT .RAW Modul",

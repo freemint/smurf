@@ -44,7 +44,7 @@
 #include <ext.h>
 
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 
 MOD_INFO module_info=

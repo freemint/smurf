@@ -37,7 +37,7 @@
 #include <ext.h>
 
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 
 char *find_numpoints(char *data_pos, int *points);

@@ -29,7 +29,7 @@
 #include <string.h>
 #include <time.h>
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 #define DEBUG           0
 #define TRUE            1
