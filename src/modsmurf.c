@@ -1986,6 +1986,7 @@ void f_info(void)
 
 	OBJECT *ob;
 
+	ob = wind_s[WIND_INFO].resource_form;
 	
 	f_set_syspal();
 	button = Dialog.init(WIND_INFO, -1);
