@@ -1,3 +1,6 @@
+#ifndef _sym_gem_h_
+#define _sym_gem_h_
+
 /*
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -44,7 +47,8 @@
 /*  (incl. Scrolloffset) zurÅck.                                */
 typedef char**  LISTPTR;
 
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 
 #define FALSE   0
 #define TRUE    1
@@ -97,3 +101,5 @@ void f_generate_listfield(int uparrow, int dnarrow,int sliderparent,
             int num_entries, int max_entries, LIST_FIELD *listfield, int autoloc);
 
 int f_listfield(long *pwindow, int klick_obj, int key_scancode, LIST_FIELD *lfstruct);
+
+#endif
