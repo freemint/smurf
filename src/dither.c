@@ -39,7 +39,8 @@
 #include <string.h>
 #include <screen.h>
 #include <stdio.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <stdlib.h>
 #include <vdi.h>
 #include <ext.h>

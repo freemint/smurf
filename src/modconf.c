@@ -62,7 +62,8 @@
 
 
 #include <tos.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stddef.h>

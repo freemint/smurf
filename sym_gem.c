@@ -57,7 +57,8 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 /*----------------------------------------------------------------------*/
 
 #include <tos.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <ext.h>
 #include <vdi.h>
 #include <string.h>

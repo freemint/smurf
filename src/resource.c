@@ -27,7 +27,8 @@
 	z.B. Popup-Strukturen, WINDOW-Strukturen, etc. */
 
 #include <tos.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <vdi.h>
 #include <string.h>
 #include <stdio.h>

@@ -32,7 +32,8 @@
 /**************************************************************	*/
 
 #include <tos.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>

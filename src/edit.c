@@ -22,12 +22,13 @@
  * ***** END LICENSE BLOCK *****
  */
 
-#include "tos.h"
-#include "multiaes.h"
-#include "vdi.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <tos.h>
+/*#include "multiaes.h"*/
+#include <aes.h>
+#include <vdi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "smurf.h"
 #include "..\sym_gem.h"
 #include "..\modules\import.h"

@@ -33,14 +33,15 @@
 /******************************************************************	*/
 
 
-#include "tos.h"
-#include "stdio.h"
-#include "string.h"
-#include "stdlib.h"
-#include "screen.h"
-#include "ext.h"
-#include "multiaes.h"
-#include "errno.h"
+#include <tos.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <screen.h>
+#include <ext.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
+#include <errno.h>
 
 #include "..\sym_gem.h"
 #include "..\modules\import.h"

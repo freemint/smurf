@@ -22,7 +22,8 @@
  * ***** END LICENSE BLOCK *****
  */
 
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <stdio.h>
 #include <screen.h>
 #include <stdlib.h>

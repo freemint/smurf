@@ -29,7 +29,8 @@
 #include <tos.h>
 #include <ext.h>
 #include <vdi.h>
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include "..\sym_gem.h"
 #include "..\modules\import.h"
 #include "select.h"

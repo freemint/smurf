@@ -29,7 +29,8 @@
 /*	Olaf Piesche													*/
 /*------------------------------------------------------------------*/
 
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <tos.h>
 #include <ext.h>
 #include <string.h>
