@@ -807,7 +807,6 @@ void f_scan_dither(void)
 
 	struct DIRENTRY *filelist, *actual;
 
-
 	/*---- Pfade vorbereiten ----*/
 	ditpath = calloc(1, strlen(Sys_info.standard_path) + strlen("\\modules\\dither\\") + 1);
 	strcpy(ditpath, Sys_info.standard_path);
@@ -928,7 +927,11 @@ struct DIRENTRY *build_up_filelist(char *path, char *ext, int pathlen)
 			actual = &Element;
 			do
 			{
-				if((back = Dreaddir(buflen, dirhandle, buf)) != ENMFIL)	/* Noch eine Datei vorhanden */
+				/* ok MagicPC is giving me -49 not -47 at the end
+				 * of the list.  This modification isn't perfect but
+				 * does catch the error condition
+				 */
+				if((back = Dreaddir(buflen, dirhandle, buf)) >= 0) /*!= ENMFIL)*/	/* Noch eine Datei vorhanden */
 				{
 					_buf = buf + 4;										/* Dateiindex Åbergehen */
 
