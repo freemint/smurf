@@ -34,7 +34,7 @@
 #include <tos.h>
 #include <ext.h>
 #include <math.h>
-#include "..\..\..\..\sym_gem.h"
+#include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
 #include "..\..\..\src\smurf_st.h"
 #include "..\..\..\src\globdefs.h"
