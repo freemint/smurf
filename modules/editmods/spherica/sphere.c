@@ -37,7 +37,7 @@
 #include <math.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 #include "spherica.rsh"
 #include "spherica.rh"
 #include "spherica.h"

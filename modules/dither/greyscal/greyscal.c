@@ -31,7 +31,7 @@
 #include <ext.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 
 void convert_to_grey(long *par);
 

@@ -30,7 +30,7 @@
 #include <string.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 
 void    nearest_color(long *par);               /* 24&16-Bit " " mit SysPal */
 

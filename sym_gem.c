@@ -64,18 +64,18 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 #include <screen.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "smurf\smurf_st.h"
+#include "src\smurf_st.h"
 #include "sym_gem.h"
 #include "modules\import.h"
-#include "smurf\smurf.h"
-#include "smurf\smurf_f.h"
+#include "src\smurf.h"
+#include "src\smurf_f.h"
 
-#include "smurf\xrsrc.h"
-#include "smurf\globdefs.h"
+#include "src\xrsrc.h"
+#include "src\globdefs.h"
 
-#include "smurf\smurfine.h"
-#include "smurf\smurfobs.h"
-#include "smurf\ext_obs.h"
+#include "src\smurfine.h"
+#include "src\smurfobs.h"
+#include "src\ext_obs.h"
 
 void f_update_listfield(LIST_FIELD *lfstruct, OBJECT *tree);
 

@@ -33,7 +33,7 @@
 #include <stdio.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 
 extern int (*seek_nearest_col)(long *par, int maxcol);
 void (*read_pixel)(void);

@@ -30,7 +30,7 @@
 #include <string.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 
 /* Set 16 Pixel (Standard Format) Assembler-Rout */
     int (*set_16_pixels)(char *source, char *dest, int depth, long planelen, int howmany);          

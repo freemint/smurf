@@ -38,9 +38,9 @@
 #include <aes.h>
 #include <vdi.h>
 #include <stdio.h>
-#include "smurf\xaes.h"
+#include "src\xaes.h"
 #include "sym_gem.h"
-#include "smurf\smurf.h"
+#include "src\smurf.h"
 #include "modules\import.h"
 
 #define RADIOBUTTON   	43		/* Oberes Byte.... */

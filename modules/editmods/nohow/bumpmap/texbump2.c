@@ -33,7 +33,7 @@
 #include <ext.h>
 #include "..\..\..\..\sym_gem.h"
 #include "..\..\..\import.h"
-#include "..\..\..\..\smurf\smurfine.h"
+#include "..\..\..\..\src\smurfine.h"
 #include "bumpmap.rsh"
 #include "bumpmap.rh"
 #include <math.h>

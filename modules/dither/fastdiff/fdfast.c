@@ -29,7 +29,7 @@
 #include <string.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurfine.h"
 
 void    floyd1624(long *par);               /* 24&16-Bit " " mit SysPal */
 int (*set_16pixels)(char *buf16, char *dest, int depth, long planelen, int howmany);
