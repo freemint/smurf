@@ -46,6 +46,14 @@
 #include "xaes.h"
 #include "xrsrc.h"
 
+#ifndef TRUE
+#define TRUE	1
+#endif
+
+#ifndef FALSE
+#define FALSE	0
+#endif
+
 /****** Compilerswitches ******************************************************/
 
 #define COLOR_ICONS TRUE	/* FarbiconunterstÅtzung?              */
