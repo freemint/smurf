@@ -54,6 +54,7 @@ void f_txtinsert(int num, OBJECT *tree, int txt_obj) - EinfÅgen von Zahlen in Te
 void f_hidetree(OBJECT *tree, int object)	- Verstecken eines Objektes mit allen Kindern
 void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Objekts mit allen Kindern
 */
+
 /*----------------------------------------------------------------------*/
 
 #include <tos.h>
@@ -71,7 +72,7 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 #include "src\smurf.h"
 #include "src\smurf_f.h"
 
-#include "src\xrsrc.h"
+/*#include "src\xrsrc.h"  If this is included it screws us all up*/
 #include "src\globdefs.h"
 
 #include "src\smurfine.h"
@@ -79,6 +80,11 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 #include "src\ext_obs.h"
 
 void f_update_listfield(LIST_FIELD *lfstruct, OBJECT *tree);
+
+/*baldrick prototypes insertion this is the only thing we need from
+ * xrsrc.h in this file
+ */
+extern short xrsrc_gaddr (short re_gtype, short re_gindex, short *re_gaddr, short *pglobal);
 
 extern int resource_global[20];
 
@@ -1483,10 +1489,7 @@ int omx, omy, redraw;
 
 
 
-int appl_xgetinfo (type, out1, out2, out3, out4)
-int type;
-int *out1, *out2;
-int *out3, *out4;
+int appl_xgetinfo (int type, int *out1, int *out2, int *out3, int *out4)
 {
 	char has_agi = FALSE;
 
