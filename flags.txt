@@ -1,0 +1,8 @@
+Flags für Plugins:
+-C -K -M -P -S 7k Stack
+
+Flags für Module:
+-C -K -Z -M -P -S 1k Stack
+
+Flags für Dithermodule:
+-C -K -M -P -S 1k Stack
