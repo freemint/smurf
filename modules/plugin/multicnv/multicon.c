@@ -42,13 +42,13 @@
 #include <math.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurf_st.h"
-#include "..\..\..\smurf\smurf.h"
-#include "..\..\..\smurf\smurfine.h"
-#include "..\..\..\smurf\globdefs.h"
-#include "..\..\..\smurf\plugin\plugin.h"
-#include "..\..\..\smurf\popdefin.h"
-#include "..\..\..\smurf\smurfobs.h"
+#include "..\..\..\src\smurf_st.h"
+#include "..\..\..\src\smurf.h"
+#include "..\..\..\src\smurfine.h"
+#include "..\..\..\src\globdefs.h"
+#include "..\..\..\src\plugin\plugin.h"
+#include "..\..\..\src\popdefin.h"
+#include "..\..\..\src\smurfobs.h"
 
 #include "multi.h"
 

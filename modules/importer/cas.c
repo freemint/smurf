@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 char *decodePCX(char *buffer, int BytePerLine, int height);
 #define NOMEM   ( (void*) 0L )

@@ -31,16 +31,16 @@
 #include <math.h>
 #include "..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurf_st.h"
-#include "..\..\..\smurf\globdefs.h"
-#include "..\..\..\smurf\smurfine.h"
-#include "..\..\..\smurf\plugin\plugin.h"
-#include "..\..\..\smurf\smurf.h"
+#include "..\..\..\src\smurf_st.h"
+#include "..\..\..\src\globdefs.h"
+#include "..\..\..\src\smurfine.h"
+#include "..\..\..\src\plugin\plugin.h"
+#include "..\..\..\src\smurf.h"
 #include "gdos.h"
 #include "printw.h"
 #include "wdialog.h"
 
-#include "..\..\..\smurf\smurfobs.h"
+#include "..\..\..\src\smurfobs.h"
 
 #define ENGLISCH 0
 

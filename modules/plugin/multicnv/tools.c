@@ -26,10 +26,10 @@
 #include <stddef.h>
 #include "..\..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurf_st.h"
-#include "..\..\..\smurf\smurf.h"
-#include "..\..\..\smurf\smurfine.h"
-#include "..\..\..\smurf\globdefs.h"
+#include "..\..\..\src\smurf_st.h"
+#include "..\..\..\src\smurf.h"
+#include "..\..\..\src\smurfine.h"
+#include "..\..\..\src\globdefs.h"
 
 void change_object(WINDOW *window, int object, int status, int redraw)
 {

@@ -29,7 +29,7 @@
 #include <string.h>
 #include <time.h>
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 char *change8Bit(char *buf, int xmax, int ymax);
 #define NOMEM   ( (void*) 0L )

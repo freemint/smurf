@@ -36,9 +36,9 @@
 #include <math.h>
 #include "..\..\..\..\sym_gem.h"
 #include "..\..\import.h"
-#include "..\..\..\smurf\smurf_st.h"
-#include "..\..\..\smurf\globdefs.h"
-#include "..\..\..\smurf\smurfine.h"
+#include "..\..\..\src\smurf_st.h"
+#include "..\..\..\src\globdefs.h"
+#include "..\..\..\src\smurfine.h"
 #include "gdos.h"
 #include "printw.h"
 #include "wdialog.h"
