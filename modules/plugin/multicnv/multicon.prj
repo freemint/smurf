@@ -25,6 +25,8 @@
 
 ..\..\..\modules\plugins\multicon.plg    ; name of executable program is topmost window
 ;..\..\..\modules\plugins\englische\multicon.plg ; name of executable program is topmost window
+.C [-C -K -M -P -S]
+.L [-S=7168]
 =                                       ; list of modules follows...
 ..\plgstart.s                           ; startup code
 

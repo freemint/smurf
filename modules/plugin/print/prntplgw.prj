@@ -25,13 +25,15 @@
 
 ..\..\..\modules\plugins\printwd.plg     ; name of executable program is topmost window
 ;..\..\..\modules\plugins\englisch\printwd.plg       ; name of executable program is topmost window
+.C [-C -K -M -P -S]
+.L [-S=7168]
 =                                       ; list of modules follows...
 ..\plgstart.s                           ; startup code
 
 printw.c
 gdosw.c
 bindings.c
-..\..\..\smurf\getlines.s                     ; getpix for standard format
+..\..\..\src\getlines.s                     ; getpix for standard format
 
 PCFLTLIB.LIB        ; floating point library
 PCSTDLIB.LIB        ; standard library

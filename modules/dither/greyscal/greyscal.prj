@@ -26,13 +26,15 @@
 ; fÅr Smurf
 
 ..\..\..\modules\dither\greyscal.sdm    ; name of executable program is topmost window
+.C [-C -K  -Z -M -P -S]
+.L [-S=1024]
 =                                       ; list of modules follows...
 ..\ditstart.s                           ; startup code
 
 greyscal.c
 
 ;--------- Lese- / Schreibroutinen ---------- 
-..\..\..\smurf\getlines.s                 ; n Pixel aus dem Standardformat lesen (fÅr C-Dithers)
+..\..\..\src\getlines.s                 ; n Pixel aus dem Standardformat lesen (fÅr C-Dithers)
 
 
 PCFLTLIB.LIB        ; floating point library
