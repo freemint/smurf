@@ -1,3 +1,6 @@
+#ifndef _smurfobs_h_
+#define _smurfobs_h_
+
 /*
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -326,3 +329,5 @@ typedef struct commHandlers
 void init_moduleObs(void);          /* Modulobjekte initialisieren */
 void init_GuiObs(void);             /* GUI-Objekte initialisieren */
 void init_MiscObs(void);            /* allgemeine Objekte initialisieren */
+
+#endif

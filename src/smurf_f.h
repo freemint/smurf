@@ -1,3 +1,6 @@
+#ifndef _smurf_f_h_
+#define _smurf_f_h_
+
 /*
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -407,3 +410,4 @@ int SM_wind_set(int wi_ghandle, int wi_gfield, int wi_gw1,
 int SM_wind_get(int wi_ghandle, int wi_gfield, int *wi_gw1,
                 int *wi_gw2, int *wi_gw3, int *wi_gw4);
 
+#endif
