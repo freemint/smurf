@@ -37,7 +37,7 @@
 #include "globdefs.h"
 #include "vaproto.h"
 #include "bindings.h"
-#include "..\mod_devl\dither\dit_mod.h"
+#include "..\modules\dither\dit_mod.h"
 
 #include "smurfobs.h"
 #include "ext_obs.h"
