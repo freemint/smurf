@@ -33,7 +33,7 @@
 /*#include <time.h>*/
 #include "smurf.h"
 #include "..\sym_gem.h"
-#include "..\mod_devl\import.h"
+#include "..\modules\import.h"
 #include "smurfine.h"
 #include "globdefs.h"
 #include "popdefin.h"

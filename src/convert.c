@@ -57,7 +57,7 @@
 #include <ext.h>
 #include <demolib.h>
 #include "..\sym_gem.h"
-#include "..\mod_devl\import.h"
+#include "..\modules\import.h"
 #include "smurfine.h"
 #include "smurf_st.h"
 #include "smurf_f.h"
