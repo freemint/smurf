@@ -31,7 +31,7 @@
 #include <screen.h>
 #include <ext.h>
 #include "..\..\..\import.h"
-#include "..\..\..\..\smurf\smurfine.h"
+#include "..\..\..\..\src\smurfine.h"
 
 /*--------------- Funktionen -------------------*/
 /*----------------------------------------------*/

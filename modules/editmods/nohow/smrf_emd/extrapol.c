@@ -30,7 +30,7 @@
 #include <string.h>
 #include <screen.h>
 #include "..\..\..\import.h"
-#include "..\..\..\..\smurf\smurfine.h"
+#include "..\..\..\..\src\smurfine.h"
  
 void prev(SMURF_PIC *smurfpic, SMURF_PIC *preview);
 

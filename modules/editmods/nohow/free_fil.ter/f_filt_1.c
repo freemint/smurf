@@ -33,7 +33,7 @@
 #include <ext.h>
 #include "..\..\..\..\sym_gem.h"
 #include "..\..\..\import.h"
-#include "..\..\..\..\smuf\smurfine.h"
+#include "..\..\..\..\src\smurfine.h"
 #include "f_filter.rsh"
 #include "f_filter.rh"
  

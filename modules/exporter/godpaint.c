@@ -47,7 +47,7 @@
 #include <string.h>
 #include "..\..\sym_gem.h"
 #include "..\import.h"
-#include "..\..\smurf\smurfine.h"
+#include "..\..\src\smurfine.h"
 
 
 /* Infostruktur fÅr Hauptmodul */
