@@ -47,7 +47,7 @@
 #include <demolib.h>
 #include <errno.h>
 #include "..\sym_gem.h"
-#include "..\mod_devl\import.h"
+#include "..\modules\import.h"
 #include "smurf.h"
 #include "smurf_st.h"
 #include "smurfine.h"

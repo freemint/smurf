@@ -31,7 +31,7 @@
 #include <vdi.h>
 #include <multiaes.h>
 #include "..\sym_gem.h"
-#include "..\mod_devl\import.h"
+#include "..\modules\import.h"
 #include "select.h"
 #include "smurf_st.h"
 #include "smurf_f.h"

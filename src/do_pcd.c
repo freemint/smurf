@@ -33,7 +33,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "..\sym_gem.h"
-#include "..\mod_devl\import.h"
+#include "..\modules\import.h"
 #include "smurfine.h"
 #include "smurf.h"
 #include "smurf_st.h"
