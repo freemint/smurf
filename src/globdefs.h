@@ -129,6 +129,9 @@
 #define ENMFIL	-47
 #endif
 
+#ifndef EDRIVE
+#define EDRIVE	-49
+#endif
 
 /* end of Baldricks insertion */
 
