@@ -1,0 +1,10 @@
+/* GEM C Source Header Datei */
+
+#define NUM_BB    0
+#define NUM_IB    0
+#define NUM_CIB   1
+#define NUM_TI    47
+#define NUM_FRSTR 0
+#define NUM_FRIMG 0
+#define NUM_OBS   77
+#define NUM_TREE  2

@@ -1,0 +1,39 @@
+/* Resource Datei Indizes fÅr F_FILTER */
+
+#define FREE_FILTER 0   /* Formular/Dialog */
+#define FILTER_NAME 1   /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_00 9   /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_01 10  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_02 11  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_03 12  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_04 13  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_10 15  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_11 16  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_12 17  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_13 18  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_14 19  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_20 21  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_21 22  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_22 23  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_23 24  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_24 25  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_30 27  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_31 28  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_32 29  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_33 30  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_34 31  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_40 33  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_41 34  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_42 35  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_43 36  /* FTEXT in Baum FREE_FILTER */
+#define MATRIX_44 37  /* FTEXT in Baum FREE_FILTER */
+#define DO_IT    38  /* BUTTON in Baum FREE_FILTER */
+#define DIV      39  /* FTEXT in Baum FREE_FILTER */
+#define BIAS     40  /* FTEXT in Baum FREE_FILTER */
+#define LOAD_FILTER 41  /* BUTTON in Baum FREE_FILTER */
+#define SAVE_FILTER 42  /* BUTTON in Baum FREE_FILTER */
+#define CLIP     45  /* IBOX in Baum FREE_FILTER */
+#define INVERT   46  /* IBOX in Baum FREE_FILTER */
+#define STRENGTH_FHR 48  /* BOX in Baum FREE_FILTER */
+#define STRENGTH_SLIDE 49  /* BOX in Baum FREE_FILTER */
+#define STRENGTH_EDIT 53  /* TEXT in Baum FREE_FILTER */
