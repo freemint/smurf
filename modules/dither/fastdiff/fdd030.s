@@ -52,7 +52,7 @@
 *
 
 
-INCLUDE "e:\daleman\smurf\DITMACRO.S"
+INCLUDE "C:\smurf\src\DITMACRO.S"
 
 IMPORT  draw_busybox
 IMPORT  fdd_24bit, fdd_16bit, fdd_8bit
