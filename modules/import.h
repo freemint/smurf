@@ -1,3 +1,6 @@
+#ifndef _smurf_import_h_
+#define _smurf_import_h_
+
 /*
  * ***** BEGIN LICENSE BLOCK *****
  *
@@ -27,12 +30,13 @@
 /*  Modulschnittstelle SCHLUMPFINE V0.6, 20.04.96 Olaf Piesche      */
 /*  KOMMUNIKATION grožgeschrieben...                                */
 
-#include <multiaes.h>
+/*#include <multiaes.h>*/
+#include <aes.h>
 #include <vdi.h>
 /* has to be absolute because with relative addressing */
 /* PURE-C would use the start path of the file that */
 /* includes IMPORT.H */
-#include "e:\opensmurf\sym_gem.h"
+#include "c:\smurf\sym_gem.h"
 
 #define CNFVERSION  0x04
 
@@ -384,3 +388,5 @@ typedef struct
 int     f_rslid(SLIDER *slider_struct);
 void    setslider(SLIDER *sliderstruct, long value);
 void    f_txtinsert(int num, OBJECT *tree, int txt_obj, WINDOW *ws);
+
+#endif
