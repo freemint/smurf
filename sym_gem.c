@@ -66,7 +66,7 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 #include <stdlib.h>
 #include "smurf\smurf_st.h"
 #include "sym_gem.h"
-#include "mod_devl\import.h"
+#include "modules\import.h"
 #include "smurf\smurf.h"
 #include "smurf\smurf_f.h"
 

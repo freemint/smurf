@@ -41,7 +41,7 @@
 #include "smurf\xaes.h"
 #include "sym_gem.h"
 #include "smurf\smurf.h"
-#include "mod_devl\import.h"
+#include "modules\import.h"
 
 #define RADIOBUTTON   	43		/* Oberes Byte.... */
 #define CHECKBOX  		44		/* FÅr den Res-Editor */
