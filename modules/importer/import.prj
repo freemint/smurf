@@ -24,12 +24,15 @@
 
 
 ..\..\modules\import\*.sim                  ; name of executable program is topmost window
+.C [-C -K -Z -M -P -S]
+.C [-I..\..\..\purec\include\]
+.L [-S=2048]
 =                  ; list of modules follows...
 impstart.s          ; startup code
 
 *                  ; compile topmost window
 
-;f:\daleman\smurf\setp16.S          ; setpix and getpix for standard format
+;h:\src\smurf\smurf\setp16.S          ; setpix and getpix for standard format
 
 
 PCFLTLIB.LIB       ; floating point library
