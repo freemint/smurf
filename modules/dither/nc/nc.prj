@@ -27,11 +27,12 @@
 
 ..\..\..\modules\dither\nc.sdm          ; name of executable program is topmost window
 .C [-C -K  -Z -M -P -S]
+.C [-I..\..\..\..\purec\include\]
 .L [-S=1024]
 =                                       ; list of modules follows...
 
 
-..\ditstart.o                           ; Startup-Code
+..\ditstart.s                           ; Startup-Code
 nc.c
 
 ;--------- Lese- / Schreibroutinen ---------- 

@@ -46,7 +46,7 @@
 *
 
 
-INCLUDE "c:\smurf\src\DITMACRO.S"
+INCLUDE "H:\SRC\SMURF\SMURF\SRC\DITMACRO.S"
 
 IMPORT  draw_busybox
 IMPORT  loopx24, loopx16, loopx8
