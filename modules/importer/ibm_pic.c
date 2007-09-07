@@ -23,12 +23,12 @@
  */
 
 /* =========================================================*/
-/*				CMP Atari Public Painter Monochrom			*/
-/* Version 0.1  --  irgendwann 1996							*/
-/*	  1 Bit, binÑre Version									*/
-/* Version 0.2  --  18.11.98								*/
-/*	  sicherer gegen kaputte CMP gemacht (EndeÅberprÅfung	*/
-/*	  eingebaut)											*/
+/*					IBM Picture Maker-Format				*/
+/* Version 0.1  --  26.01.96								*/
+/*	  8 Bit													*/
+/* Version 0.2  --  18.10.97								*/
+/*	  Ab jetzt wird direkt addressiert und nicht mehr per	*/
+/*	  Index.												*/
 /* =========================================================*/
 
 #include <tos.h>
@@ -36,20 +36,17 @@
 #include <screen.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);
 
-char *fileext(char *filename);
-
 /* Infostruktur fÅr Hauptmodul */
-MOD_INFO module_info = {"Atari Public Painter",
+MOD_INFO module_info = {"IBM Picture Maker-Format",
 						0x0020,
-						"Christian Eyrich, Dale Russell",
-						"CMP", "", "", "", "",
+						"Christian Eyrich",
+						"PIC", "", "", "", "",
 						"", "", "", "", "",
 						"Slider 1",
 						"Slider 2",
@@ -71,61 +68,62 @@ MOD_INFO module_info = {"Atari Public Painter",
 						0,10,
 						0,10,
 						0,10,
-						0,0,0,0,
-						0,0,0,0,
-						0,0,0,0,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
 						0
 						};
 
 /* -------------------------------------------------*/
 /* -------------------------------------------------*/
-/*		Atari Public Painter Monochrom (CMP)		*/
-/*		1 Bit, RLE									*/
+/*			IBM Picture Maker-Format (PIC)			*/
+/*		8 Bit, wahlweise RLE						*/
 /* -------------------------------------------------*/
 /* -------------------------------------------------*/
 int imp_module_main(GARGAMEL *smurf_struct)
 {
-	char *buffer, *obuffer, *ziel, *oziel, *pal, *fname,
-		 S_Byte, v1, v2;
+	char *buffer, *obuffer, *ziel, *oziel, *pal, *ppal,
+		 v1, v2, comp, BitsPerPixel, DatenOffset;
 
-	unsigned int width, height, w, x, y, n;
+	unsigned int x, y, j = 0, n, cols, width, height;
 
-	unsigned long maxlen;
+	unsigned long i;
 
-	
+
 	SMalloc = smurf_struct->services->SMalloc;
 	SMfree = smurf_struct->services->SMfree;
-	
+
 	buffer = smurf_struct->smurf_pic->pic_data;
 	obuffer = buffer;
 
-	fname = smurf_struct->smurf_pic->filename;
-	if(stricmp(fileext(fname), "CMP") != 0)
+	if(*buffer != 0x00 || (*(buffer + 1) != 0x85 && *(buffer + 1) != 0x86) || *(buffer + 2) != 0xc1)
 		return(M_INVALID);
 	else
 	{
-		S_Byte = *buffer;
-		buffer += 2;
+		comp = *(buffer + 0x09);
+		BitsPerPixel = 8;
+		
+		width = *(buffer + 0x05) + (*(buffer + 0x06) << 8); 
+		height = *(buffer + 0x07) + (*(buffer + 0x08) << 8);
 
-		width = 640;
-		w = 80;
-		height = 400;
+		cols = *(buffer + 0xa) + (*(buffer + 0xb) << 8);
 
-		strncpy(smurf_struct->smurf_pic->format_name, "Atari Public Painter", 21);
+		DatenOffset = 0x80 + cols * 3;
+
+		strncpy(smurf_struct->smurf_pic->format_name, "IBM Picture Maker-File .PIC", 21);
 		smurf_struct->smurf_pic->pic_width = width;
 		smurf_struct->smurf_pic->pic_height = height;
-		smurf_struct->smurf_pic->depth = 1;
+		smurf_struct->smurf_pic->depth = BitsPerPixel;
 
-		smurf_struct->services->reset_busybox(128, "Public Painter 1 Bit");
+		smurf_struct->services->reset_busybox(128, "IBM Picturemaker 8 Bit");
 
-		if((ziel = SMalloc(32000L)) == 0)
+		if((ziel = SMalloc(((long)width * (long)height * BitsPerPixel) >> 3)) == 0)
 			return(M_MEMORY);
 		else
 		{
 			oziel = ziel;
-			memset(ziel, 0x0, 32000L);
 
-			maxlen = 32000L;
+			buffer += DatenOffset;	
 
 			y = 0;
 			do
@@ -133,65 +131,63 @@ int imp_module_main(GARGAMEL *smurf_struct)
 				x = 0;
 				do
 				{
-					v1 = *buffer++;
-					if(v1 == S_Byte)
+					if(!comp)
 					{
-						n = *buffer++ + 1;
-						v2 = *buffer++;
-
-						x += n;
-
-						while(n--)
-						{
-							*ziel++ = v2;
-							if(!--maxlen)
-								goto end;
-						}
+						*ziel++ = *buffer++;
+						x++;
 					}
 					else
 					{
-						*ziel++ = v1;
-						x++;
-						if(!--maxlen)
-							goto end;
-					}	
-				} while(x < w);
-			} while(++y < width);
+						v1 = *buffer++;
 
-end:
+						if(v1 > 0x7f)
+						{
+							if(v1 == 0xff)
+								n = *buffer++ + (*buffer++ << 8);
+							else
+								n = v1 - 0x80;
+
+							v2 = *buffer++;
+
+							x += n;
+
+							while(n--)
+								*ziel++ = v2;
+						}
+						else
+						{
+							x += v1;             
+
+							while(v1--)
+								*ziel++ = *buffer++;
+						}
+					}
+				} while(x < width);
+			} while(++y < height);
 
 			buffer = obuffer;
 			ziel = oziel;
 
 			smurf_struct->smurf_pic->pic_data = ziel;
 
-			SMfree(buffer);
+			smurf_struct->smurf_pic->format_type = FORM_PIXELPAK;
 
-			smurf_struct->smurf_pic->format_type = FORM_STANDARD;
+			ppal = buffer + 0x80;
+			while(j++ < 3)
+			{
+				pal = smurf_struct->smurf_pic->palette + j;
+				for(i = 0; i < cols; i++)
+				{
+					*pal = *ppal++;
+					pal += 3;
+				}
+			}
 
-			pal = smurf_struct->smurf_pic->palette;
-			pal[0] = 255;
-			pal[1] = 255;
-			pal[2] = 255;
-			pal[3] = 0;
-			pal[4] = 0;
-			pal[5] = 0;
+			smurf_struct->smurf_pic->col_format = RGB;
 		} /* Malloc */
 	} /* Erkennung */
-	
+
+	SMfree(buffer);
+
 	return(M_PICDONE);
 }
-
-
-char *fileext(char *filename)
-{
-	char *extstart;
-
-
-	if((extstart = strrchr(filename, '.')) != NULL)
-		extstart++;
-	else
-		extstart = strrchr(filename, '\0');
-	
-	return(extstart);
-} /* fileext */

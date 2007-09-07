@@ -23,33 +23,27 @@
  */
 
 /* =========================================================*/
-/*				CMP Atari Public Painter Monochrom			*/
-/* Version 0.1  --  irgendwann 1996							*/
-/*	  1 Bit, binÑre Version									*/
-/* Version 0.2  --  18.11.98								*/
-/*	  sicherer gegen kaputte CMP gemacht (EndeÅberprÅfung	*/
-/*	  eingebaut)											*/
-/* =========================================================*/
+/*                  Edsung Labs-Format						*/
+/* Version 0.1  --  28.02.96                                */
+/*	  xxx													*/
+/*==========================================================*/
 
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);
 
-char *fileext(char *filename);
-
 /* Infostruktur fÅr Hauptmodul */
-MOD_INFO module_info = {"Atari Public Painter",
-						0x0020,
-						"Christian Eyrich, Dale Russell",
-						"CMP", "", "", "", "",
+MOD_INFO module_info = {"Edsun Labs-Format",
+						0x0010,
+						"Christian Eyrich",
+						"CEG", "", "", "", "",
 						"", "", "", "", "",
 						"Slider 1",
 						"Slider 2",
@@ -71,127 +65,84 @@ MOD_INFO module_info = {"Atari Public Painter",
 						0,10,
 						0,10,
 						0,10,
-						0,0,0,0,
-						0,0,0,0,
-						0,0,0,0,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
 						0
 						};
 
 /* -------------------------------------------------*/
 /* -------------------------------------------------*/
-/*		Atari Public Painter Monochrom (CMP)		*/
-/*		1 Bit, RLE									*/
+/*				Edsun Labs-Format (CEG)				*/
+/*		24 Bit										*/
 /* -------------------------------------------------*/
 /* -------------------------------------------------*/
 int imp_module_main(GARGAMEL *smurf_struct)
 {
-	char *buffer, *obuffer, *ziel, *oziel, *pal, *fname,
-		 S_Byte, v1, v2;
-
-	unsigned int width, height, w, x, y, n;
-
-	unsigned long maxlen;
-
+	char *buffer, *ziel,
+		 BitsPerPixel, DatenOffset;
 	
+	unsigned int x, y, width, height;
+
+	unsigned long src_pos = 0, dst_pos = 0;
+
+
+/* wie schnell sind wir? */
+/*	init_timer(); */
+
 	SMalloc = smurf_struct->services->SMalloc;
 	SMfree = smurf_struct->services->SMfree;
-	
-	buffer = smurf_struct->smurf_pic->pic_data;
-	obuffer = buffer;
 
-	fname = smurf_struct->smurf_pic->filename;
-	if(stricmp(fileext(fname), "CMP") != 0)
+	buffer = smurf_struct->smurf_pic->pic_data;
+
+	if(strcmp(buffer + 1, "EDSUN") != 0)
 		return(M_INVALID);
 	else
 	{
-		S_Byte = *buffer;
-		buffer += 2;
+		BitsPerPixel = (*buffer + 0x0b) * 3;
 
-		width = 640;
-		w = 80;
-		height = 400;
+		width = *(buffer + 0x67) + (*(buffer + 0x68) << 8);
+		height = *(buffer + 0x69) + (*(buffer + 0x70) << 8);
 
-		strncpy(smurf_struct->smurf_pic->format_name, "Atari Public Painter", 21);
+		strncpy(smurf_struct->smurf_pic->format_name, "Edsun Labs .CEG", 21);
+		strncpy(smurf_struct->smurf_pic->infotext, buffer + 0x15, 80);
 		smurf_struct->smurf_pic->pic_width = width;
 		smurf_struct->smurf_pic->pic_height = height;
-		smurf_struct->smurf_pic->depth = 1;
+		smurf_struct->smurf_pic->depth = BitsPerPixel;
 
-		smurf_struct->services->reset_busybox(128, "Public Painter 1 Bit");
+		smurf_struct->services->reset_busybox(128, "Edsun Labs 24 Bit");
 
-		if((ziel = SMalloc(32000L)) == 0)
+		if((ziel = SMalloc((long)width * (long)height * 3)) == 0)
 			return(M_MEMORY);
 		else
 		{
-			oziel = ziel;
-			memset(ziel, 0x0, 32000L);
-
-			maxlen = 32000L;
+			DatenOffset = 0x3f4;
+			src_pos = DatenOffset;
 
 			y = 0;
-			do
+			do /* height */
 			{
 				x = 0;
-				do
+				do /* width */
 				{
-					v1 = *buffer++;
-					if(v1 == S_Byte)
-					{
-						n = *buffer++ + 1;
-						v2 = *buffer++;
-
-						x += n;
-
-						while(n--)
-						{
-							*ziel++ = v2;
-							if(!--maxlen)
-								goto end;
-						}
-					}
-					else
-					{
-						*ziel++ = v1;
-						x++;
-						if(!--maxlen)
-							goto end;
-					}	
-				} while(x < w);
-			} while(++y < width);
-
-end:
-
-			buffer = obuffer;
-			ziel = oziel;
+					ziel[dst_pos++] = buffer[src_pos++];
+					ziel[dst_pos++] = buffer[src_pos++];
+					ziel[dst_pos++] = buffer[src_pos++];
+					x++;
+				} while(x < width); /* x */
+				y++;
+			} while(y < height); /* y */
 
 			smurf_struct->smurf_pic->pic_data = ziel;
+			smurf_struct->smurf_pic->format_type = 0;
 
-			SMfree(buffer);
-
-			smurf_struct->smurf_pic->format_type = FORM_STANDARD;
-
-			pal = smurf_struct->smurf_pic->palette;
-			pal[0] = 255;
-			pal[1] = 255;
-			pal[2] = 255;
-			pal[3] = 0;
-			pal[4] = 0;
-			pal[5] = 0;
 		} /* Malloc */
 	} /* Erkennung */
-	
+
+/* wie schnell waren wir? */
+/*	printf("%lu", get_timer);
+	getch(); */
+
+	SMfree(buffer);
 	return(M_PICDONE);
 }
-
-
-char *fileext(char *filename)
-{
-	char *extstart;
-
-
-	if((extstart = strrchr(filename, '.')) != NULL)
-		extstart++;
-	else
-		extstart = strrchr(filename, '\0');
-	
-	return(extstart);
-} /* fileext */

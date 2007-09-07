@@ -23,18 +23,22 @@
 ;>>>>>>> Project file for building general importer modules <<<<<<<<
 
 
-..\..\modules\import\*.sim                  ; name of executable program is topmost window
+..\..\modules\import\pcd.sim
 .C [-C -K -Z -M -P -S]
 .C [-I..\..\..\purec\include\]
 .L [-S=2048]
 =                  ; list of modules follows...
 impstart.s          ; startup code
 
-*                  ; compile topmost window
+pcd.c
+
+pcddec00.s
+pcddec20.s
 
 ;h:\src\smurf\smurf\setp16.S          ; setpix and getpix for standard format
 
-;h:\src\smurf\smurf\src\setlines.s    ; some module need 'setpix_std_line'
+;h:\src\smurf\smurf\src\setlines.s    ; some module need 'setpix_std_line'
+
 
 PCFLTLIB.LIB       ; floating point library
 PCSTDLIB.LIB       ; standard library

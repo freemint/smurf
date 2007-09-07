@@ -20,25 +20,28 @@
 ;
 ; ***** END LICENSE BLOCK *****
 
-;>>>>>>> Project file for building general importer modules <<<<<<<<
+;>>>>>>> TIFFIMP.PRJ for use to make a smurf-import-module <<<<<<<<
 
+..\..\..\modules\import\tiff.sim
 
-..\..\modules\import\*.sim                  ; name of executable program is topmost window
 .C [-C -K -Z -M -P -S]
-.C [-I..\..\..\purec\include\]
+.C [-I..\..\..\..\purec\include\]
 .L [-S=2048]
-=                  ; list of modules follows...
-impstart.s          ; startup code
 
-*                  ; compile topmost window
+=                                   	; list of modules follows...
 
-;h:\src\smurf\smurf\setp16.S          ; setpix and getpix for standard format
+..\impstart.s
 
-;h:\src\smurf\smurf\src\setlines.s    ; some module need 'setpix_std_line'
+tiffimp.c
+tiffmod.c
 
-PCFLTLIB.LIB       ; floating point library
-PCSTDLIB.LIB       ; standard library
-PCEXTLIB.LIB       ; extended library
-PCTOSLIB.LIB       ; TOS library
-PCGEMLIB.LIB       ; AES and VDI library
+h:\src\smurf\smurf\src\setlines.s
+
+
+PCFLTLIB.LIB        ; floating point library
+PCSTDLIB.LIB        ; standard library
+PCEXTLIB.LIB        ; extended library
+PCTOSLIB.LIB        ; TOS library
+PCGEMLIB.LIB        ; AES and VDI library
+DEMOLIB.LIB         ; Zeitmessung
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

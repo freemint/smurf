@@ -23,33 +23,30 @@
  */
 
 /* =========================================================*/
-/*				CMP Atari Public Painter Monochrom			*/
-/* Version 0.1  --  irgendwann 1996							*/
-/*	  1 Bit, binÑre Version									*/
-/* Version 0.2  --  18.11.98								*/
-/*	  sicherer gegen kaputte CMP gemacht (EndeÅberprÅfung	*/
-/*	  eingebaut)											*/
-/* =========================================================*/
+/*                  Vivid Ray-Tracer-Format                 */
+/* Version 0.1  --  12.01.96                                */
+/*	  xxx													*/
+/* Version 0.1  --  19.10.97                                */
+/*	  Ab jetzt wird direkt addressiert und nicht mehr per	*/
+/*	  Index.												*/
+/*==========================================================*/
 
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);
 
-char *fileext(char *filename);
-
 /* Infostruktur fÅr Hauptmodul */
-MOD_INFO module_info = {"Atari Public Painter",
+MOD_INFO module_info = {"Vivid-Format",
 						0x0020,
-						"Christian Eyrich, Dale Russell",
-						"CMP", "", "", "", "",
+						"Christian Eyrich",
+						"IMG", "", "", "", "",
 						"", "", "", "", "",
 						"Slider 1",
 						"Slider 2",
@@ -71,61 +68,56 @@ MOD_INFO module_info = {"Atari Public Painter",
 						0,10,
 						0,10,
 						0,10,
-						0,0,0,0,
-						0,0,0,0,
-						0,0,0,0,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
+						0, 0, 0, 0,
 						0
 						};
 
 /* -------------------------------------------------*/
 /* -------------------------------------------------*/
-/*		Atari Public Painter Monochrom (CMP)		*/
-/*		1 Bit, RLE									*/
+/*			Vivid Raytracer-Format (IMG)			*/
+/*		24 Bit, RLE									*/
 /* -------------------------------------------------*/
 /* -------------------------------------------------*/
 int imp_module_main(GARGAMEL *smurf_struct)
 {
-	char *buffer, *obuffer, *ziel, *oziel, *pal, *fname,
-		 S_Byte, v1, v2;
-
-	unsigned int width, height, w, x, y, n;
-
-	unsigned long maxlen;
-
+	char *buffer, *obuffer, *ziel, *oziel,
+		 n, v1, v2, v3, BitsPerPixel, DatenOffset;
 	
+	unsigned int x, y, width, height;
+
+
 	SMalloc = smurf_struct->services->SMalloc;
 	SMfree = smurf_struct->services->SMfree;
-	
+
 	buffer = smurf_struct->smurf_pic->pic_data;
 	obuffer = buffer;
 
-	fname = smurf_struct->smurf_pic->filename;
-	if(stricmp(fileext(fname), "CMP") != 0)
+	if(*(unsigned int *)(buffer + 0x08) != 0x0018)
 		return(M_INVALID);
 	else
 	{
-		S_Byte = *buffer;
-		buffer += 2;
+		BitsPerPixel = *(unsigned int *)(buffer + 0x08);
 
-		width = 640;
-		w = 80;
-		height = 400;
+		width = *(unsigned int *)buffer; 
+		height = *(unsigned int *)(buffer + 0x02);
 
-		strncpy(smurf_struct->smurf_pic->format_name, "Atari Public Painter", 21);
+		strncpy(smurf_struct->smurf_pic->format_name, "Vivid Raytracer .IMG", 21);
 		smurf_struct->smurf_pic->pic_width = width;
 		smurf_struct->smurf_pic->pic_height = height;
-		smurf_struct->smurf_pic->depth = 1;
+		smurf_struct->smurf_pic->depth = BitsPerPixel;
 
-		smurf_struct->services->reset_busybox(128, "Public Painter 1 Bit");
+		smurf_struct->services->reset_busybox(128, "Vivid Raytracer 24 Bit");
 
-		if((ziel = SMalloc(32000L)) == 0)
+		if((ziel = SMalloc((long)width * (long)height * 3)) == 0)
 			return(M_MEMORY);
 		else
 		{
 			oziel = ziel;
-			memset(ziel, 0x0, 32000L);
 
-			maxlen = 32000L;
+			DatenOffset = 0x0a;
+			buffer += DatenOffset;
 
 			y = 0;
 			do
@@ -133,65 +125,32 @@ int imp_module_main(GARGAMEL *smurf_struct)
 				x = 0;
 				do
 				{
+					n = *buffer++;
 					v1 = *buffer++;
-					if(v1 == S_Byte)
-					{
-						n = *buffer++ + 1;
-						v2 = *buffer++;
+					v2 = *buffer++;
+					v3 = *buffer++;
 
-						x += n;
+					x += n;
 
-						while(n--)
-						{
-							*ziel++ = v2;
-							if(!--maxlen)
-								goto end;
-						}
-					}
-					else
+					while(n--)
 					{
 						*ziel++ = v1;
-						x++;
-						if(!--maxlen)
-							goto end;
-					}	
-				} while(x < w);
-			} while(++y < width);
-
-end:
+						*ziel++ = v2;
+						*ziel++ = v3;
+					}
+				} while(x < width);
+			} while(++y < height);
 
 			buffer = obuffer;
 			ziel = oziel;
 
 			smurf_struct->smurf_pic->pic_data = ziel;
 
-			SMfree(buffer);
-
-			smurf_struct->smurf_pic->format_type = FORM_STANDARD;
-
-			pal = smurf_struct->smurf_pic->palette;
-			pal[0] = 255;
-			pal[1] = 255;
-			pal[2] = 255;
-			pal[3] = 0;
-			pal[4] = 0;
-			pal[5] = 0;
+			smurf_struct->smurf_pic->format_type = FORM_PIXELPAK;
 		} /* Malloc */
 	} /* Erkennung */
-	
+
+	SMfree(buffer);
+
 	return(M_PICDONE);
 }
-
-
-char *fileext(char *filename)
-{
-	char *extstart;
-
-
-	if((extstart = strrchr(filename, '.')) != NULL)
-		extstart++;
-	else
-		extstart = strrchr(filename, '\0');
-	
-	return(extstart);
-} /* fileext */
