@@ -1,0 +1,25 @@
+;>>>>>>> GIF_II.PRJ for the Smurf GIF-Importer <<<<<<<<
+
+
+..\..\..\modules\import\gif_2.sim
+.C [-C -K -Z -M -P -S]
+.C [-I..\..\..\..\purec\include\]
+.L [-S=2048]
+=													; list of modules follows...
+..\impstart.s					; startup code
+
+gif_2.c
+gif_2lzw.c
+giflzw00.s
+giflzw20.s	[-2]
+
+h:\src\smurf\smurf\src\setpix.s								; setpix for standard format
+
+
+PCFLTLIB.LIB			; floating point library
+PCSTDLIB.LIB			; standard library
+PCEXTLIB.LIB			; extended library
+PCTOSLIB.LIB			; TOS library
+PCGEMLIB.LIB			; AES and VDI library
+DEMOLIB.LIB				; AES and VDI library
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
