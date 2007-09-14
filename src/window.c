@@ -2094,7 +2094,7 @@ void close_window(int handle)
 	12345678901234567890123456789012345678901234567890123456789012345678901
 	0         1         2         3         4        5          6         7
 */
-int f_alert(char *alertstring, char *b1, char *b2, char *b3, char defbt)
+int f_alert(char *alertstring, char *b1, char *b2, char *b3, int defbt)
 {
 	char t, *olds, lines, alwidth;
 	char normal_al1[210] = "[1][";
@@ -2312,7 +2312,7 @@ int f_alert(char *alertstring, char *b1, char *b2, char *b3, char defbt)
 		strcat(normal_al2, "]");
 
 		strcat(normal_al1, normal_al2);
-		return(form_alert(defbt, normal_al1));
+		return(form_alert( defbt, normal_al1));
 	}
 
 	return(0);

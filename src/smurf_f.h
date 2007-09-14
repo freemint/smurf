@@ -286,7 +286,7 @@ void    f_treewalk(OBJECT *tree,int start);                 /* Userdefined Objec
 void    f_arrow_window(int mode, WINDOW *window, int amount);   /* Pfeilbedienung im Bildfenster */
 void    f_slide_window(int pos, WINDOW *wind, int mode);    /* Bildfenster sliden */
 void    f_setsliders(WINDOW *wind);                         /* Slider setzen */
-int     f_alert(char *alertstring, char *b1, char *b2, char *b3, char defbt);   /* Fenster-Alertfunktion */
+int     f_alert(char *alertstring, char *b1, char *b2, char *b3, int defbt);   /* Fenster-Alertfunktion */
 int     f_open_window(WINDOW *wind);                        /* Fenster ”ffnen */
 void    top_window(int handle);
 void    top_window_now(WINDOW *window);
