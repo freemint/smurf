@@ -1,457 +1,1 @@
-/*
- * ***** BEGIN LICENSE BLOCK *****
- *
- * The contents of this file are subject to the GNU General Public License
- * Version 2 (the "License"); you may not use this file except in compliance
- * with the GPL. You may obtain a copy of the License at
- * http://www.gnu.org/copyleft/gpl.html or the file GPL.TXT from the program
- * or source code package.
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
- * the specific language governing rights and limitations under the GPL.
- *
- * The Original Code is Therapy Seriouz Software code.
- *
- * The Initial Developer of the Original Code are
- * Olaf Piesche, Christian Eyrich, Dale Russell and Jîrg Dittmer
- *
- * Contributor(s):
- *
- *
- * ***** END LICENSE BLOCK *****
- */
-
-/*  -------------   Kratzer Entfernen V0.5  --------------- */
-/*              FÅr SMURF Bildkonverter, 19.10.95           */
-
-#include <tos.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <vdi.h>
-#include <aes.h>
-#include <screen.h>
-#include "..\..\sym_gem.h"
-#include "..\import.h"
-#include "..\..\src\smurfine.h"
-
-#include "scratch.rsh"
-#include "scratch.rh"
-
-
-
-
-BITBLK *prev(GARGAMEL *prev_struct);        /* Previewfunktion */
-void f_doit(GARGAMEL *smurfstruct);
-
-
-/* Infostruktur fÅr Hauptmodul */
-MOD_INFO    module_info={
-                        "Kratzer entfernen",
-                        0x0050,
-                        "Olaf Piesche",
-                        "Slider 1",
-                        "Slider 2",
-                        "Slider 3",
-                        "Slider 4",
-                        "Checkbox 1",
-                        "Checkbox 2",
-                        "Checkbox 3",
-                        "Checkbox 4",
-                        "Edit 1",
-                        "Edit 2",
-                        "Edit 3",
-                        "Edit 4",
-                        0,128,
-                        0,128,
-                        0,128,
-                        0,128,
-                        0,10,
-                        0,10,
-                        0,10,
-                        0,10,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,0
-                        };
-
-
-
-MOD_ABILITY module_ability=
-{
-/* Farbtiefen, die vom Modul unterstÅtzt werden:            */
-    16,24,0,0,0,0,0,0,
-/*  Dazugehîrige Datenformate (FORM_PIXELPAK/FORM_STANDARD/FORM_BOTH) */
-    1,1,1,1,1,1,1,1,
-
-/* UnterstÅtzte Orientierung (0=o->u, 1=u->o)):             */
-    0,  
-
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-
-    0   /* Wird ein Preview unterstÅtzt (Edit)? 1=ja, 0=nein */
-};
-
-SLIDER *SliderXmat, *SliderYmat, *SliderStrength;
-OBJECT *main;
-WINDOW *mwindow;
-SMURF_PIC *picture;
-int xmatrix, ymatrix, strength;
-
-void (*set_slider)(SLIDER *slid_struct, int val);
-
-
-/*---------------------------  FUNCTION MAIN -----------------------------*/
-void edit_module_main(GARGAMEL *smurf_struct)
-{
-int (*get_window)(WINDOW *wind);        /* Funktion deklarieren */
-int (*popup)(POP_UP *popup_struct, int mouseflag, int button);          /* Funktion deklarieren */
-int (*slider)(SLIDER *slider_struct);       /* Funktion deklarieren */
-void (*generate_listfield)(int uparrow, int dnarrow, int sliderparent, int sliderobject,
-    int listparent,  char *listentries, int num_entries, int max_entries, LIST_FIELD *listfield);
-void (*listfield)(OBJECT *tree, int klick_obj, LIST_FIELD *lfstruct);
-int given_val, t, back;
-int mod_id;
-int wind_num=1;
-int mx,my,mw,mh;
-int SmurfMessage;
-char wt[]="Kratzer entfernen";
-int Button, Mousex, Mousey, next;
-
-
-SmurfMessage=smurf_struct->module_mode;
-
-/* Hier werden die Funktionen aus der GARGAMEL-Struktur geholt. */
-get_window=smurf_struct->f_module_window;   /* Windowfunktion   */
-slider=smurf_struct->slider;                /* Sliderfunktion   */
-set_slider=smurf_struct->set_slider;
-
-
-main=rs_trindex[SCRATCH];       /* Resourcebaum holen */
-
-picture=smurf_struct->smurf_pic;
-
-
-/* Wenn das Modul zum ersten Mal gestartet wurde */
-if(SmurfMessage==MSTART){
-
-    /* Resource Umbauen */
-    for (t=0; t<NUM_OBS; t++)
-        rsrc_obfix (&rs_object[t], 0);
-
-    /* Speicher fÅr die Sliderstrukturen anfordern */
-    SliderXmat=Malloc(sizeof(SLIDER));
-    SliderYmat=Malloc(sizeof(SLIDER));
-    SliderStrength=Malloc(sizeof(SLIDER));
-
-/*  printf("\n Breite: %i", main->ob_width);
-    printf("\n Hîhe: %i", main->ob_height);
-    getch(); */
-
-    mod_id=smurf_struct->module_number;         /* Welche ID habe ich?  */
-    mwindow=(WINDOW*)Malloc(sizeof(WINDOW)+5);
-    mwindow->whandlem=0;                        /* evtl. Handle lîschen */
-    mwindow->module=mod_id;                     /* ID in die Fensterstruktur eintragen  */
-    strcpy(mwindow->wtitle, wt);                /* Titel reinkopieren   */
-    mwindow->wnum=wind_num;                     /* Fenster nummer 1...  */
-    mwindow->wx=50;                     /* Fenster X-...    */
-    mwindow->wy=50;                     /* ...und Y-Pos     */
-    mwindow->ww=main->ob_width;         /* Fensterbreite    */
-    mwindow->wh=main->ob_height;        /* Fensterhîhe      */
-    mwindow->resource_form=main;        /* Resource         */
-    mwindow->picture=0;                 /* kein Bild.       */
-    mwindow->editob=0;
-
-    smurf_struct->wind_struct=mwindow;  /* und die Fensterstruktur in die Gargamel */
-
-    /* Sliderstrukturen fÅllen */
-    SliderXmat->regler=XSLIDER;
-    SliderXmat->schiene=XSLIDER_FHR;
-    SliderXmat->rtree=main;
-    SliderXmat->txt_obj=XSLIDER_TEXT;
-    SliderXmat->min_val=2;
-    SliderXmat->max_val=32;
-    SliderXmat->window=mwindow;
-
-    SliderYmat->regler=YSLIDER;
-    SliderYmat->schiene=YSLIDER_FHR;
-    SliderYmat->rtree=main;
-    SliderYmat->txt_obj=YSLIDER_TEXT;
-    SliderYmat->min_val=2;
-    SliderYmat->max_val=32;
-    SliderYmat->window=mwindow;
-
-    SliderStrength->regler=SSLIDER;
-    SliderStrength->schiene=SSLIDER_FHR;
-    SliderStrength->rtree=main;
-    SliderStrength->txt_obj=SSLIDER_TEXT;
-    SliderStrength->min_val=1;
-    SliderStrength->max_val=255;
-    SliderStrength->window=mwindow;
-
-    back=get_window(mwindow);       /* Gib mir 'n Fenster! */
-
-    /* Slider auf Defaults setzen */
-    set_slider(SliderStrength, 90);
-    set_slider(SliderXmat, 2);
-    set_slider(SliderYmat, 2);
-
-    if(back==-1) smurf_struct->module_mode=M_EXIT;  /* keins mehr da? */
-    else smurf_struct->module_mode=M_WAITING;       /* doch? Ich warte... */
-
-return;
-}
-
-/* Buttonevent im Modulfenster */
-else if(SmurfMessage==MBEVT)
-{
-    Button=smurf_struct->event_par[0];
-    Mousex=smurf_struct->mousex;
-    Mousey=smurf_struct->mousey;
-
-    if(Button!=-1 && Button!=0) form_button(main, Button, 1, &next);
-
-    if(Button==XSLIDER) xmatrix=slider(SliderXmat);
-    else if(Button==YSLIDER) ymatrix=slider(SliderYmat);
-    else if(Button==SSLIDER) strength=slider(SliderStrength);
-    else if(Button==START)
-    { 
-        f_doit(smurf_struct);
-        smurf_struct->module_mode=M_PICDONE;        /* Ich warte... */
-    }
-    else smurf_struct->module_mode=M_WAITING;       /* Ich warte... */
-
-    return;
-}
-
-
-/* Mterm empfangen - Speicher freigeben und beenden */
-else if(SmurfMessage==MTERM){
-    Mfree(mwindow);
-    Mfree(SliderXmat);
-    Mfree(SliderYmat);
-    Mfree(SliderStrength);
-    smurf_struct->module_mode=M_EXIT;
-    return;
-    }
-
-
-
-}
-
-
-
-
-
-
-void f_doit(GARGAMEL *smurfstruct)
-{
-SMURF_PIC *picture;
-int width, height;
-int x,y, div;
-long xm,ym;
-char red1,red2, red3;
-char green1,green2, green3;
-char blue1,blue2, blue3;
-long pix1, pix2, pix3, diff;
-unsigned char *pic_data, *pdcopy;
-long redd, greend, blued;
-long lr, lg, lb;
-long rr, rg, rb;
-long ur, ug, ub;
-long dr, dg, db;
-long bperz, yoff, count=0L;
-int widthcontrol;
-int heigthcontrol;
-
-
-picture=smurfstruct->smurf_pic;
-width=picture->pic_width;
-height=picture->pic_height;
-
-pic_data=pdcopy=picture->pic_data;
-
-bperz=(long)width*3L;
-
-
-        /* Vertikalen Kratzer weginterpolieren */
-for(y=0; y<height-1; y++)
-{
-    count+=64;
-    if(!(y&31)) smurfstruct->busybox(count/(long)height);
-
-    for(x=0; x<width-1; x++)
-    {
-        /* Farbwerte rausholen */
-        red1=*(pic_data);
-        green1=*(pic_data+1);
-        blue1=*(pic_data+2);
-
-        red2=*(pic_data+3);
-        green2=*(pic_data+4);
-        blue2=*(pic_data+5);
-
-        /* Pixeldurchschnitt ausrechnen */
-        pix1=(red1+green1+blue1)/3L;
-        pix2=(red2+green2+blue2)/3L;
-    
-        div=0;
-        /*  linker Rand (RPixel ist weiû) */
-        if(labs(pix2-pix1)>strength && pix1<pix2)       /* Grenzwert Åberschritten ? */
-        {
-/*          /* Breite kontrollieren */
-            widthcontrol=0;
-            pdcopy=pic_data+3;
-            do{
-                red2=*(pdcopy);
-                green2=*(pdcopy+1);
-                blue2=*(pdcopy+2);
-                widthcontrol++;
-                pdcopy+=3;
-            } while( labs( pix1 - (red2+green2+blue2)/3L) > strength && widthcontrol<xmatrix );
-
-            if(widthcontrol>xmatrix) break;*/
-
-            redd=greend=blued=0;
-            for(xm=-12; xm<-3; xm+=3)
-            {
-                redd+=*(pic_data+xm);
-                greend+=*(pic_data+xm+1);
-                blued+=*(pic_data+xm+2);
-            }
-
-            *(pic_data+3)=(redd+red1)/4L;
-            *(pic_data+4)=(greend+green1)/4L;
-            *(pic_data+5)=(blued+blue1)/4L;
-        }
-
-
-
-        /*  rechter Rand (MPixel ist weiû) */
-        if(labs(pix1-pix2)>strength && pix1>pix2)       /* Grenzwert Åberschritten ? */
-        {
-
-/*          widthcontrol=0;
-            pdcopy=pic_data;
-            do{
-                red2=*(pdcopy);
-                green2=*(pdcopy+1);
-                blue2=*(pdcopy+2);
-                widthcontrol++;
-                pdcopy-=3;
-            } while( labs( pix1 - (red2+green2+blue2)/3L) > strength && widthcontrol<xmatrix );
-
-            if(widthcontrol>xmatrix) break; */
-
-            redd=greend=blued=0;
-            for(xm=12; xm>3; xm-=3)
-            {
-                redd+=*(pic_data+xm);
-                greend+=*(pic_data+xm+1);
-                blued+=*(pic_data+xm+2);
-            }
-
-            *(pic_data)=(redd+red1)/4L;
-            *(pic_data+1)=(greend+green1)/4L;
-            *(pic_data+2)=(blued+blue1)/4L;
-        }
-
-    pic_data+=3;
-
-    }
-
-pic_data+=3;    /* Zeilenende */
-}
-
-
-pic_data=pdcopy=picture->pic_data;
-
-
-        /* Horizontalen Kratzer weginterpolieren */
-for(y=0; y<height-1; y++)
-{
-    count+=64;
-    if(!(y&31)) smurfstruct->busybox(count/(long)height);
-
-    for(x=0; x<width-1; x++)
-    {
-        /* Farbwerte rausholen */
-        red1=*(pic_data);
-        green1=*(pic_data+1);
-        blue1=*(pic_data+2);
-
-        red3=*(pic_data+bperz);
-        green3=*(pic_data+1+bperz);
-        blue3=*(pic_data+2+bperz);
-
-        /* Pixeldurchschnitt ausrechnen */
-        pix1=(red1+green1+blue1)/3L;
-        pix3=(red3+green3+blue3)/3L;
-
-        div=0;
-        /*  oberer Rand (UPixel ist weiû) */
-        if(labs(pix1-pix3)>strength && pix1<pix3)       /* Grenzwert Åberschritten ? */
-        {
-            redd=greend=blued=0;
-            for(ym=-4; ym<-1; ym++)
-            {
-                yoff=ym*bperz;
-                redd+=*(pic_data+yoff);
-                greend+=*(pic_data+yoff+1);
-                blued+=*(pic_data+yoff+2);
-            }
-            *(pic_data+bperz)=(redd+red1)/4L;
-            *(pic_data+bperz+1)=(greend+green1)/4L;
-            *(pic_data+bperz+2)=(blued+blue1)/4L;
-        }
-
-
-
-        /*  unterer Rand (MPixel ist weiû) */
-        if(labs(pix3-pix1)>strength && pix1>pix3)       /* Grenzwert Åberschritten ? */
-        {
-            redd=greend=blued=0;
-            for(ym=4; ym>1; ym--)
-            {
-                yoff=ym*bperz;
-                redd+=*(pic_data+yoff);
-                greend+=*(pic_data+yoff+1);
-                blued+=*(pic_data+yoff+2);
-            }
-            *(pic_data)=(redd+red1)/4L;
-            *(pic_data+1)=(greend+green1)/4L;
-            *(pic_data+2)=(blued+blue1)/4L;
-        }
-
-
-
-    pic_data+=3;
-
-    }
-
-pic_data+=3;    /* Zeilenende */
-}
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-BITBLK *prev(GARGAMEL *prev_struct)
-{
-    return(0);
-}
+/* * ***** BEGIN LICENSE BLOCK ***** * * The contents of this file are subject to the GNU General Public License * Version 2 (the "License"); you may not use this file except in compliance * with the GPL. You may obtain a copy of the License at * http://www.gnu.org/copyleft/gpl.html or the file GPL.TXT from the program * or source code package. * * Software distributed under the License is distributed on an "AS IS" basis, * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for * the specific language governing rights and limitations under the GPL. * * The Original Code is Therapy Seriouz Software code. * * The Initial Developer of the Original Code are * Olaf Piesche, Christian Eyrich, Dale Russell and Jîrg Dittmer * * Contributor(s): * * * ***** END LICENSE BLOCK ***** *//*  -------------   Kratzer Entfernen V0.5  --------------- *//*              FÅr SMURF Bildkonverter, 19.10.95           */#include <tos.h>#include <stdio.h>#include <stdlib.h>#include <string.h>#include <vdi.h>#include <aes.h>#include <screen.h>#include "..\..\sym_gem.h"#include "..\import.h"#include "..\..\src\smurfine.h"#include "scratch.rsh"#include "scratch.rh"BITBLK *prev(GARGAMEL *prev_struct);        /* Previewfunktion */void f_doit(GARGAMEL *smurfstruct);/* Infostruktur fÅr Hauptmodul */MOD_INFO    module_info={                        "Kratzer entfernen",                        0x0050,                        "Olaf Piesche",                        "Slider 1",                        "Slider 2",                        "Slider 3",                        "Slider 4",                        "Checkbox 1",                        "Checkbox 2",                        "Checkbox 3",                        "Checkbox 4",                        "Edit 1",                        "Edit 2",                        "Edit 3",                        "Edit 4",                        0,128,                        0,128,                        0,128,                        0,128,                        0,10,                        0,10,                        0,10,                        0,10,                        0,0,0,0,                        0,0,0,0,                        0,0,0,0                        };MOD_ABILITY module_ability={/* Farbtiefen, die vom Modul unterstÅtzt werden:            */    16,24,0,0,0,0,0,0,/*  Dazugehîrige Datenformate (FORM_PIXELPAK/FORM_STANDARD/FORM_BOTH) */    1,1,1,1,1,1,1,1,    0   /* Wird ein Preview unterstÅtzt (Edit)? 1=ja, 0=nein */};SLIDER *SliderXmat, *SliderYmat, *SliderStrength;OBJECT *main;WINDOW *mwindow;SMURF_PIC *picture;int xmatrix, ymatrix, strength;void (*set_slider)(SLIDER *sliderstruct, long value);/*---------------------------  FUNCTION MAIN -----------------------------*/void edit_module_main(GARGAMEL *smurf_struct){int (*get_window)(WINDOW *wind);        /* Funktion deklarieren */int (*popup)(POP_UP *popup_struct, int mouseflag, int button);          /* Funktion deklarieren */int (*slider)(SLIDER *slider_struct);       /* Funktion deklarieren */void (*generate_listfield)(int uparrow, int dnarrow, int sliderparent, int sliderobject,    int listparent,  char *listentries, int num_entries, int max_entries, LIST_FIELD *listfield);void (*listfield)(OBJECT *tree, int klick_obj, LIST_FIELD *lfstruct);int given_val, t, back;int mod_id;int wind_num=1;int mx,my,mw,mh;int SmurfMessage;char wt[]="Kratzer entfernen";int Button, Mousex, Mousey, next;SmurfMessage=smurf_struct->module_mode;/* Hier werden die Funktionen aus der GARGAMEL-Struktur geholt. */get_window=smurf_struct->services->f_module_window;   /* Windowfunktion   */slider=smurf_struct->services->slider;                /* Sliderfunktion   */set_slider=smurf_struct->services->set_slider;main=rs_trindex[SCRATCH];       /* Resourcebaum holen */picture=smurf_struct->smurf_pic;/* Wenn das Modul zum ersten Mal gestartet wurde */if(SmurfMessage==MSTART){    /* Resource Umbauen */    for (t=0; t<NUM_OBS; t++)        rsrc_obfix (&rs_object[t], 0);    /* Speicher fÅr die Sliderstrukturen anfordern */    SliderXmat=Malloc(sizeof(SLIDER));    SliderYmat=Malloc(sizeof(SLIDER));    SliderStrength=Malloc(sizeof(SLIDER));/*  printf("\n Breite: %i", main->ob_width);    printf("\n Hîhe: %i", main->ob_height);    getch(); */    mod_id=smurf_struct->module_number;         /* Welche ID habe ich?  */    mwindow=(WINDOW*)Malloc(sizeof(WINDOW)+5);    mwindow->whandlem=0;                        /* evtl. Handle lîschen */    mwindow->module=mod_id;                     /* ID in die Fensterstruktur eintragen  */    strcpy(mwindow->wtitle, wt);                /* Titel reinkopieren   */    mwindow->wnum=wind_num;                     /* Fenster nummer 1...  */    mwindow->wx=50;                     /* Fenster X-...    */    mwindow->wy=50;                     /* ...und Y-Pos     */    mwindow->ww=main->ob_width;         /* Fensterbreite    */    mwindow->wh=main->ob_height;        /* Fensterhîhe      */    mwindow->resource_form=main;        /* Resource         */    mwindow->picture=0;                 /* kein Bild.       */    mwindow->editob=0;    smurf_struct->wind_struct=mwindow;  /* und die Fensterstruktur in die Gargamel */    /* Sliderstrukturen fÅllen */    SliderXmat->regler=XSLIDER;    SliderXmat->schiene=XSLIDER_FHR;    SliderXmat->rtree=main;    SliderXmat->txt_obj=XSLIDER_TEXT;    SliderXmat->min_val=2;    SliderXmat->max_val=32;    SliderXmat->window=mwindow;    SliderYmat->regler=YSLIDER;    SliderYmat->schiene=YSLIDER_FHR;    SliderYmat->rtree=main;    SliderYmat->txt_obj=YSLIDER_TEXT;    SliderYmat->min_val=2;    SliderYmat->max_val=32;    SliderYmat->window=mwindow;    SliderStrength->regler=SSLIDER;    SliderStrength->schiene=SSLIDER_FHR;    SliderStrength->rtree=main;    SliderStrength->txt_obj=SSLIDER_TEXT;    SliderStrength->min_val=1;    SliderStrength->max_val=255;    SliderStrength->window=mwindow;    back=get_window(mwindow);       /* Gib mir 'n Fenster! */    /* Slider auf Defaults setzen */    set_slider(SliderStrength, 90);    set_slider(SliderXmat, 2);    set_slider(SliderYmat, 2);    if(back==-1) smurf_struct->module_mode=M_EXIT;  /* keins mehr da? */    else smurf_struct->module_mode=M_WAITING;       /* doch? Ich warte... */return;}/* Buttonevent im Modulfenster */else if(SmurfMessage==MBEVT){    Button=smurf_struct->event_par[0];    Mousex=smurf_struct->mousex;    Mousey=smurf_struct->mousey;    if(Button!=-1 && Button!=0) form_button(main, Button, 1, &next);    if(Button==XSLIDER) xmatrix=slider(SliderXmat);    else if(Button==YSLIDER) ymatrix=slider(SliderYmat);    else if(Button==SSLIDER) strength=slider(SliderStrength);    else if(Button==START)    {         f_doit(smurf_struct);        smurf_struct->module_mode=M_PICDONE;        /* Ich warte... */    }    else smurf_struct->module_mode=M_WAITING;       /* Ich warte... */    return;}/* Mterm empfangen - Speicher freigeben und beenden */else if(SmurfMessage==MTERM){    Mfree(mwindow);    Mfree(SliderXmat);    Mfree(SliderYmat);    Mfree(SliderStrength);    smurf_struct->module_mode=M_EXIT;    return;    }}void f_doit(GARGAMEL *smurfstruct){SMURF_PIC *picture;int width, height;int x,y, div;long xm,ym;char red1,red2, red3;char green1,green2, green3;char blue1,blue2, blue3;long pix1, pix2, pix3, diff;unsigned char *pic_data, *pdcopy;long redd, greend, blued;long lr, lg, lb;long rr, rg, rb;long ur, ug, ub;long dr, dg, db;long bperz, yoff, count=0L;int widthcontrol;int heigthcontrol;picture=smurfstruct->smurf_pic;width=picture->pic_width;height=picture->pic_height;pic_data=pdcopy=picture->pic_data;bperz=(long)width*3L;        /* Vertikalen Kratzer weginterpolieren */for(y=0; y<height-1; y++){    count+=64;    if(!(y&31)) smurfstruct->busybox(count/(long)height);    for(x=0; x<width-1; x++)    {        /* Farbwerte rausholen */        red1=*(pic_data);        green1=*(pic_data+1);        blue1=*(pic_data+2);        red2=*(pic_data+3);        green2=*(pic_data+4);        blue2=*(pic_data+5);        /* Pixeldurchschnitt ausrechnen */        pix1=(red1+green1+blue1)/3L;        pix2=(red2+green2+blue2)/3L;            div=0;        /*  linker Rand (RPixel ist weiû) */        if(labs(pix2-pix1)>strength && pix1<pix2)       /* Grenzwert Åberschritten ? */        {/*          /* Breite kontrollieren */            widthcontrol=0;            pdcopy=pic_data+3;            do{                red2=*(pdcopy);                green2=*(pdcopy+1);                blue2=*(pdcopy+2);                widthcontrol++;                pdcopy+=3;            } while( labs( pix1 - (red2+green2+blue2)/3L) > strength && widthcontrol<xmatrix );            if(widthcontrol>xmatrix) break;*/            redd=greend=blued=0;            for(xm=-12; xm<-3; xm+=3)            {                redd+=*(pic_data+xm);                greend+=*(pic_data+xm+1);                blued+=*(pic_data+xm+2);            }            *(pic_data+3)=(redd+red1)/4L;            *(pic_data+4)=(greend+green1)/4L;            *(pic_data+5)=(blued+blue1)/4L;        }        /*  rechter Rand (MPixel ist weiû) */        if(labs(pix1-pix2)>strength && pix1>pix2)       /* Grenzwert Åberschritten ? */        {/*          widthcontrol=0;            pdcopy=pic_data;            do{                red2=*(pdcopy);                green2=*(pdcopy+1);                blue2=*(pdcopy+2);                widthcontrol++;                pdcopy-=3;            } while( labs( pix1 - (red2+green2+blue2)/3L) > strength && widthcontrol<xmatrix );            if(widthcontrol>xmatrix) break; */            redd=greend=blued=0;            for(xm=12; xm>3; xm-=3)            {                redd+=*(pic_data+xm);                greend+=*(pic_data+xm+1);                blued+=*(pic_data+xm+2);            }            *(pic_data)=(redd+red1)/4L;            *(pic_data+1)=(greend+green1)/4L;            *(pic_data+2)=(blued+blue1)/4L;        }    pic_data+=3;    }pic_data+=3;    /* Zeilenende */}pic_data=pdcopy=picture->pic_data;        /* Horizontalen Kratzer weginterpolieren */for(y=0; y<height-1; y++){    count+=64;    if(!(y&31)) smurfstruct->busybox(count/(long)height);    for(x=0; x<width-1; x++)    {        /* Farbwerte rausholen */        red1=*(pic_data);        green1=*(pic_data+1);        blue1=*(pic_data+2);        red3=*(pic_data+bperz);        green3=*(pic_data+1+bperz);        blue3=*(pic_data+2+bperz);        /* Pixeldurchschnitt ausrechnen */        pix1=(red1+green1+blue1)/3L;        pix3=(red3+green3+blue3)/3L;        div=0;        /*  oberer Rand (UPixel ist weiû) */        if(labs(pix1-pix3)>strength && pix1<pix3)       /* Grenzwert Åberschritten ? */        {            redd=greend=blued=0;            for(ym=-4; ym<-1; ym++)            {                yoff=ym*bperz;                redd+=*(pic_data+yoff);                greend+=*(pic_data+yoff+1);                blued+=*(pic_data+yoff+2);            }            *(pic_data+bperz)=(redd+red1)/4L;            *(pic_data+bperz+1)=(greend+green1)/4L;            *(pic_data+bperz+2)=(blued+blue1)/4L;        }        /*  unterer Rand (MPixel ist weiû) */        if(labs(pix3-pix1)>strength && pix1>pix3)       /* Grenzwert Åberschritten ? */        {            redd=greend=blued=0;            for(ym=4; ym>1; ym--)            {                yoff=ym*bperz;                redd+=*(pic_data+yoff);                greend+=*(pic_data+yoff+1);                blued+=*(pic_data+yoff+2);            }            *(pic_data)=(redd+red1)/4L;            *(pic_data+1)=(greend+green1)/4L;            *(pic_data+2)=(blued+blue1)/4L;        }    pic_data+=3;    }pic_data+=3;    /* Zeilenende */}}BITBLK *prev(GARGAMEL *prev_struct){    return(0);}
