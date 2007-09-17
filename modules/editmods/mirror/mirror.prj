@@ -25,19 +25,14 @@
 ; Schlumpfine Modulschnittstelle V0.6, 28.12.1995 Olaf Piesche
 ; fÅr Smurf
 
-..\..\modules\edit\*.sem        ; name of executable program is topmost window
+..\..\..\modules\edit\mirror.sem        ; name of executable program is topmost window
 .C [-C -K -Z -M -P -S]
-.C [-I..\..\..\purec\include\]
+.C [-I..\..\..\..\purec\include\]
 .L [-S=1024]
 =                  ; list of modules follows...
-edstart.s          ; startup code
+..\edstart.s          ; startup code
 
-*
-
-;h:\src\smurf\smurf\src\setlines.s    ; setpix_std_line
-;h:\src\smurf\smurf\src\getlines.s    ; getpix_std_line
-;h:\src\smurf\smurf\src\getpix.s		 ; getpix_std_1
-;h:\src\smurf\smurf\src\rearr.s		 ; rearrange_line2
+mirror.c
 
 PCFLTLIB.LIB       ; floating point library
 PCSTDLIB.LIB       ; standard library
