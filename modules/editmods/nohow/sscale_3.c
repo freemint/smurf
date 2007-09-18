@@ -22,7 +22,7 @@
  * ***** END LICENSE BLOCK *****
  */
 
-/*  ------------- Smooth-Modul V0.5 ------------------  */
+/*  ------------- SoftScale-Modul V1.20 --------------  */
 /*          FÅr SMURF Bildkonverter, 26.04.96           */
 #include <tos.h>
 #include <stdio.h>
@@ -317,9 +317,9 @@ void X_Scale(char *opic, char *npic, long obpl, long nbpl, int owidth, int heigh
                 for(x=0; x<nwidth; x++)
                 {
                     count += step;
-                    if(count >= 0x10000)
+                    if(count >= 0x10000L)
                     {
-                        count -= 0x10000;
+                        count -= 0x10000L;
                         red   = *(o_offset++);
                         green = *(o_offset++);
                         blue  = *(o_offset++);
@@ -342,7 +342,7 @@ void X_Scale(char *opic, char *npic, long obpl, long nbpl, int owidth, int heigh
                     egreen = *(o_offset++);
                     eblue  = *(o_offset++);
                     
-                    lcount = 0x10000-lastcount;             
+                    lcount = 0x10000L-lastcount;             
                     red   += (sred   * lcount + ered   * count)>>16;
                     green += (sgreen * lcount + egreen * count)>>16;
                     blue  += (sblue  * lcount + eblue  * count)>>16;
@@ -471,9 +471,9 @@ void Y_Scale(char *opic, char *npic, long obpl, long nbpl, int width, int oheigh
                 for(y=0; y<nheight; y++)
                 {
                     count += step;
-                    if(count >= 0x10000)
+                    if(count >= 0x10000L)
                     {
-                        count -= 0x10000;
+                        count -= 0x10000L;
                         red   = *(o_offset++);
                         green = *(o_offset++);
                         blue  = *(o_offset);
@@ -498,7 +498,7 @@ void Y_Scale(char *opic, char *npic, long obpl, long nbpl, int width, int oheigh
                     eblue  = *(o_offset);
                     o_offset += (obpl-2);   
                 
-                    lcount = 0x10000-lastcount;
+                    lcount = 0x10000L-lastcount;
                     red   += (sred   * lcount + ered   * count)>>16;
                     green += (sgreen * lcount + egreen * count)>>16;
                     blue  += (sblue  * lcount + eblue  * count)>>16;

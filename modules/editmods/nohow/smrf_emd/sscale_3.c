@@ -32,7 +32,7 @@
 #include <ext.h>
 #include "..\..\..\..\sym_gem.h"
 #include "..\..\..\import.h"
-#include "..\..\..\..\src\smurfine.h"
+#include "..\..\..\..\smurf\smurfine.h"
 
 /*--------------- Funktionen -------------------*/
 /*----------------------------------------------*/

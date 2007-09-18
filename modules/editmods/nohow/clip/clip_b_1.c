@@ -44,6 +44,7 @@ unsigned long busycount, busymax, busycall;
 
 
 /*--------------- Infostruktur fÅr Hauptprogramm -----*/
+#ifdef ENGLISH
 MOD_INFO    module_info=
 {
     "Clip Border",                     /* Name des Moduls */
@@ -82,7 +83,46 @@ MOD_INFO    module_info=
     1,
     "Bild 1"
 };
- 
+#else
+MOD_INFO    module_info=
+{
+    "Clip Border",                     /* Name des Moduls */
+    0x0050,
+    "Jîrg Dittmer",                                 /* Autor */
+    "","","","","","","","","","",  /* 10 Extensionen fÅr Importer */
+/* 4 SliderÅberschriften: max 8 */
+    "",
+    "",
+    "",
+    "",
+/* 4 CheckboxÅberschriften: */
+    "Zentriert",
+    "",
+    "",
+    "",
+/* 4 Edit-Objekt-öberschriften: */
+    "",
+    "t",
+    "",
+    "",
+/* min/max-Werte fÅr Slider */
+    0,0,
+    0,0,
+    0,0,
+    0,0,
+/* min/max fÅr Editobjekte */
+    0,0,
+    0,0,
+    0,0,
+    0,0,
+/* Defaultwerte fÅr Slider, Check und Edit */
+    0,0,0,0,
+    0,0,0,0,
+    0,0,0,0,
+    1,
+    "Bild 1"
+};
+#endif
 
 /*--------------------- Was kann ich ? ----------------------*/
 MOD_ABILITY  module_ability = {

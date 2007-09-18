@@ -23,6 +23,7 @@
 
 ..\..\..\..\modules\edit\pepsip.sem
 .C [-C -K -Z -M -P -S]
+.C [-I..\..\..\..\..\purec\include\]
 .L [-S=1024]
 =
 ..\..\edstart.s ; Startup-Code fÅr EDIT-Module
