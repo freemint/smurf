@@ -2,7 +2,7 @@
 
 #include <portab.h>
 #include <aes.h>
-#include "MULTI.H"
+/* #include "MULTI.H"*/
 
 #if !defined(WHITEBAK)
 #define WHITEBAK    0x0040

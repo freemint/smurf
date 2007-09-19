@@ -2,7 +2,7 @@
 
 #include <portab.h>
 #include <aes.h>
-#include "PRINTW.H"
+#include "deutsch.rsc\PRINTW.H"
 
 #if !defined(WHITEBAK)
 #define WHITEBAK    0x0040
