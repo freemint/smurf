@@ -42,7 +42,7 @@
 #include <tos.h>
 /*#include <portab.h>*/
 #include "portab.h"
-#include "xvdi.h"
+#include "vdi.h"
 #include "xaes.h"
 #include "xrsrc.h"
 
@@ -356,7 +356,7 @@ LOCAL VOID *get_address (WORD type, WORD index)
 			break;
 
 		case R_IBPDATA:
-		case R_IBPTEXT:
+		case /*R_IPBTEXT*/ R_IBPTEXT:
 			all_ptr.iconblk = get_address(R_ICONBLK, index);
 			if (type == R_IBPDATA)
 				the_addr = &all_ptr.iconblk->ib_pdata;
@@ -483,7 +483,7 @@ LOCAL VOID do_rsfix (ULONG size)
 
 	fix_nptr (hdr_buf->rsh_nib - 1, R_IBPMASK);
 	fix_nptr (hdr_buf->rsh_nib - 1, R_IBPDATA);
-	fix_nptr (hdr_buf->rsh_nib - 1, R_IBPTEXT);
+	fix_nptr (hdr_buf->rsh_nib - 1, /*R_IPBTEXT*/ R_IBPTEXT);
 
 	fix_nptr (hdr_buf->rsh_nbb - 1, R_BIPDATA);
 	fix_nptr (hdr_buf->rsh_nstring - 1, R_FRSTR);
@@ -624,7 +624,7 @@ LOCAL VOID do_ciconfix (ULONG header, RSXHDR *rsxhdr, LONG rs_len)
 	cicon_liste = (LONG *)(*(LONG *)(rsxhdr->rsh_rssize + (rsxhdr->rsh_rssize & 1L) + header + sizeof (LONG)) + header);
 	if ((LONG)cicon_liste - header > rsxhdr->rsh_rssize && (LONG)cicon_liste - header < rs_len)
 	{
-		if (fill_cicon_liste (cicon_liste, header, rsxhdr) != NIL)
+		if (fill_cicon_liste (cicon_liste, header, rsxhdr) != -1)
 		{
 #if COLOR_ICONS == TRUE
 			WORD nub = 0, work_out [57], *palette;
@@ -693,7 +693,7 @@ LOCAL WORD fill_cicon_liste (LONG *cicon_liste, ULONG header, RSXHDR *rsxhdr)
 		num++;
 	
 	if (cicon_liste[num] != -1L)
-		return (NIL);
+		return (-1);
 
 	cblk = (CICONBLK *)&cicon_liste[num+1];
 	
@@ -741,7 +741,7 @@ LOCAL WORD fill_cicon_liste (LONG *cicon_liste, ULONG header, RSXHDR *rsxhdr)
 		cblk = (CICONBLK *)p;
 	}
 
-	if (num != NIL)
+	if (num != -1)
 	{
 		pobject = (OBJECT *)(header + rsxhdr->rsh_object);
   
@@ -862,16 +862,16 @@ LOCAL WORD xadd_cicon (CICONBLK *cicnblk, OBJECT *obj, WORD nub)
 			}
 		}
 		
-		d.mp  = color_icn->col_data;
-		d.fwp = cicnblk->monoblk.ib_wicon;
-		d.fh	= cicnblk->monoblk.ib_hicon;
-		d.fww = d.fwp >> 4;
-		d.ff	= TRUE;
-		d.np	= xscrn_planes;
+		d.fd_addr  = color_icn->col_data;
+		d.fd_w = cicnblk->monoblk.ib_wicon;
+		d.fd_h	= cicnblk->monoblk.ib_hicon;
+		d.fd_wdwidth = d.fd_w >> 4;
+		d.fd_stand	= TRUE;
+		d.fd_nplanes	= xscrn_planes;
 	
 		xfix_cicon ((UWORD *)best_icn->col_data, len, best_planes, xscrn_planes, &d);
 		if (best_icn->sel_data)
-		{	d.mp = color_icn->sel_data;
+		{	d.fd_addr = color_icn->sel_data;
 			xfix_cicon ((UWORD *)best_icn->sel_data, len, best_planes, xscrn_planes, &d);
 		}
 	}
@@ -953,7 +953,7 @@ LOCAL WORD test_rez ()
 
 	if (xscrn_planes >= 8)
 	{
-		stdfm.np = pixel.np = xscrn_planes;
+		stdfm.fd_nplanes = pixel.fd_nplanes = xscrn_planes;
 
 		if (xscrn_planes == 8)
 		{
@@ -962,7 +962,7 @@ LOCAL WORD test_rez ()
 			for (np = 0; np < xscrn_planes; np++)
 				test[np] = (color & (1 << np)) << (15 - np);
 	
-			pixel.mp = stdfm.mp = test;
+			pixel.fd_addr = stdfm.fd_addr = test;
 			vr_trnfm (xvdi_handle, &stdfm, &pixel);
 			
 			for (i = 1; i < xscrn_planes; i++)
@@ -975,7 +975,7 @@ LOCAL WORD test_rez ()
 		{
 			xrect2array (&xdesk, pxy);
 			vs_clip (xvdi_handle, FALSE, pxy);
-			screen.mp = NULL;
+			screen.fd_addr = NULL;
 			
 			memset (backup, 0, sizeof (backup));
 		
@@ -987,14 +987,14 @@ LOCAL WORD test_rez ()
 			
 			graf_mouse (M_OFF, NULL);
 		
-			pixel.mp = backup;	/* Punkt retten */
+			pixel.fd_addr = backup;	/* Punkt retten */
 			vro_cpyfm (xvdi_handle, S_ONLY, pxy, &screen, &pixel);
 		
 			/* Alte Farbe retten */
 			vq_color (xvdi_handle, 15, 1, rgb);
 	
 			/* Ger„teabh„ngiges Format testen */
-			pixel.mp = test;
+			pixel.fd_addr = test;
 			vsl_color (xvdi_handle, 15);
 			vs_color (xvdi_handle, 15, white);
 			v_pline (xvdi_handle, 2, pxy);
@@ -1023,7 +1023,7 @@ LOCAL WORD test_rez ()
 			/* Alte Farbe restaurieren */
 			vs_color (xvdi_handle, 15, rgb);
 	
-			pixel.mp = backup;	/* Punkt restaurieren */
+			pixel.fd_addr = backup;	/* Punkt restaurieren */
 			vro_cpyfm (xvdi_handle, S_ONLY, pxy, &pixel, &screen);
 		
 			graf_mouse (M_ON, NULL);
@@ -1071,8 +1071,8 @@ LOCAL VOID xfill_farbtbl ()
 
 			memset (backup, 0, sizeof (backup));
 	 		memset (farbtbl, 0, 32 * 256 * sizeof (WORD));
-			screen.mp = NULL;
-			stdfm.np = pixel.np = xscrn_planes;
+			screen.fd_addr = NULL;
+			stdfm.fd_nplanes = pixel.fd_nplanes = xscrn_planes;
 		
 			vswr_mode (xvdi_handle, MD_REPLACE);
 			vsl_ends (xvdi_handle, 0, 0);
@@ -1080,7 +1080,7 @@ LOCAL VOID xfill_farbtbl ()
 			vsl_width (xvdi_handle, 1);
 			memset (pxy, 0, sizeof (pxy));
 			
-			pixel.mp = backup;	/* Punkt retten */
+			pixel.fd_addr = backup;	/* Punkt retten */
 			vro_cpyfm (xvdi_handle, S_ONLY, pxy, &screen, &pixel);
 		
 			/* Alte Farbe retten */
@@ -1092,14 +1092,14 @@ LOCAL VOID xfill_farbtbl ()
 				vsl_color (xvdi_handle, 15);
 				v_pline (xvdi_handle, 2, pxy);
 				
-				stdfm.mp = pixel.mp = farbtbl[color];
+				stdfm.fd_addr = pixel.fd_addr = farbtbl[color];
 		
 				/* vro_cpyfm, weil v_get_pixel nicht mit TrueColor (>=24 Planes) funktioniert */
 				vro_cpyfm (xvdi_handle, S_ONLY, pxy, &screen, &pixel);
 	
 				if (farbtbl2 != NULL && xpixelbytes)
 				{	farbtbl2[color] = 0L;
-					memcpy (&farbtbl2[color], pixel.mp, xpixelbytes);
+					memcpy (&farbtbl2[color], pixel.fd_addr, xpixelbytes);
 				}
 					
 				vr_trnfm (xvdi_handle, &pixel, &stdfm);
@@ -1111,7 +1111,7 @@ LOCAL VOID xfill_farbtbl ()
 			/* Alte Farbe restaurieren */
 			vs_color (xvdi_handle, 15, rgb);
 
-			pixel.mp = backup;	/* Punkt restaurieren */
+			pixel.fd_addr = backup;	/* Punkt restaurieren */
 			vro_cpyfm (xvdi_handle, S_ONLY, pxy, &pixel, &screen);
 		
 			graf_mouse (M_ON, NULL);
@@ -1143,24 +1143,24 @@ LOCAL VOID xfix_cicon (UWORD *col_data, LONG len, WORD old_planes, WORD new_plan
 		{	if (new_planes == xscrn_planes)
 			{
 				d = *s;
-				d.ff = FALSE;
-				s->mp = col_data;
-				if (d.mp == s->mp)
-				{	if ((d.mp = malloc (len * 2 * new_planes)) == NULL)
-						d.mp = s->mp;
+				d.fd_stand = FALSE;
+				s->fd_addr = col_data;
+				if (d.fd_addr == s->fd_addr)
+				{	if ((d.fd_addr = malloc (len * 2 * new_planes)) == NULL)
+						d.fd_addr = s->fd_addr;
 					else
 						got_mem = TRUE;
 				}
 				
 				vr_trnfm (xvdi_handle, s, &d);
-				if (d.mp != s->mp && got_mem == TRUE)
+				if (d.fd_addr != s->fd_addr && got_mem == TRUE)
 				{
-					memcpy (s->mp, d.mp, len * 2 * new_planes);
-					free (d.mp);
+					memcpy (s->fd_addr, d.fd_addr, len * 2 * new_planes);
+					free (d.fd_addr);
 				}
 			}
 			else
-				memcpy (s->mp, col_data, len * 2 * new_planes);
+				memcpy (s->fd_addr, col_data, len * 2 * new_planes);
 		}
 		return;
 	}
@@ -1172,10 +1172,10 @@ LOCAL VOID xfix_cicon (UWORD *col_data, LONG len, WORD old_planes, WORD new_plan
 
 		if (s != NULL)
 		{
-			new_data = &((UWORD *)s->mp)[old_len];
+			new_data = &((UWORD *)s->fd_addr)[old_len];
 			memset (new_data, 0, rest_len * 2);
-			memcpy (s->mp, col_data, old_len * 2);
-			col_data = s->mp;
+			memcpy (s->fd_addr, col_data, old_len * 2);
+			col_data = s->fd_addr;
 		}
 		else
 			new_data = (UWORD *)&col_data[old_len];
@@ -1195,15 +1195,15 @@ LOCAL VOID xfix_cicon (UWORD *col_data, LONG len, WORD old_planes, WORD new_plan
 		if (s != NULL)	/* ins ger„teabh„ngige Format konvertieren */
 		{
 			d = *s;
-			d.ff = 0;
-			if ((d.mp = malloc (len * 2 * new_planes)) == NULL)
-				d.mp = s->mp;
+			d.fd_stand = 0;
+			if ((d.fd_addr = malloc (len * 2 * new_planes)) == NULL)
+				d.fd_addr = s->fd_addr;
 			
 			vr_trnfm (xvdi_handle, s, &d);
-			if (d.mp != s->mp)
+			if (d.fd_addr != s->fd_addr)
 			{
-				memcpy (s->mp, d.mp, len * 2 * new_planes);
-				free (d.mp);
+				memcpy (s->fd_addr, d.fd_addr, len * 2 * new_planes);
+				free (d.fd_addr);
 			}
 		}
 	}
@@ -1223,10 +1223,10 @@ LOCAL VOID xfix_cicon (UWORD *col_data, LONG len, WORD old_planes, WORD new_plan
 	
 			if (s != NULL)
 			{
-				new_data = &((UWORD *)s->mp)[old_len];
+				new_data = &((UWORD *)s->fd_addr)[old_len];
 				memset (new_data, 0, rest_len * 2);
-				memcpy (s->mp, col_data, old_len * 2);
-				col_data = s->mp;
+				memcpy (s->fd_addr, col_data, old_len * 2);
+				col_data = s->fd_addr;
 			}
 			
 			for (x = 0; x < len; x++)
@@ -1258,15 +1258,15 @@ LOCAL VOID xfix_cicon (UWORD *col_data, LONG len, WORD old_planes, WORD new_plan
 			if (s != NULL)	/* ins ger„teabh„ngige Format konvertieren */
 			{
 				d = *s;
-				d.ff = 0;
-				if ((d.mp = malloc (len * 2 * new_planes)) == NULL)
-					d.mp = s->mp;
+				d.fd_stand = 0;
+				if ((d.fd_addr = malloc (len * 2 * new_planes)) == NULL)
+					d.fd_addr = s->fd_addr;
 				
 				vr_trnfm (xvdi_handle, s, &d);
-				if (d.mp != s->mp)
+				if (d.fd_addr != s->fd_addr)
 				{
-					memcpy (s->mp, d.mp, len * 2 * new_planes);
-					free (d.mp);
+					memcpy (s->fd_addr, d.fd_addr, len * 2 * new_planes);
+					free (d.fd_addr);
 				}
 			}
 		}
@@ -1293,17 +1293,17 @@ MFDB  *s;
 	UBYTE *p1, *p2;
 	ULONG  colback;
 
-	if (s->mp == col_data)
+	if (s->fd_addr == col_data)
 	{
-		if ((col_data = malloc (len * 2 * s->np)) == NULL)
+		if ((col_data = malloc (len * 2 * s->fd_nplanes)) == NULL)
 		{
 			form_error (-39);
 			return;
 		}
-		memcpy (col_data, s->mp, len * 2 * s->np);
+		memcpy (col_data, s->fd_addr, len * 2 * s->fd_nplanes);
 		memflag = TRUE;
 	}
-	new_data = (UWORD *)s->mp;
+	new_data = (UWORD *)s->fd_addr;
 	p1 = (UBYTE *)new_data;
 
 	if (old_planes < 8)
@@ -1488,8 +1488,8 @@ LOCAL WORD CDECL xdraw_cicon (PARMBLK *pb)
   vst_font      (xvdi_handle, 1);	/* Systemfont */
 	vst_height    (xvdi_handle, 4, &dummy, &dummy, &dummy, &dummy);
   vst_color     (xvdi_handle, icncol);
-  vst_effects   (xvdi_handle, TXT_NORMAL);
-  vst_alignment (xvdi_handle, ALI_LEFT, ALI_TOP, &dummy, &dummy);
+  vst_effects   (xvdi_handle, 0 /*TXT_NORMAL*/);
+  vst_alignment (xvdi_handle, 0 /*ALI_LEFT*/, 5 /*ALI_TOP*/, &dummy, &dummy);
   vst_rotation  (xvdi_handle, 0);
 	
 	if (iconblk->ib_ptext[0])
@@ -1521,18 +1521,18 @@ LOCAL VOID draw_bitblk (WORD *p, WORD x, WORD y, WORD w, WORD h, WORD num_planes
 {	WORD	 	pxy[8];
 	MFDB	 	s, d;
 
-	d.mp	= NULL; /* screen */
-	s.mp	= (VOID *)p;
-	s.fwp = w;
-	s.fh	= h;
-	s.fww = w >> 4;
-	s.ff	= FALSE;
-	s.np	= num_planes;
+	d.fd_addr	= NULL; /* screen */
+	s.fd_addr	= (VOID *)p;
+	s.fd_w = w;
+	s.fd_h	= h;
+	s.fd_wdwidth = w >> 4;
+	s.fd_stand	= FALSE;
+	s.fd_nplanes	= num_planes;
 
 	pxy[0] = 0;
 	pxy[1] = 0;
- 	pxy[2] = s.fwp - 1;
- 	pxy[3] = s.fh - 1;
+ 	pxy[2] = s.fd_w - 1;
+ 	pxy[3] = s.fd_h - 1;
 
 	pxy[4] = x;
 	pxy[5] = y;
