@@ -76,6 +76,8 @@
 /*	  Hilfsvariable y2 eingefÅhrt, damit geht's nun.		*/
 /* Version 1.5  --  xx.xx.97								*/
 /*	  PixArts 24 Bit-Images werden nun  korrekt gelesen.	*/
+/* Version 1.6  --  01.01.2009								*/
+/*	  Fehlermeldung bei TIMG GEM-Images Bilder              */
 /* =========================================================*/
 
 #include <tos.h>
@@ -107,7 +109,7 @@ int convert_palette(char *pal, char *buffer, char BitsPerPixel, char imgtype);
 
 /* Infostruktur fÅr Hauptmodul */
 MOD_INFO module_info = {"GEM-(X)IMG Importer",
-						0x0140,
+						0x0160,
 						"Christian Eyrich",
 						"IMG", "", "", "", "",
 						"", "", "", "", "",
@@ -171,21 +173,31 @@ int imp_module_main(GARGAMEL *smurf_struct)
 	if(*(unsigned long *)(buffer + 0x10) == 'XIMG')
 		imgtype = 'X';
 	else
-		imgtype = 'I';
+	{
+		if(*(unsigned long *)(buffer + 0x10) == 'TIMG')
+			imgtype = 'T';
+		else
+			imgtype = 'I';
+	}
 
 	/* erstes Word ist leider nicht immer 1, da gibt es */
 	/* zumindest ein Proramm, das 2 reinschreibt (s. DONNA.IMG) */
 	fname = smurf_struct->smurf_pic->filename;
 	if(*(unsigned int *)buffer > 0x02 ||
-	   (*(unsigned int *)(buffer + 0x02) != 8 && imgtype != 'X') ||
+	   (*(unsigned int *)(buffer + 0x02) != 8 && imgtype != 'X' && imgtype != 'T') ||
 	   stricmp(fileext(fname), "IMG") != 0)
 		return(M_INVALID);
 	else
 	{
+		if(imgtype == 'T')
+		{
+			form_alert(0, "[1][TrueColor GEM-Image werden noch nicht|unterstÅtzt.][ OK ]");
+			return(M_PICERR);
+		}
+		
 		if(*((unsigned int *)(buffer + 0x02)) == 9)
 		{
 			form_alert(0, "[1][Ventura-Images werden noch nicht|unterstÅtzt. Bild bitte an uns einschicken!][ OK ]");
-			SMfree(buffer);
 			return(M_PICERR);
 		}
 
