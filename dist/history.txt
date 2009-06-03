@@ -1,0 +1,535 @@
+History
+
+Version 1.0 (4.4.98) -> 1.01 (5.4.98)
+
+-   Probleme beim Einfgen von Bl”cken mit einer Farbtiefe <16 Bit und 
+    beim Einfgen in Palettenbilder behoben
+
+-   "Bild Wandeln" funktioniert auch wieder in niedrigere Farbtiefen
+
+-   Warnung im Druck-Plugin bei Druck von Farbbildern auf s/w-Druckern 
+    eingefgt
+
+-   Bildschirmausgabe und Tastenabfrage im GIF-Importer entfernt
+
+-   Beim Einfgen monochromer Bl”cke werden diese nun beschnitten und nicht 
+    mehr ber den Speicher hinausgeschrieben.
+
+
+Messeversion 1.01 (5.4.98) -> 1.03 (3.5.98)
+
+-   Clipboardpfad wird jetzt nach ENV, nach scrp_read und auf c:\clipbrd
+    gesucht. Auerdem werden bei ENV und scrp_read die Verzeichnisse geprft,
+    damit ein Clipboard-Schreibversuch nicht ins Leere geht.
+
+-   Die Clipboardfunktionen wurden vollkommen berarbeitet und der schwere 
+    Fehler auf jeden Fall behoben.
+
+-   Der Zugriff auf BubbleGEM und den Hypertext sollte nun auch mit 
+    casesensitiven Dateisystemen (Minix-FS bzw. VFAT) funktionieren.
+
+-   TIFF funktioniert nun wirklich in 98% der F„lle. Hier hatte ich 
+    am Samstagmorgen vor der Messe wieder einen Fehler eingebaut, der bei TIFFs 
+    mit Kompression meistens nur Mll (oder das aparte Schwarz) entstehen lie.
+
+-   von Papillon gespeicherte 5 Bit IFF (z.B. ERDBEER.IFF) funktioniert nun 
+    auch.
+
+-   Das Druckplugin hatte einen bl”den Fehler, der bei Farbdrucken nur schwarz 
+    rausbrachte. Ist behoben.
+
+-   Viele Editmodule wurden neu kompiliert und einige kleinere Bugs entfernt.
+
+-   Der dumme Fehler, da 0.9b im Infodialog stand ist raus.
+
+-   TEST.TGA im Unterordner ROTO fr das Gimmick wird nun mitgeliefert (war 
+    zumindest bei der 1.01 vom Sonntag vergessen worden), d.h. "Yeah" im 
+    Infodialog fhrt nicht mehr zum Absturz.
+
+-   Beim Drag&Drop von Bl”cken in andere Smurf-Bilder wird nun die Blockpalette 
+    korrekt behandelt. Vorher konnte hier ein Fehler zum Absturz fhren.
+
+-   Das Textmodul l„t sich nun nicht mehr ohne Offscreenbitmaps starten. 
+    Prinzipbedingt werden Offscreenbitmaps ben”tigt, frher startete das Modul 
+    ohne aber trotzdem und fhrte bei Ausfhrung zum Absturz.
+
+-   mehrere kleine Fehler an verschiedensten Stellen behoben.
+
+-   Fehler bei Modulterminierung behoben, der auf dem Mac u.U. zum Absturz 
+    gefhrt hat
+
+-   ST-Guide - Erkennung funktioniert jetzt richtig und der Help-Eintrag im 
+    Datei-Men wird richtig enabled.
+
+-   Der Cursor l„t sich jetzt im Standardformular nicht mehr auf abgeschaltete 
+    Editfelder bewegen
+
+-   Klickte man mit der rechten Maustaste in den Bildfensterhintergrund, 
+    strzte Smurf ab. Gefixed.
+
+-   Bugfix beim Aufrufen der ST-Guide - Hilfe
+
+-   Standardformatbilder werden jetzt auch in DirectColor-Modi richtig 
+    dargestellt.
+
+-   ReLoad in neu erstellten Bildern fhrt jetzt nicht mehr zum Absturz
+
+-   Der Multikonverter l„t sich jetzt auch ber den Shortcut SHIFT+CTRL+E 
+    korrekt aufrufen
+
+-   Scitex CT-Import funktioniert jetzt auch mit CMYK-Bildern richtig
+
+-   Die Importerliste speichert jetzt auch Extensions mit mehr als 4 Buchstaben
+
+-   Der Optionsdialog hat jetzt Registerkarten
+
+-   Vor der Ausfhrung von Modulen, die keinen Konfigurationsdialog ”ffnen, 
+    erscheint jetzt eine Sicherheitsabfrage, wenn im Optionsdialog der Profi-
+    Modus nicht eingeschaltet ist.
+
+-   Sondertastenstatus wird an Module durchgereicht
+
+-   Ditherroutinen beschleunigt: Nearest Color auf ca. 115%, Fast Diffusion 
+    auf ca. 160%, (ich liebe es mit 10 min. Arbeit solche Ergebnisse zu 
+    erzielen! 8-))
+
+-   Dummer Fehler beim Dithern auf feste Paletten gefixed (Export und "Bild 
+    wandeln"). Die Palette wurde ins Zielbild verkehrt eingefgt.
+
+-   Fehler gefixed, der auf dem ST beim Bewegen des Mauszeigers ber ein Bild 
+    zum Absturz fhrte.
+
+-   Fast Diffusion und Nearest Color sollten jetzt auch auf dem ST wieder 
+    einwandfrei funktionieren. Es wurde u.U. auf ungerade Speicheradressen 
+    zugegriffen.
+
+-   "Bild wandeln" wurde etwas flexibler gemacht. Jetzt kann man ein Bild auch 
+    innerhalb seiner Farbtiefe auf andere Paletten wandeln (z.B. ein 8 Bit-GIF 
+    einladen und direkt nach 8 Bit Netscape-Palette wandeln).
+
+
+Version 1.03 (3.5.98) -> 1.03b (19.5.98)
+
+-   Fehler in der Document History gefixed. Es wurden nicht fr alle Zeiger 
+    globale Speicherbl”cke angefordert, was zu Fehlern fhren konnte.
+
+-   Fehler beim Initialisieren der Display-Konfiguration (hoffentlich) gefixed -
+    u.U. wurde der Popup-Eintrag fr den Bildmanager-Dither falsch 
+    initialisiert, was bis zu Abstrzen beim Bildladen fhren konnte.
+
+-   Fehler in der Plugin-Schnittstelle behoben, der nach dem Hochfahren von 
+    Smurf u.U. irgendwann einen Absturz zur Folge haben konnte.
+
+-   Plugin-Schnittstelle berarbeitet und and einigen Stellen umgeschrieben.
+    Hoffentlich sind damit die Schwierigkeiten auf manchen Rechnern endlich 
+    behoben.
+
+-   Untersttzung des Hilfe-D„mons und damit zeitgesteuerter Aufruf der 
+    Hilfe m”glich.
+
+-   Fehler behoben, der in den Listfeldern fr Exporter und Editmodule 
+    wirre Zeichen im Autolocator erscheinen lies.
+
+-   TIFF-Importer toleranter gegenber LZW-Encodern gemacht, die den 
+    LZW-Algorithmus etwas falsch implementieren.
+
+-   Fehler im TIFF-Exporter gefixt, der beim Export von 8 Bit Bildern zum 
+    Absturz fhren konnte.
+
+-   Optionsdialog berarbeitet
+
+-   Menzeile berarbeitet und manche Eintr„ge (Namen und Position) ge„ndert. 
+
+-   GIF-Importer etwas toleranter gegenber fehlerhaften LZW-Codes gemacht.
+
+-   Clip'n'Pic und Bilderrahmen berarbeitet und einige Fehler (inklusive 
+    "Speicher berschrieben") behoben.
+
+-   Abstrze auf ST bei Benutzung der Blockfunktionen behoben.
+
+-   Geflacker des Mauszeigers obwohl er nicht bewegt wurde behoben.
+
+-   Checkboxroutine ge„ndert. Jetzt schalten sich Checkboxen nicht st„ndig 
+    ein und aus wenn man l„nger draufklickt sondern „ndern pro Klick nur 
+    einmal den Status.
+
+-   5x5-Filtermatrizen werden jetzt als Archiv im Archiv ausgeliefert. 
+    Damit mssen sie nicht zwangsweise ausgepackt werden und "mllen" die 
+    Platte zu. 
+
+
+Version 1.03b (19.5.98) -> 1.04 (22.6.98)
+
+-   Das Fragezeichen in den Standardeinstelldialogen fr Editmodule ist
+    nun wirklich nur dann anklickbar wenn es tats„chlich was bringt (also 
+    das Modul mehr als ein Bild verarbeiten kann).
+
+-   Die Toolbar in Bildfenstern flackert nun beim Reinklicken nicht mehr.
+
+-   Die Toolbar des vorher aktiven Bildes wird jetzt beim Neuladen und 
+    Neuanlegen eines Bildes korrekt deaktiviert (dunkelgrau gezeichnet).
+
+-   "Alles ausw„hlen" (Block bers ganze Bild generieren) eingebaut.
+
+-   "Bild duplizieren" eingebaut.
+
+-   Der Start-Button beim Exportern und Editmodulen wird nun disabled wenn 
+    keine Bilder vorhanden sind.
+
+-   Die CNF-Datei enth„lt jetzt eine Versionsnummer, die gegen das Einladen 
+    nicht zum Programm passender (zu alter oder zu neuer) Konfigurationsdateien 
+    hilft.
+
+-   Fehler gefixt, der bei Wandlung von Bildern im Standardformat (1-8 Bit) 
+    nach 8 Bit pixelpacked zum Absturz fhren konnte.
+
+-   Fehler im WDIALOG-Druckplugin gefixt der von Fehlern beim ™ffnen der 
+    Drucker bis zu Abstrzen fhrte.
+
+-   Auch die Popups der Editmodule (Drehen und Spiegeln) werden jetzt unter 
+    MagiC im gewohnten Smurf-Look dargestellt.
+
+-   Das Fragezeichen in den Standardeinstelldialogen fr Editmodule ist
+    nun nur dann vorhanden wenn es tats„chlich was bringt (also das Modul 
+    mehr als ein Bild verarbeiten kann).
+
+-   TIFF-Exporter ge„ndert damit jetzt auch etwas eigenwilligere Importer 
+    von Smurf geschriebene 24 Bit-TIFF lesen k”nnen (wollen).
+
+-   Workaround fr MagiC, damit Smurf jetzt auch von Laufwerk U: gestartet 
+    werden kann.
+
+-   Wird das File STARTUP.RSC nicht gefunden, strzt Smurf beim Start jetzt 
+    nicht mehr ab, sondern beendet sich gesittet.
+
+-   Die Palette wird jetzt auch unter MagiC nicht mehr umgeschaltet wenn 
+    gerade ein Men aus der Menzeile heruntergeklappt ist. 
+
+-   Fehler in vielen Editmodulen beseitigt, der auf manchem Rechner eine 
+    "Division by Zero" verursachte.
+
+-   Im Titel der Druckmodulfenster wird jetzt der Name des aktiven Bildes 
+    angezeigt.
+
+-   Handling des Previews im Bildmanager stark verbessert. Die Markierung 
+    des Fensterausschnitts sollte jetzt auch immer mit der Wirklichkeit 
+    bereinstimmen.
+
+-   Fehler in der Koordinatenanzeige behoben, durch den beim Verschieben 
+    eines Blocks im Bildfenster eine um zwei Pixel zu geringe X-Koordinate 
+    angezeigt wurde.
+
+-   Ist der Paletten"umschaltungs"modus "System" aktiv, wird jetzt wirklich 
+    nicht mehr umgeschaltet.
+
+-   Ist der Palettenumschaltungsmodus "Topwindow" aktiv, wird jetzt 
+    wirklich immer die Bildpalette des oberen Bildfensters aktiviert.
+
+-   Nachlaufen beim Scrollen eines Bildes per Tastatur wird jetzt aktiv 
+    verhindert. Es kann zwischen zwei Wegen gew„hlt werden. Entweder der 
+    Tastaturpuffer wird einfach nach jedem Scrollvorgang gel”scht, oder 
+    angekommene Ereignisse werden aufsummiert und so um einen entsprechend 
+    gr”eren Betrag gescrollt.
+
+-   Fensterhandling komplett berarbeitet. Einige Lcken geschlossen und 
+    Fehlbehandlungen unter N.AES und insbesondere in Systemen mit alternativen 
+    Fenstermanagern beseitigt.
+
+-   Das Problem mit den Geistercursorn im Editmodulformular drfte sich 
+    stark verbessert haben.
+
+-   Die Modulversionsnummern st”ren jetzt nicht mehr im Listfeld sondern 
+    sind in die Infoseite abgewandert.
+
+-   Blockhandling berarbeitet. Das Randclipping funktioniert jetzt auch 
+    besser.
+
+-   Auf mehrfachen Wunsch gibt es nun auch Abbruchbuttons in den Dialogen.
+
+-   Klicks in Editfelder fhren jetzt wirklich immer dazu, da der Cursor 
+    in das Editfeld gestellt wird. 
+
+-   Die Abstrze beim Aufruf von Plugins (Fenster ist kurz sichtbar und 
+    geht wieder zu bevor Smurf abstrzt) sollten nun endlich der 
+    Vergangenheit angeh”ren. Vielen Dank fr die Mithilfe an Roland 
+    Ringlstetter und Matthias Bracke. 
+
+-   Dank BubbleGEM lassen sich jetzt per Rechtsklick auf einen Eintrag in 
+    der Editmodulliste allgemeine Infos zu einem Editmodul anzeigen. 
+
+-   Absturz beim Aufruf der Bubblehelp aus Plugins oder Editmodulen heraus 
+    behoben.
+
+
+Version 1.04 (22.6.98) -> 1.04 (23.08.98)
+
+- Die beiden "x" bei der Gr”enangabe im Bildmanager sind jetzt wirklich 
+  nur noch dann eingeschaltet wenn auch ein Bild geladen ist.
+
+- Im Modus "Top Window" wird die Palette jetzt auch wieder auf die 
+  Systempalette zurckgeschaltet wenn das neue Fenster nicht zu Smurf 
+  geh”rt.
+
+- Wird ein Fenster wieder "entshaded" erfolgt jetzt kein doppelter Redraw 
+  (Geflacker) mehr.
+
+- Diverse Verbesserungen in den Sliderroutinen
+
+- Wurde ein Block aus einem Standardformatbild (1-8 Bit) ins Clipboard 
+  ausgeschnitten der am rechten Rand anlag, konnte es passieren, da ein 
+  Stck des Bildes am linken Bildrand auch mit gel”scht wurde.
+
+- diverse Redrawoptimierungen der Koordinatenanzeige
+
+- die Editfelder im Dialog "Neues Bild" werden jetzt nicht mehr unn”tig mit 
+  "_" gefllt und sind auch krzer. 
+
+- nochmals komplette šberarbeitung der Funktion zum Aufziehen eines Blocks 
+  im Bild. So wird der Blockrahmen jetzt nicht mehr auf die Bildgr”e 
+  beschnitten und auch die X-/Y-Koordinaten stimmen immer.
+
+- Verlassen des Blockmodus-Formulars ber Abbruch (auch Closer) fhrt jetzt 
+  unter N.AES nicht mehr zu einem H„nger.
+
+- Iconify korrigiert. Hier war der Fensterinhalt nach dem Uniconify nach 
+  oben verrutscht. Weiterhin wurde Mll dargestellt wenn ein Iconifiziertes 
+  Fenster geshadet und wieder unshadet wurde.
+
+- NCT fr andere Farbtiefen als die aktuelle werden jetzt bei Bedarf auch 
+  gefunden wenn ein HOME-Pfad im System vorhanden ist. Vorher wurden Sie 
+  zwar dorthin gespeichert jedoch nicht von dort geladen ...
+
+- die Texte der Bubblehelp wurden verbessert und erweitert.
+
+- Der Multiconverter ist um einen dicken Fehler bereinigt wurden der zum 
+  Absturz fhrte wenn keine passenden Dateien gefunden wurden.
+
+- kleines Problem bei der D&D-Kommunikation mit manchen Programmen behoben. 
+
+- Absturz durch berschriebenen Speicher beim freien Drehen behoben. 
+
+- In Bildfenstern (namentlich Nummer 9 und 13) tauchen jetzt garantiert 
+  keine Infozeilen unmotiviert auf.
+
+- Die Indexanzeige in Palettenbildern stimmt nun auch an X- oder 
+  Y-Positionen gr”er 999.
+
+- Die Anzeige von Previews kollidiert nun nicht mehr mit verkleinerten 
+  Darstellungen des Bildes im Bildfenster. Auch verkleinerte Previews sind 
+  problemlos m”glich. Durch den n”tigen Dithervorgang bei jedem Verschieben 
+  des Previews geht das Ganze aber leider auch etwas z„her.
+
+- Auf der zweiten Seite (Infoseite) der Editmodulliste wurde fr manche 
+  Felder eine falsche Hilfeblase ausgegeben.
+
+- Module die kein eigenes Formular hatten konnten beim Start abstrzen wenn 
+  der Profimodus eingeschaltet war. Schuld war ein kleiner Fehler im 
+  Formular, das die Abfrage regelte, ob das Modul wirklich gestartet werden 
+  soll.
+
+- šberarbeitung der Routinen die zur Darstellung von Bildern in Farbtiefen 
+  ab 15 Bit genutzt werden. So werden nun auch Farbtiefen von 32 Bit 
+  untersttzt und die Darstellung sollte auch mit VDI die nur die 
+  EdDI-Funktionen ab 1.00 zur Verfgung stellen funktionieren.
+
+- Die Importerliste wird nun um ein Vielfaches schneller eingeladen. Das 
+  Format der Importerliste mute dazu ein wenig ver„ndert werden.
+
+- Die Fenstertitel des Standardeinstellungsformulars wird jetzt immer 
+  upgedatet wenn ein Modul gestartet wird w„hrend ein anders noch l„uft 
+
+
+Version 1.04 (23.8.98) -> 1.05 (5.11.98)
+
+- X- und Y-Position sowie die Gr”e der Bildschirmdarstellung eines 
+  Bildblocks wurde bei gezoomtem Bildfenster nicht mitskaliert.
+
+- Bei Klick auf einen disableden Slider wurde Smurf instabil und zog 
+  manchmal das System herunter. Kleiner Schreibfehler mit groer Wirkung ... 
+
+- Bei Einsatz der Dithermodule Graustufen und Ordered Dither beim 
+  destruktiven Dithern via "Bild wandeln" konnte es zu grausigen 
+  Ergebnissen kommen. Das ist gefixt.
+
+- X- und Y-Position eines Blockrahmens stimmen beim Verschieben jetzt auch, 
+  wenn das Bild gezoomt und nach links und/oder oben gescrollt wurde. 
+  Sonderfall eines Sonderfalles der vorher keine Beachtung fand.
+
+- Bug gefixt der auftrat wenn in einem iconifizierten Bild gearbeitet 
+  wurde.
+
+- Es gibt jetzt endlich einen GIF-Exporter.
+
+- Zwei neue Module von Bj”rn Spruck: Magic Picture und Zoom.
+
+- Fix eines Bugs der auftrat wenn einem Multibildmodul zuwenige Bilder 
+  bergeben wurden.
+
+- Bugfix im Multikonverter der auftrat, wenn die Optionen eines Moduls 
+  aufgerufen und wieder geschlossen wurden und dann der Exporter gewechselt 
+  wurde.
+
+- Bugfix am Floyd-Steinberg Dithermodul. Es fhrte zu Abstrzen, wenn ein 
+  Bild bei Einsatz dieses Dithermoduls skaliert wurde.
+
+- Smurf findet nun auch auf Partitionen mit Dateinamen l„nger als 64 
+  Zeichen seine Module.
+
+- Ist die Palettenumschaltung auf "Top Window" wird nun auch korrekt 
+  umgeschaltet, wenn ein Bild neu geladen oder generiert wird.
+
+- Bug gefixt, der dazu fhrte, da die Toolbar in der H”he verdoppelt 
+  wurde, wenn von einem Bild zu einem anderen gewechselt wurde w„hrend ein 
+  drittes iconifiziert ist.
+
+- Beim Sichern wird jetzt in der Titelzeile des Fileselectors die Fileextension 
+  des Bildformates angegeben (z.B. "tga speichern").
+
+- Die Busybox wird z.B. beim Preview wieder aktiviert, wenn das Modul nach 1 
+  Sekunde noch nicht fertig ist, damit man den šberblick hat, wie lange es noch 
+  dauert.
+
+- Die Busybox wird beim Starten eines Bearbeitungsmoduls grunds„tzlich getopped
+
+- Bump It Up mappte eine eventuelle Textur falsch, wenn der Hintergrund wei
+  oder schwarz geschaltet war.
+
+
+Version 1.05 (5.11.98) -> 1.06 (6.8.2000)
+
+- Die Global bei Smurf Optionen/Wandlung vorgenommenen Einstellungen fr 
+  einen Export mit automatischer Wandlung berdeckten die expliziten 
+  Einstellungen im Exportformular.
+
+- Smurf strzt nicht mehr ab, wenn er von Appline getoppt wird, w„hrend 
+  Smurf kein Fenster offen hat. Ein VA_START mit Nullzeiger als 
+  Kommandozeile wurde nicht abgefangen.
+
+- Das Vorhandensein der Systemfunktion appl_getinfo() wird flexibler 
+  abgefragt. Dadurch wird sie nun auch als vorhanden bemerkt wenn sie 
+  nachtr„glich durch WINX oder WDIALOG installiert wurde. Ein direkter 
+  Vorteil ist beispielsweise die Verwendbarkeit des "MagiC-Fontselektors" 
+  unter TOS mit WDIALOG.
+
+- Das Bildpreview im Editmoduldialog h„lt sich nun an den Rahmen von 
+  128x128 Pixeln. D.h. die einen Pixel breiten bzw. hohen Streifen die am 
+  rechten bzw. unteren Rand des Previews stehen blieben, sind Vergangenheit. 
+
+- Beim Kopieren oder Ausschneiden ins Clipboard wird jetzt ein SC_CHANGED 
+  an alle Applikationen abgesetzt - zumindest sofern AES-Broadcasting 
+  untersttzt wird (prim„r am AES 4.0)
+
+- Wird das beim Bildladen auf ALT erscheinende Zoompopup nicht ber einen 
+  der Buttons velassen, gibt es jetzt keine Division by Zero (bzw. 
+  schwarzes Bild) mehr.
+
+- Smurf handelt jetzt sehr lange Dateinamen (> 32 Zeichen) die per 
+  Fileselektor bergeben werden besser.
+
+- Fehlerhandling beim erstmaligen der NCT-Dateien verbessert und Alerts 
+  entmystifiziert.
+
+- Die Modulstartroutinen sind nun sauberer implementiert, Memory Violations 
+  unter Memory Protection sollten also nicht mehr vorkommen.
+
+- Smurf untersttzt zwar schon seit langem Quoting von Dateinamen bei 
+  VA_START, teilte das bei der Protokollinitialisierung dem AV-Server jedoch 
+  dummerweise nicht mit. Ist jetzt ge„ndert und somit ist auch die šbergabe 
+  von Dateinamen mit Leerzeichen bei laufendem Smurf vial AV-Protokoll 
+  m”glich.
+
+- Wird Smurf beim Start per ARGV ein Dateiname mitgegeben, wird dieser Pfad 
+  nun als Standardladepfad bernommen und beim n„chsten ™ffnen des 
+  Fileselektors vorgeblendet. Dies gilt nicht fr Pfade von nach dem Start 
+  per D&D oder AV_START bergebene Dateien.
+  Sollte das bei mehreren Usern nicht auf Gegenliebe stoen und Protest 
+  ausl”sen kann das natrlich wieder ge„ndert werden.
+
+- Die interne Funktion rename_OLGA versendete dummerweise die Nachricht 
+  OLGA_UPDATE statt OLGA_RENAME (bl”der copy-paste-Fehler).
+
+- Bei der Kommunikation mit dem OLGA-Manager (Messages OLGA_UPDATE und 
+  OLGA_RENAME) wurde ein Byte zu wenig Speicher angefordert (das 
+  Nullzeichen am Stringende hatte keinen Platz mehr) und u.U wurde freier 
+  Speicher berschrieben was dann zur bekannten Meldung von MagiC fhrte.
+  Konkret passierte das oft bei folgendem Ablauf: Bild einladen, unter neuem 
+  Namen abspeichern und bei der folgenden Frage ob der neue Name bernommen 
+  werden soll "Ja" anklicken -> rums. Natrlich nur dann, wenn auch ein 
+  OLGA-Manager im System ist.
+
+- Sollte ein bearbeitetes Bild geschlossen werden und die Nachfrage, ob das 
+  Bildfenster wirklich geschlossen werden soll (erscheint nicht im 
+  Profimodus), lag im Fenster blieb nach Best„tigung mit "Ja" eine 
+  Fensterrahmenleiche zurck. Ist behoben, das Fenster wird jetzt unter 
+  allen Bedingungen korrekt geschlossen.
+
+- Palettenumschaltung fr den Fall "Topwin" funktionierte in dem Fall 
+  nicht, wenn ein Fenster nicht ber AES-Message getoppt wurde.
+
+- Der Bildmanager ist jetzt sofort auf dem neuesten Stand (bzw. zeigt 
+  initial berhaupt ein Bild an) wenn er nach einem Bild ge”ffnet wird.
+
+- Unter „lteren TOS-Versionen wird jetzt auch die rechte Maustaste korrekt 
+  erkannt (in Popups rckw„rts bl„ttern usw.).
+
+- Rckgabewert wird nun richtig aus der nachgebildeten Popup-Routine fr 
+  Systeme ohne menu_popup() (die meisten SingleTOS-Systeme) richtig 
+  bergeben. Der User sollte also jetzt auch bekommen was er im Popup 
+  ausgew„hlt hat.
+
+- "Optionen" im Exportmodullistfeld steht jetzt nur noch zur Verfgung wenn 
+  das gerade ausgew„hlte Modul auch tats„chlich erweiterte Optionen bietet.
+
+- Speichern von Moduleinstellungen stark berarbeitet. Neben mehr 
+  Sicherheit wurde Smurf um die M”glichkeit erweitert, auch 
+  die Einstellungen von Exportern abspeichern zu k”nnen.
+
+- Gewolltes oder ungewolltes weglassen der STARTUP.RSC resultiert nun nicht 
+  mehr in einer Fehlermeldung oder gar Absturz. Wenn sie nicht da ist, 
+  isses auch gut, es erfolgen dann w„hrend des Starts eben keine Ausgaben. 
+  Wenn Sie wollen, k”nnen Sie die Datei also l”schen (wieder 57KB gespart 
+  :-) ).
+
+- Bilder werden nun nach Umstellung der VDI-Farben nach Hardware-Farben 
+  u.a. auf v_get_pixel auch auf Sangs Megavision richtig angezeigt.
+
+- Autolocator der Listfelder schlugen ”fters grundlos an und der 
+  Selektionsbalken hpfte dann in der Liste rum wenn vor diesen ein Dialog 
+  mit Editfeldern benutzt wurde. Ist behoben.
+
+- kurioser Fehler behoben der bei Einstellen eines Timerwertes von 0 zu 
+  Ruckeln beim Fensterverschieben und sogar zum Schlieen des Fensters 
+  Darstellung/Optionen fhrte wenn dieses Realtime verschoben wurde.
+  Ein Timerwert von 0 wurde auch eingestellt wenn der Smurfinfo-Dialog 
+  ge”ffnet und geschlossen wird ohne den "Yeah-Wrfel" zu starten.
+
+- Bl”den Fehler gefixt der im Intel-Format gespeicherte TIFF fr fast alle 
+  Programme nutzlos machte.
+
+- Fehler im GIF-Importer gefixt der bei manchen GIF zum Absturz auf einem 
+  68000er-Prozessor fhrte. Auerdem 68030er-Assemblerroutine wieder 
+  aktiviert.
+
+- Der GIF-Exporter schreibt jetzt optional auch interlaced GIF.
+
+- Der TIFF-Importer sollte jetzt auch CMYK-Bilder importieren und dabei 
+  mehr als eine schwarze Fl„che zeigen. Da es anerkanntermaen leider keine 
+  eindeutige Methode gibt, CMYK-Bilder in RGB-Bilder zu wandeln wird das 
+  Ergebnis meistens nicht das Erwnschte sein, aber das ist bei keinem uns 
+  bekannten Programm so.
+
+- Smurf sollte jetzt nicht mehr steckenbleiben nachdem eine 
+  Speicheranforderung wegen mangelndem Speicher fehlschl„gt.
+
+- Speicherplatzverbrauch des GIF-Exporters reduziert (im Falle von Bildern 
+  < 8 Bit sogar drastisch).
+
+- 4 Bit TIFF werden jetzt korrekt geschrieben auch wenn sie aus mehr als 
+  einem Streifen bestehen (unkomprimiert mehr als 32 KB haben). 
+
+- Der TIFF-Exporter kann jetzt auch LZW-komprimierte TIFF schreiben.
+
+- Fehler im Druckplugin behoben damit jetzt auch groe Bilder (gr”er 2048 
+  horizontal und/oder vertikal) in Truecolor gedruckt werden k”nnen. Bisher 
+  fand da ein šberlauf in der Speicherberechnung statt weil eine Variable 
+  int war.

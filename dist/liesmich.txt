@@ -1,0 +1,66 @@
+Smurf 1.06
+----------
+
+Wie schon im Handbuch beschrieben, erfolgt die Installation nun mit dem 
+Installer GEM-Setup von Joachim Fornallaz.
+Wir haben uns dafÅr entschieden, weil es eine praktikable Lîsung fÅr die
+Serialisierung beim Kunden und lÑngerfristig die komfortabelste Lîsung fÅr
+Sie und uns ist. GEM-Setup hat sich durch sein Fairware-Konzept und QualitÑt
+mittlerweile zum Quasi-Standard unter GEM gemacht.
+
+
+Die Installation
+----------------
+
+Sie starteneinfach SETUP.APP bzw. ziehen das File "Smurf 106.gsc" auf 
+SETUP.APP (je nach Betriebssystem bzw. Desktop).
+ZunÑchst werden Sie nach der Seriennummer und Ihrem Namen gefragt. Ihren Namen 
+sollten Sie wissen, die Seriennummer finden Sie in der Regel auf der Smurf-Diskette.
+Im nÑchsten sind die zu installierenden Komponenten bzw. die wÑhrend der Installation 
+vorzunehmenden Aktionen sowie Installationspfad und -sprache festzulegen.
+
+Nun sollte sich ein Dialog îffnen, in dem Ihnen der momentane Installationsstatus an-
+gezeigt wird. Im Text Åber den Balken sehen Sie, was gerade gemacht wird.
+Wenn die Installation abgeschlossen wurde, kînnen Sie lossmurfen.
+
+Im installierten Programm sind die Namen der Unterordner bezeichnend, eine Suche 
+sollte also schnell zu Ende sein. Auch die Extender der Module sind aussagekrÑftig und 
+so heiûen Importer .SIM, Exporter .SXM, Editmodule .SEM, Dithermodule .SDM und 
+die Plugins .PLG.
+
+Im Resourcefile SMURFICN.RSC finden Sie noch zwei Sets mit Icons fÅr Hauptpro-
+gramm und Module fÅr Ihren Desktop.
+
+
+Wichtig
+-------
+
+Die Importerliste wird seit der Version 1.04 beim Start um ein Vielfaches 
+schneller geladen. Das Format der Liste muûte hierzu geringfÅgig aber 
+entscheidend geÑndert werden. Es ist deshalb nîtig, eine evtl. von frÅheren 
+Versionen vorhandene ILIST.DAT zu lîschen und die Liste dann einmal neu zu 
+erzeugen.
+
+Ebenfalls geÑndert hat sich das Format der MODCONF.CNF in der die 
+Einstellungen der Editmodule (und ab jetzt auch der Exporter) gespeichert 
+werden kînnen. Damit Sie Ihre alten Einstellungen weiterverwenden kînnen 
+konvertieren Sie die alte Datei einmal mit dem Programm MOCNFCON.TOS von 
+unserer Webseite (Drag&Drop). Ihre alte MODCONF.CNF wird vorsichtshalber in 
+MODCONF_.CNF umbenannt. Wenn alles gutging kann die dann gelîscht werden.
+
+Und das Format der Module wurde zur grîûeren StabilitÑt auch geringfÅgig 
+geÑndert. Von daher sind Module fÅr Smurf vor 1.06 _nicht_ kompatibel. 
+Installieren Sie Smurf auf keinen Fall ins alte Verzeichnis, bzw. benennen 
+Sie vorher den Ordner MODULES in MODULESX oder was ganz anderes um!
+
+ 
+öber Anregungen und konstruktive Kritik freuen wir uns immer. öber 
+gemeldete Bugs oder Schwierigkeiten mit Smurf freuen wir uns zwar nicht so, 
+trotzdem setzen wir alles daran, sie so schnell wie mîglich zu beheben.
+Wie Sie uns erreichen kînnen steht im Handbuch im Kapitel "wir Åber uns". 
+
+
+Und nun viel Spaû mit Smurf,
+
+Therapy Seriouz Software
+Christian Eyrich und Olaf Piesche, 1.9.2000
