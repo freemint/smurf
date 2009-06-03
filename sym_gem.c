@@ -69,7 +69,7 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 #include "src\smurf_st.h"
 #include "sym_gem.h"
 #include "modules\import.h"
-#include "src\smurf.h"
+#include "smurf.h"
 #include "src\smurf_f.h"
 
 /*#include "src\xrsrc.h"  If this is included it screws us all up*/
@@ -78,6 +78,7 @@ void f_showtree(OBJECT *tree, int object)	- Wiederanzeigen eines versteckten Obj
 #include "src\smurfine.h"
 #include "src\smurfobs.h"
 #include "src\ext_obs.h"
+#include "src\debug.h"
 
 void f_update_listfield(LIST_FIELD *lfstruct, OBJECT *tree);
 
@@ -1282,6 +1283,7 @@ void change_object(WINDOW *window, int objct, int status, int redraw)
 	GRECT gred;
 	OBJECT *tree;
 
+	DEBUG_MSG (( "change_object...\n" ));
 
 	tree=window->resource_form;
 	
@@ -1306,6 +1308,8 @@ void change_object(WINDOW *window, int objct, int status, int redraw)
 	
 	if(redraw != 0)
 		Window.redraw(window, &gred, objct, DRAWNOPICTURE);
+
+	DEBUG_MSG (( "change_object...Ende\n" ));
 
 	return;
 }

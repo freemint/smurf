@@ -55,7 +55,7 @@
 #include "..\smurfine.h"
 #include "..\globdefs.h"
 #include "..\smurf_st.h"
-#include "..\smurf.h"
+#include "smurf.h"
 #include "..\smurf_f.h"
 #include "plugin.h"
 #include "..\ext_rsc.h"
