@@ -31,7 +31,7 @@
 #include <string.h>
 #include <screen.h>
 #include "smurf.h"
-#include "..\sym_gem.h"
+#include "sym_gem.h"
 #include "..\modules\import.h"
 #include "smurfine.h"
 #include "globdefs.h"

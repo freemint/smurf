@@ -68,7 +68,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include "smurf.h"
-#include "..\sym_gem.h"
+#include "sym_gem.h"
 #include "..\modules\import.h"
 #include "globdefs.h"
 #include "smurf_st.h"

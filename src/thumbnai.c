@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "smurf.h"
-#include "..\sym_gem.h"
+#include "sym_gem.h"
 #include "..\modules\import.h"
 #include "smurfine.h"
 #include "globdefs.h"

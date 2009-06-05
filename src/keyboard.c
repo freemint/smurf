@@ -28,7 +28,7 @@
 #include <screen.h>
 #include <stdlib.h>
 #include <ext.h>
-#include "..\sym_gem.h"
+#include "sym_gem.h"
 #include "..\modules\import.h"
 #include "globdefs.h"
 #include "smurfine.h"

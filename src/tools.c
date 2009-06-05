@@ -1,5 +1,624 @@
-/* * ***** BEGIN LICENSE BLOCK ***** * * The contents of this file are subject to the GNU General Public License * Version 2 (the "License"); you may not use this file except in compliance * with the GPL. You may obtain a copy of the License at * http://www.gnu.org/copyleft/gpl.html or the file GPL.TXT from the program * or source code package. * * Software distributed under the License is distributed on an "AS IS" basis, * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for * the specific language governing rights and limitations under the GPL. * * The Original Code is Therapy Seriouz Software code. * * The Initial Developer of the Original Code are * Olaf Piesche, Christian Eyrich, Dale Russell and Jîrg Dittmer * * Contributor(s): * * * ***** END LICENSE BLOCK ***** */#include <stdio.h>#include <stdlib.h>#include <string.h>#include <tos.h>#include <ext.h>#include <errno.h>#include <ctype.h>#include "startup.h"#include "..\sym_gem.h"#include "..\modules\import.h"#include "smurf_st.h"#include "smurf_f.h"#include "smurf.h"#include "globdefs.h"#include "vaproto.h"#include "bindings.h"#include "..\modules\dither\dit_mod.h"#include "smurfobs.h"#include "ext_obs.h"extern	SYSTEM_INFO	Sys_info;			/* Systemkonfiguration */#define UNLIMITED	0x7fffffffL/* Klammert einen String mit ' ein und verdoppelt alle im String	*//* enthaltenen Quotemarks.											*/char *quote_arg(char *s)
-{	char *t, *ot;	t = calloc(1, 257);	ot = t;	/* eric's file -> 'eric''s file' */	*t++ = '\'';		/* ganz vorne ein Quote */	while(*s)	{		if(*s == '\'')			*t++ = '\'';		*t++ = *s++;	}	*t++ = '\'';		/* und ganz hinten ein Quote */	*t = '\0';	return(ot);} /* quote_arg *//* Entfernt die Anfangs-, die End- und die doppelten Quotemarks (') *//* aus Strings (Pfadnamen). 										*/char *unquote_arg(char *s){	char *t, *os;    os = s;	/* 'eric''s file' -> eric's file */	t = s;    if(*s != '\'')		return(s);	s++;				/* ganz vorne ein Quote weg */    while(*s)	{		if(*s == '\'' && *(s + 1) == '\'')			s++;		*t++ = *s++;	}	*(t - 1) = '\0';	/* und ganz hinten ein Quote weg */	return(os);} /* unquote_name *//* Die Funktion arbeitet Ñhnlich der Bibliotheksfunktion strtok() *//* Sie wird immer mit dem gleichen Zeiger aufgerufen und zurÅckgegeben *//* wird ein hinter dem Parameter abgeschlossener Zeiger bzw. NULL wenn *//* kein weiterer Parameter entdeckt werden konnte. *//* Als Trennzeichen gelten immer Spaces */char *strargvtok(char *s){	static char *t = NULL;	char *back,		 in = 0;	if(t == NULL)					/* Nur beim Ersten Aufruf der Fall */		t = s;	if(*t == '\0')					/* Wenn der String zu Ende tokenisiert wurde, */	{								/* also nach dem letzten gÅltigen Aufruf. */		t = NULL;					/* Und das, damit nachfolgende Strings auch noch */		return(NULL);				/* gemacht werden kînnen. */	}	s = t;/*	strcpy(mike, "'Parameter 2' 'Paramet'' 4' 'Paramet''5'"); */	if(*s == '\'')					/* nîtig, da Parameter mit einem ' nicht gequotet werden */	{		in = 1;		strcpy(s, s + 1);			/* alles vorziehen */	}	while(*s)	{		if(*s == ' ')		{			if(!in)			{				*s++ = '\0';				break;			}		}		else			if(*s == '\'')			{				if(in)				{					strcpy(s, s + 1);			/* alles vorziehen */					if(*s != '\'')					{						in = 0;						if(*s)					/* nur ausfÅhren, wenn nicht */							*s++ = '\0';		/* sowieso schon am Ende */						break;					}				}			}		s++;	}	back = t;						/* Eingangsstring wegsichern */	t = s;							/* und neuen Anfang setzen */	return(back);} /* strargvtok *//* So stelle ich mir die Implementierung der Bibliotheksfunktion strtok() vor. *//* Mit dem Unterschied, daû weitere Aufrufe nicht mit NULL in s aufgerufen *//* werden muû, sondern mystrtok() folgende Aufrufe selbst erkennt. *//* Ein Problem ist allerdings, daû diese Erkennung nur funktioniert, wenn ein *//* String zuende tokenisiert wurde. Ein vorheriger Abbruch bringt alles durcheinander. *//* Deshalb gibt es die Mîglichkeit des manuellen Inits mit NULL als erstem Parameter. */char *mystrtok(char *s, char c){	static char *t = NULL;	char *back;	if(s == NULL)					/* manueller Init */	{		t = NULL;		return(NULL);	}	if(t == NULL)					/* Nur am Stringanfang der Fall */		t = s;	if(*t == '\0')					/* Wenn der String zu Ende tokenisiert wurde, */	{								/* also nach dem letzten gÅltigen Aufruf. */		t = NULL;					/* Und das, damit nachfolgende Strings auch noch */		return(NULL);				/* gemacht werden kînnen. */	}	s = t;    while(*s)	{		if(*s == c)		{			*s++ = '\0';			break;		}		else			s++;	}	back = t;						/* Eingangsstring wegsichern */	t = s;							/* und neuen Anfang setzen */	return(back);} /* mystrtok *//* Die Funktion sucht von vorne her nach dem ersten Vorkommen des *//* Åbergebenen Zeichen und gibt die Position oder -1 bei nicht gefunden zurÅck. */int strsrchl(char *s, char c){	int i;	i = 0;	while(*s != c && *s != '\0')	{		s++;		i++;	}	if(*s == '\0')		return(-1);	else		return(i);} /* strsrchl *//* Die Funktion sucht von hinten her nach dem ersten Vorkommen des Åbergebenen *//* Zeichens und gibt die Position oder -1 bei nicht gefunden zurÅck. */int strsrchr(char *s, char c){	int i;	i = (int)strlen(s) - 1;				/* Index auf letztes Zeichen setzen */	s += i;	while(i >= 0 && *s != c)			/* i vor s prÅfen, da *s mîglicherweise ungÅltig! */	{		s--;		i--;	}	return(i);} /* strsrchr *//* Sucht das Environment nach Tempdirs ab und fÅllt es in tmpdir. *//* Falls keines gefunden wurde, wird -1 zurÅckgegeben. */void get_tmp_dir(char *tmpdir){	char *result;		if((result = getenv("TMP")) != NULL)		strcpy(tmpdir, result);	if((result = getenv("TEMP")) != NULL)		strcpy(tmpdir, result);	if((result = getenv("TMPDIR")) != NULL)		strcpy(tmpdir, result);	if(*tmpdir == '\0')		strcpy(tmpdir, Sys_info.standard_path);	return;} /* get_tmp_dir *//* Funktion um Cookie auf Anwesenheit zu testen *//* Christian Eyrich irgendwann im 20. Jahrhundert *//* Umgestellt um ohne Supervisormodus auszukommen am 22.4.99 *//* Erweitert um Ssystem(GETCOOKIE) am 2.5.99 */int get_cookie(unsigned long cookie, unsigned long *value){	long r, val;	unsigned long *cookiejar;	/* Erst den neuen Weg probieren */	if((r = Ssystem(GETCOOKIE, cookie, &val)) != EINVFN)	{		if(r != -1)		{			*value = val;			return(TRUE);		}		else		{			*value = 0L;			return(FALSE);		}	}	else	{		/* Zeiger auf Cookie Jar holen */		cookiejar = (unsigned long *)Setexc(0x5a0/4, (void (*)())-1);			/* Cookie Jar installiert? */		if(cookiejar)		{			/* Keksdose nach cookie durchsuchen */			while(*cookiejar && *cookiejar != cookie)				cookiejar += 2;			/* wenn cookie gefunden wurde, value auf Cookiewert setzen, */			/* ansonsten value auf 0L */			if(*cookiejar == cookie)			{				*value = *(cookiejar + 1);				return(TRUE);			}			else			{				*value = 0L;				return(FALSE);			}		}		else		{			*value = 0L;			return(FALSE);		}	}} /* get_cookie *//* --- Funktion zur Reservierung von Speicher + Kontrolle ------- *//* --- fÅr Mario ;-) 	*/void *SMalloc(long amount){	char *buffer;	if((buffer = (char *)Malloc(amount)) == 0)		Dialog.winAlert.openAlert(Dialog.winAlert.alerts[MALLOC_ERR].TextCast, NULL, NULL, NULL, 1);	else		memset(buffer, 0x0, amount);	return(buffer);}/* --- Funktion zum Freigeben von Speicher + Kontrolle ------- */int SMfree(void *ptr){	if(ptr == NULL)		return(-1);	if(Mfree(ptr) != 0)	{		Dialog.winAlert.openAlert(Dialog.winAlert.alerts[MFREE_ERR].TextCast, NULL, NULL, NULL, 1);		return(-1);	}	return(0);}/*---- String im Startup-Dialog setzen und redrawen. Nur verwenden, wenn der Dialog offen ist! ---*/void set_startupdial(char *string){	extern char startupdial_exist;	extern int sx,sy,sw,sh;	extern OBJECT *startrsc;	if(startupdial_exist)	{		strcpy(startrsc[STARTUP_TXT].TextCast, string);		objc_draw(startrsc, STARTUP_TXT, 1, sx,sy,sw,sh);	}	return;}/*-----------------------------------------------------------------	*//* convert_units													*//*	Konvertiert Zoll, Millimeter, DTP-Punkt und Pixel unterein- und *//*	durcheinander in allen Kombinationen mit freier DPI-Zahl.		*//*	RÅckgabewert ist ein Konvertierungsfaktor (Multiplikator) fÅr	*//*	den alten Wert im 64Bit-Flieûkommaformat.						*//*-----------------------------------------------------------------	*/float convert_units(int oldunit, int newunit, float dpi){	float conv_factor;		if(newunit==UNIT_PIXELS)		{			switch(oldunit)			{				case UNIT_MM:	conv_factor = dpi / 25.4;								break;				case UNIT_INCH:	conv_factor = dpi;								break;				case UNIT_POINTS:	conv_factor = dpi / 72.0;									break;			}		}		else if(newunit==UNIT_MM)		{			switch(oldunit)			{				case UNIT_PIXELS:	conv_factor = 25.4 / dpi;									break;				case UNIT_INCH:		conv_factor = 25.4;									break;				case UNIT_POINTS:	conv_factor = 25.4 / 72.0;									break;			}		}		else if(newunit==UNIT_INCH)		{			switch(oldunit)			{				case UNIT_PIXELS:	conv_factor = 1.0 / dpi;									break;				case UNIT_MM:		conv_factor = 1.0 / 25.4;									break;				case UNIT_POINTS:	conv_factor = 1.0 / 72.0;									break;			}		}		else if(newunit==UNIT_POINTS)		{			switch(oldunit)			{				case UNIT_PIXELS:	conv_factor = 72.0 / dpi;									break;				case UNIT_MM:		conv_factor = 72.0 / 25.4;									break;				case UNIT_INCH:		conv_factor = 72.0;									break;			}		}	return(conv_factor);}char *load_palfile(char *path, int *red, int *green, int *blue, int max_cols){	int fsback;	int *palbuf, *palcpy;	int max_count, t;	static char pal_loadpath[256];	extern long f_len;	strcpy(pal_loadpath, path);	fsback = f_fsbox(pal_loadpath, "Palette laden", 0);	if(fsback!=FALSE)	{		palbuf=(int*)fload(pal_loadpath, 0);		max_count=(int)(f_len/6);		if(max_count>max_cols)		{			Dialog.winAlert.openAlert(Dialog.winAlert.alerts[PAL_DEPTHERR].TextCast, NULL, NULL, NULL, 1);			return(NULL);		}		else		{			palcpy=palbuf;			/* Mit der ersten Farbe im File die Palette ausnullen */			for(t=0; t<256; t++)			{				red[t] = (int)(255L*(long)palcpy[0] / 1000L);				green[t] = (int)(255L*(long)palcpy[1] / 1000L);				blue[t] = (int)(255L*(long)palcpy[2] / 1000L);			}			/* und Åbertragen */			for(t=0; t<max_count; t++)			{				red[t]= (int)(255L*(long)palcpy[t*3] / 1000L);				green[t]= (int)(255L*(long)palcpy[t*3+1] / 1000L);				blue[t]= (int)(255L*(long)palcpy[t*3+2] / 1000L);			}		}		SMfree(palbuf);		return(pal_loadpath);	}	return(NULL);}/* get_maxnamelen ------------------------------------------------	Gibt die maximale LÑnge eines Dateinamen im Pfad path zurÅck.	-------------------------------------------------------------*/long get_maxnamelen(char *path){	long Name_Max;		/* maximale FilenamenlÑnge im Pfad erfragen */	if((Name_Max = Dpathconf(path, 3)) >= 0)			/* Funktionsergebnis gÅltig */	{		if(Name_Max == UNLIMITED)						/* LÑnge unbegrenzt */			Name_Max = NAME_MAX;	}	else		Name_Max = 12;									/* Funktion nicht vorhanden */			return(Name_Max);}/* Konvertiert ein int im BCD-Format in einen String *//* inklusive UnterdrÅckung einer 0 im ersten Zeichen und *//* Punkt an der richtigen Stelle */void BCD2string(char *string, int bcd){	if((bcd >> 12) != 0)		*string++ = '0' + (bcd >> 12);	*string++ = '0' + ((bcd&0x0f00) >> 8);	*string++ = '.';	*string++ = '0' + ((bcd&0x00f0) >> 4);	*string++ = '0' + (bcd&0x000f);	*string++ = '\0';	return;} /* BCD2string *//* string right pointer break - GegenstÅck zum string pointer break *//* der Standardlib, das String 1 von rechts und nicht von links *//* her nach dem Auftreten eines Zeichens aus String 2 absucht */char *strrpbrk(char *s1beg, char *s1, char *s2){	char *os2 = s2;	do	{		s2 = os2;		while(*s2 && *s1 != *s2)			s2++;		if(*s2)			break;	} while(s1-- != s1beg);	if(*s1 && *s1 == *s2)		return(s1);	else		return(NULL);} /* strrpbrk *//* make_singular_display -----------------------------------------------	rettet die DISPLAY_OPT nach *old und schreibt Dither und Pal als Modi	in alle Variablen von Display_Opt, damit alle Farbtiefen nur mit diesen	Modi gedithert werden (z.B. fÅr Preview).	--------------------------------------------------------------------*/void make_singular_display(DISPLAY_MODES *old, int Dither, int Pal){	extern DISPLAY_MODES Display_Opt;	memcpy(old, &Display_Opt, sizeof(DISPLAY_MODES));	Display_Opt.dither_24 = Dither;	Display_Opt.dither_8 = Dither;	Display_Opt.dither_4 = Dither;	Display_Opt.syspal_24 = Pal;	Display_Opt.syspal_8 = Pal;	Display_Opt.syspal_4 = Pal;	return;}/* restore_display -------------------------------------------------------	Kopiert die gerettete DISPLAY_MODES *old nach Display_Opt. Zum Restoren von	make_singular_display.	----------------------------------------------------------------------*/void restore_display(DISPLAY_MODES *old){	extern DISPLAY_MODES Display_Opt;	memcpy(&Display_Opt, old, sizeof(DISPLAY_MODES));	return;}/* KÅrzt fÅr beliebige Strings zu lange Filenamen durch *//* entfernen von Text in der Mitte und ersetzen durch "...". *//* Aus "Dies ist ein zu langer Filename.img" wÅrde bei KÅrzung *//* auf 27 Zeichen "Dies ist ein...Filename.img" */char *shorten_name(char *string, char newlen){	char temp[257] = "";	/* nichts tun wenn String sowieso passend */	if(strlen(string) <= newlen)		return(string);	strncpy(temp, string, newlen / 2 - 1);			/* auf die HÑlfte und eines weniger */	strcat(temp, "...");							/* LÅckenfÅller rein */	strcat(temp, string + strlen(string) - (newlen - newlen / 2 - 3));	/* und bis newlen LÑnge mit Originalstring affÅllen */	return(temp);	} /* shorten_name */
+/*
+ * ***** BEGIN LICENSE BLOCK *****
+ *
+ * The contents of this file are subject to the GNU General Public License
+ * Version 2 (the "License"); you may not use this file except in compliance
+ * with the GPL. You may obtain a copy of the License at
+ * http://www.gnu.org/copyleft/gpl.html or the file GPL.TXT from the program
+ * or source code package.
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+ * the specific language governing rights and limitations under the GPL.
+ *
+ * The Original Code is Therapy Seriouz Software code.
+ *
+ * The Initial Developer of the Original Code are
+ * Olaf Piesche, Christian Eyrich, Dale Russell and Jîrg Dittmer
+ *
+ * Contributor(s):
+ *
+ *
+ * ***** END LICENSE BLOCK *****
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <tos.h>
+#include <ext.h>
+#include <errno.h>
+#include <ctype.h>
+#include "startup.h"
+#include "sym_gem.h"
+#include "..\modules\import.h"
+#include "smurf_st.h"
+#include "smurf_f.h"
+#include "smurf.h"
+#include "globdefs.h"
+#include "vaproto.h"
+#include "bindings.h"
+#include "..\modules\dither\dit_mod.h"
+
+#include "smurfobs.h"
+#include "ext_obs.h"
+
+
+extern	SYSTEM_INFO	Sys_info;			/* Systemkonfiguration */
+
+#define UNLIMITED	0x7fffffffL
+
+/* Klammert einen String mit ' ein und verdoppelt alle im String	*/
+/* enthaltenen Quotemarks.											*/
+char *quote_arg(char *s)
+{
+	char *t, *ot;
+
+	t = calloc(1, 257);
+	ot = t;
+
+	/* eric's file -> 'eric''s file' */
+	*t++ = '\'';		/* ganz vorne ein Quote */
+
+	while(*s)
+	{
+		if(*s == '\'')
+			*t++ = '\'';
+
+		*t++ = *s++;
+	}
+
+	*t++ = '\'';		/* und ganz hinten ein Quote */
+	*t = '\0';
+
+	return(ot);
+} /* quote_arg */
+
+
+/* Entfernt die Anfangs-, die End- und die doppelten Quotemarks (') */
+/* aus Strings (Pfadnamen). 										*/
+char *unquote_arg(char *s)
+{
+	char *t, *os;
+
+
+    os = s;
+
+	/* 'eric''s file' -> eric's file */
+	t = s;
+    if(*s != '\'')
+		return(s);
+
+	s++;				/* ganz vorne ein Quote weg */
+
+    while(*s)
+	{
+		if(*s == '\'' && *(s + 1) == '\'')
+			s++;
+
+		*t++ = *s++;
+	}
+
+	*(t - 1) = '\0';	/* und ganz hinten ein Quote weg */
+
+	return(os);
+} /* unquote_name */
+
+
+/* Die Funktion arbeitet Ñhnlich der Bibliotheksfunktion strtok() */
+/* Sie wird immer mit dem gleichen Zeiger aufgerufen und zurÅckgegeben */
+/* wird ein hinter dem Parameter abgeschlossener Zeiger bzw. NULL wenn */
+/* kein weiterer Parameter entdeckt werden konnte. */
+/* Als Trennzeichen gelten immer Spaces */
+char *strargvtok(char *s)
+{
+	static char *t = NULL;
+	char *back,
+		 in = 0;
+
+
+	if(t == NULL)					/* Nur beim Ersten Aufruf der Fall */
+		t = s;
+
+	if(*t == '\0')					/* Wenn der String zu Ende tokenisiert wurde, */
+	{								/* also nach dem letzten gÅltigen Aufruf. */
+		t = NULL;					/* Und das, damit nachfolgende Strings auch noch */
+		return(NULL);				/* gemacht werden kînnen. */
+	}
+
+	s = t;
+
+/*	strcpy(mike, "'Parameter 2' 'Paramet'' 4' 'Paramet''5'"); */
+	if(*s == '\'')					/* nîtig, da Parameter mit einem ' nicht gequotet werden */
+	{
+		in = 1;
+		strcpy(s, s + 1);			/* alles vorziehen */
+	}
+
+	while(*s)
+	{
+		if(*s == ' ')
+		{
+			if(!in)
+			{
+				*s++ = '\0';
+				break;
+			}
+		}
+		else
+			if(*s == '\'')
+			{
+				if(in)
+				{
+					strcpy(s, s + 1);			/* alles vorziehen */
+
+					if(*s != '\'')
+					{
+						in = 0;
+						if(*s)					/* nur ausfÅhren, wenn nicht */
+							*s++ = '\0';		/* sowieso schon am Ende */
+						break;
+					}
+				}
+			}
+
+		s++;
+	}
+
+	back = t;						/* Eingangsstring wegsichern */
+	t = s;							/* und neuen Anfang setzen */
+
+	return(back);
+} /* strargvtok */
+
+
+/* So stelle ich mir die Implementierung der Bibliotheksfunktion strtok() vor. */
+/* Mit dem Unterschied, daû weitere Aufrufe nicht mit NULL in s aufgerufen */
+/* werden muû, sondern mystrtok() folgende Aufrufe selbst erkennt. */
+/* Ein Problem ist allerdings, daû diese Erkennung nur funktioniert, wenn ein */
+/* String zuende tokenisiert wurde. Ein vorheriger Abbruch bringt alles durcheinander. */
+/* Deshalb gibt es die Mîglichkeit des manuellen Inits mit NULL als erstem Parameter. */
+char *mystrtok(char *s, char c)
+{
+	static char *t = NULL;
+	char *back;
+
+
+	if(s == NULL)					/* manueller Init */
+	{
+		t = NULL;
+		return(NULL);
+	}
+
+	if(t == NULL)					/* Nur am Stringanfang der Fall */
+		t = s;
+
+	if(*t == '\0')					/* Wenn der String zu Ende tokenisiert wurde, */
+	{								/* also nach dem letzten gÅltigen Aufruf. */
+		t = NULL;					/* Und das, damit nachfolgende Strings auch noch */
+		return(NULL);				/* gemacht werden kînnen. */
+	}
+
+	s = t;
+
+    while(*s)
+	{
+		if(*s == c)
+		{
+			*s++ = '\0';
+			break;
+		}
+		else
+			s++;
+	}
+
+	back = t;						/* Eingangsstring wegsichern */
+	t = s;							/* und neuen Anfang setzen */
+
+	return(back);
+} /* mystrtok */
+
+
+/* Die Funktion sucht von vorne her nach dem ersten Vorkommen des */
+/* Åbergebenen Zeichen und gibt die Position oder -1 bei nicht gefunden zurÅck. */
+int strsrchl(char *s, char c)
+{
+	int i;
+
+
+	i = 0;
+	while(*s != c && *s != '\0')
+	{
+		s++;
+		i++;
+	}
+
+	if(*s == '\0')
+		return(-1);
+	else
+		return(i);
+} /* strsrchl */
+
+
+
+/* Die Funktion sucht von hinten her nach dem ersten Vorkommen des Åbergebenen */
+/* Zeichens und gibt die Position oder -1 bei nicht gefunden zurÅck. */
+int strsrchr(char *s, char c)
+{
+	int i;
+
+
+	i = (int)strlen(s) - 1;				/* Index auf letztes Zeichen setzen */
+	s += i;
+	while(i >= 0 && *s != c)			/* i vor s prÅfen, da *s mîglicherweise ungÅltig! */
+	{
+		s--;
+		i--;
+	}
+
+	return(i);
+} /* strsrchr */
+
+
+/* Sucht das Environment nach Tempdirs ab und fÅllt es in tmpdir. */
+/* Falls keines gefunden wurde, wird -1 zurÅckgegeben. */
+void get_tmp_dir(char *tmpdir)
+{
+	char *result;	
+
+
+	if((result = getenv("TMP")) != NULL)
+		strcpy(tmpdir, result);
+	if((result = getenv("TEMP")) != NULL)
+		strcpy(tmpdir, result);
+	if((result = getenv("TMPDIR")) != NULL)
+		strcpy(tmpdir, result);
+
+	if(*tmpdir == '\0')
+		strcpy(tmpdir, Sys_info.standard_path);
+
+	return;
+} /* get_tmp_dir */
+
+
+/* Funktion um Cookie auf Anwesenheit zu testen */
+/* Christian Eyrich irgendwann im 20. Jahrhundert */
+/* Umgestellt um ohne Supervisormodus auszukommen am 22.4.99 */
+/* Erweitert um Ssystem(GETCOOKIE) am 2.5.99 */
+int get_cookie(unsigned long cookie, unsigned long *value)
+{
+	long r, val;
+
+	unsigned long *cookiejar;
+
+
+	/* Erst den neuen Weg probieren */
+	if((r = Ssystem(GETCOOKIE, cookie, &val)) != EINVFN)
+	{
+		if(r != -1)
+		{
+			*value = val;
+			return(TRUE);
+		}
+		else
+		{
+			*value = 0L;
+			return(FALSE);
+		}
+	}
+	else
+	{
+		/* Zeiger auf Cookie Jar holen */
+		cookiejar = (unsigned long *)Setexc(0x5a0/4, (void (*)())-1);	
+
+		/* Cookie Jar installiert? */
+		if(cookiejar)
+		{
+			/* Keksdose nach cookie durchsuchen */
+			while(*cookiejar && *cookiejar != cookie)
+				cookiejar += 2;
+
+			/* wenn cookie gefunden wurde, value auf Cookiewert setzen, */
+			/* ansonsten value auf 0L */
+			if(*cookiejar == cookie)
+			{
+				*value = *(cookiejar + 1);
+				return(TRUE);
+			}
+			else
+			{
+				*value = 0L;
+				return(FALSE);
+			}
+		}
+		else
+		{
+			*value = 0L;
+			return(FALSE);
+		}
+	}
+} /* get_cookie */
+
+
+/* --- Funktion zur Reservierung von Speicher + Kontrolle ------- */
+/* --- fÅr Mario ;-) 	*/
+void *SMalloc(long amount)
+{
+	char *buffer;
+
+
+	if((buffer = (char *)Malloc(amount)) == 0)
+		Dialog.winAlert.openAlert(Dialog.winAlert.alerts[MALLOC_ERR].TextCast, NULL, NULL, NULL, 1);
+	else
+		memset(buffer, 0x0, amount);
+
+	return(buffer);
+}
+
+
+/* --- Funktion zum Freigeben von Speicher + Kontrolle ------- */
+int SMfree(void *ptr)
+{
+	if(ptr == NULL)
+		return(-1);
+
+	if(Mfree(ptr) != 0)
+	{
+		Dialog.winAlert.openAlert(Dialog.winAlert.alerts[MFREE_ERR].TextCast, NULL, NULL, NULL, 1);
+		return(-1);
+	}
+
+	return(0);
+}
+
+
+/*---- String im Startup-Dialog setzen und redrawen. Nur verwenden, wenn der Dialog offen ist! ---*/
+void set_startupdial(char *string)
+{
+	extern char startupdial_exist;
+	extern int sx,sy,sw,sh;
+	extern OBJECT *startrsc;
+
+
+	if(startupdial_exist)
+	{
+		strcpy(startrsc[STARTUP_TXT].TextCast, string);
+		objc_draw(startrsc, STARTUP_TXT, 1, sx,sy,sw,sh);
+	}
+
+	return;
+}
+
+
+
+/*-----------------------------------------------------------------	*/
+/* convert_units													*/
+/*	Konvertiert Zoll, Millimeter, DTP-Punkt und Pixel unterein- und */
+/*	durcheinander in allen Kombinationen mit freier DPI-Zahl.		*/
+/*	RÅckgabewert ist ein Konvertierungsfaktor (Multiplikator) fÅr	*/
+/*	den alten Wert im 64Bit-Flieûkommaformat.						*/
+/*-----------------------------------------------------------------	*/
+float convert_units(int oldunit, int newunit, float dpi)
+{
+	float conv_factor;
+
+		if(newunit==UNIT_PIXELS)
+		{
+			switch(oldunit)
+			{
+				case UNIT_MM:	conv_factor = dpi / 25.4;
+								break;
+				case UNIT_INCH:	conv_factor = dpi;
+								break;
+				case UNIT_POINTS:	conv_factor = dpi / 72.0;
+									break;
+			}
+		}
+		else if(newunit==UNIT_MM)
+		{
+			switch(oldunit)
+			{
+				case UNIT_PIXELS:	conv_factor = 25.4 / dpi;
+									break;
+				case UNIT_INCH:		conv_factor = 25.4;
+									break;
+				case UNIT_POINTS:	conv_factor = 25.4 / 72.0;
+									break;
+			}
+		}
+		else if(newunit==UNIT_INCH)
+		{
+			switch(oldunit)
+			{
+				case UNIT_PIXELS:	conv_factor = 1.0 / dpi;
+									break;
+				case UNIT_MM:		conv_factor = 1.0 / 25.4;
+									break;
+				case UNIT_POINTS:	conv_factor = 1.0 / 72.0;
+									break;
+			}
+		}
+		else if(newunit==UNIT_POINTS)
+		{
+			switch(oldunit)
+			{
+				case UNIT_PIXELS:	conv_factor = 72.0 / dpi;
+									break;
+				case UNIT_MM:		conv_factor = 72.0 / 25.4;
+									break;
+				case UNIT_INCH:		conv_factor = 72.0;
+									break;
+			}
+		}
+
+	return(conv_factor);
+}
+
+
+char *load_palfile(char *path, int *red, int *green, int *blue, int max_cols)
+{
+	int fsback;
+	int *palbuf, *palcpy;
+	int max_count, t;
+	static char pal_loadpath[256];
+	extern long f_len;
+
+	strcpy(pal_loadpath, path);
+	fsback = f_fsbox(pal_loadpath, "Palette laden", 0);
+
+	if(fsback!=FALSE)
+	{
+		palbuf=(int*)fload(pal_loadpath, 0);
+		max_count=(int)(f_len/6);
+		if(max_count>max_cols)
+		{
+			Dialog.winAlert.openAlert(Dialog.winAlert.alerts[PAL_DEPTHERR].TextCast, NULL, NULL, NULL, 1);
+			return(NULL);
+		}
+		else
+		{
+			palcpy=palbuf;
+			/* Mit der ersten Farbe im File die Palette ausnullen */
+			for(t=0; t<256; t++)
+			{
+				red[t] = (int)(255L*(long)palcpy[0] / 1000L);
+				green[t] = (int)(255L*(long)palcpy[1] / 1000L);
+				blue[t] = (int)(255L*(long)palcpy[2] / 1000L);
+			}
+
+			/* und Åbertragen */
+			for(t=0; t<max_count; t++)
+			{
+				red[t]= (int)(255L*(long)palcpy[t*3] / 1000L);
+				green[t]= (int)(255L*(long)palcpy[t*3+1] / 1000L);
+				blue[t]= (int)(255L*(long)palcpy[t*3+2] / 1000L);
+			}
+		}
+
+		SMfree(palbuf);
+		return(pal_loadpath);
+	}
+
+	return(NULL);
+}
+
+
+/* get_maxnamelen ------------------------------------------------
+	Gibt die maximale LÑnge eines Dateinamen im Pfad path zurÅck.
+	-------------------------------------------------------------*/
+long get_maxnamelen(char *path)
+{
+	long Name_Max;
+	
+
+	/* maximale FilenamenlÑnge im Pfad erfragen */
+	if((Name_Max = Dpathconf(path, 3)) >= 0)			/* Funktionsergebnis gÅltig */
+	{
+		if(Name_Max == UNLIMITED)						/* LÑnge unbegrenzt */
+			Name_Max = NAME_MAX;
+	}
+	else
+		Name_Max = 12;									/* Funktion nicht vorhanden */
+		
+	return(Name_Max);
+}
+
+
+/* Konvertiert ein int im BCD-Format in einen String */
+/* inklusive UnterdrÅckung einer 0 im ersten Zeichen und */
+/* Punkt an der richtigen Stelle */
+void BCD2string(char *string, int bcd)
+{
+	if((bcd >> 12) != 0)
+		*string++ = '0' + (bcd >> 12);
+	*string++ = '0' + ((bcd&0x0f00) >> 8);
+	*string++ = '.';
+	*string++ = '0' + ((bcd&0x00f0) >> 4);
+	*string++ = '0' + (bcd&0x000f);
+	*string++ = '\0';
+
+	return;
+} /* BCD2string */
+
+
+/* string right pointer break - GegenstÅck zum string pointer break */
+/* der Standardlib, das String 1 von rechts und nicht von links */
+/* her nach dem Auftreten eines Zeichens aus String 2 absucht */
+char *strrpbrk(char *s1beg, char *s1, char *s2)
+{
+	char *os2 = s2;
+
+
+	do
+	{
+		s2 = os2;
+		while(*s2 && *s1 != *s2)
+			s2++;
+
+		if(*s2)
+			break;
+	} while(s1-- != s1beg);
+
+	if(*s1 && *s1 == *s2)
+		return(s1);
+	else
+		return(NULL);
+} /* strrpbrk */
+
+
+/* make_singular_display -----------------------------------------------
+	rettet die DISPLAY_OPT nach *old und schreibt Dither und Pal als Modi
+	in alle Variablen von Display_Opt, damit alle Farbtiefen nur mit diesen
+	Modi gedithert werden (z.B. fÅr Preview).
+	--------------------------------------------------------------------*/
+void make_singular_display(DISPLAY_MODES *old, int Dither, int Pal)
+{
+	extern DISPLAY_MODES Display_Opt;
+
+	memcpy(old, &Display_Opt, sizeof(DISPLAY_MODES));
+	Display_Opt.dither_24 = Dither;
+	Display_Opt.dither_8 = Dither;
+	Display_Opt.dither_4 = Dither;
+	Display_Opt.syspal_24 = Pal;
+	Display_Opt.syspal_8 = Pal;
+	Display_Opt.syspal_4 = Pal;
+
+	return;
+}
+
+/* restore_display -------------------------------------------------------
+	Kopiert die gerettete DISPLAY_MODES *old nach Display_Opt. Zum Restoren von
+	make_singular_display.
+	----------------------------------------------------------------------*/
+void restore_display(DISPLAY_MODES *old)
+{
+	extern DISPLAY_MODES Display_Opt;
+
+	memcpy(&Display_Opt, old, sizeof(DISPLAY_MODES));
+
+	return;
+}
+
+
+/* KÅrzt fÅr beliebige Strings zu lange Filenamen durch */
+/* entfernen von Text in der Mitte und ersetzen durch "...". */
+/* Aus "Dies ist ein zu langer Filename.img" wÅrde bei KÅrzung */
+/* auf 27 Zeichen "Dies ist ein...Filename.img" */
+char *shorten_name(char *string, char newlen)
+{
+	char temp[257] = "";
+
+
+	/* nichts tun wenn String sowieso passend */
+	if(strlen(string) <= newlen)
+		return(string);
+
+	strncpy(temp, string, newlen / 2 - 1);			/* auf die HÑlfte und eines weniger */
+	strcat(temp, "...");							/* LÅckenfÅller rein */
+	strcat(temp, string + strlen(string) - (newlen - newlen / 2 - 3));	/* und bis newlen LÑnge mit Originalstring affÅllen */
+
+	return(temp);	
+} /* shorten_name */
 
 
 /* Lesen des aktuellen Pfad. (drive = 0 fÅr Defaultdrive) */

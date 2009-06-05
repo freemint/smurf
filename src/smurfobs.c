@@ -23,7 +23,7 @@
  */
 
 #include <tos.h>
-#include "..\sym_gem.h"
+#include "sym_gem.h"
 #include "..\modules\import.h"
 #include "smurf_st.h"
 #include "smurfine.h"

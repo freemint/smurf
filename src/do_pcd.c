@@ -32,7 +32,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "..\sym_gem.h"
+#include "sym_gem.h"
 #include "..\modules\import.h"
 #include "smurfine.h"
 #include "smurf.h"
