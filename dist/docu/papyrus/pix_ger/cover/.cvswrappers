@@ -1,0 +1,8 @@
+*.pap -k b
+*.rsc -k b
+*.hyp -k b
+*.ref -k b
+*.img -k b
+*.eps -k b
+*.tga -k b
+*.tif -k b
