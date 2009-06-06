@@ -533,3 +533,8 @@ Version 1.05 (5.11.98) -> 1.06 (6.8.2000)
   horizontal und/oder vertikal) in Truecolor gedruckt werden k”nnen. Bisher 
   fand da ein šberlauf in der Speicherberechnung statt weil eine Variable 
   int war.
+
+Version 1.06 (6.8.2000) -> 
+
+- Smurf steht nun unter GPL.
+
