@@ -1,4 +1,4 @@
 *.pap -k b
 *.hyp -k b
 *.ref -k b
-*.”ib -k b
+*.lib -k b
