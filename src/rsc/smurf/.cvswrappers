@@ -1,0 +1,6 @@
+*.pap -k b
+*.hyp -k b
+*.ref -k b
+*.lib -k b
+*.rsc -k b
+*.rsm -k b
