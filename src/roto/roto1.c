@@ -30,7 +30,7 @@
 #include <screen.h>
 #include <string.h>
 #include <math.h>
-#include "..\..\sym_gem.h"
+#include "..\lib\sym_gem.h"
 #include "..\..\modules\import.h"
 #include "..\smurf_st.h"
 #include "..\smurfine.h"
