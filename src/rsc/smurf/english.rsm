@@ -1,9 +1,10 @@
 ResourceMaster v3.65   
-#C 36@0@0@0@
+#C 36@0@0@3@
 #N 99@0@AZAazA___  _@AZAazA090___  _@@_@
 #FoC-Header@rsm2out@C-Header@h@@@[C-Header@0@
+#FoBGH@rsm2out@BGH@bgh@@@[BubbleGEM HELP-File@1@
 #R 0@0@2@1@2@1@
-#M 00013100@0@7728@725@
+#M 00013100@0@7728@729@
 #T 0@2@DEPTH_POPUP@@7@@
 #O 1@22@DEPTH1@@
 #O 2@22@DEPTH2@@
@@ -146,7 +147,7 @@ ResourceMaster v3.65
 #O 0@20@BW_MAIN@@
 #O 1@22@BW_TXT@@
 #O 2@21@BW_MEMORY@@
-#O 5@33@BW_ICON@@
+#O 5@33@BW_ICON@Dieser Balken zeigt den Fortschritt der momentan laufenden Aktion an. Mit Linksklick kann das Aussehen gewÑhlt werden.@
 #O 6@20@BW_BOX@@
 #T 14@2@WINDOW_ALERT@@11@@
 #O 1@21@ALERTTEXT1@@
@@ -207,62 +208,66 @@ ResourceMaster v3.65
 #O 16@21@EI_MODVER@@
 #T 20@2@SMURF_OPTIONS@@76@@
 #O 1@20@BUTTONS_BOX@@
-#O 2@22@INTERFACE_BUTTON@@
-#O 3@22@MISC_BUTTON@@
-#O 4@22@PREVIEWS_BUTTON@@
-#O 5@22@CONVERS_BUTTON@@
+#O 2@22@INTERFACE_BUTTON@Hiermit kînnen Sie die Registerkarte fÅr die OberflÑchenkonfiguration îffnen.@
+#O 3@22@MISC_BUTTON@Hiermit kînnen Sie die Registerkarte fÅr die allgmeine Konfiguration îffnen.@
+#O 4@22@PREVIEWS_BUTTON@Hiermit kînnen Sie die Registerkarte fÅr die Konfiguration der Previews und Thumbnails îffnen.@
+#O 5@22@CONVERS_BUTTON@Hiermit kînnen Sie die Registerkarte fÅr die Konfiguration von Bildkonvertierungen îffnen.@
 #O 6@20@MISC_BOX@@
-#O 9@25@OPT_PROFI@@
-#O 10@25@ORIGINAL_CLIP@@
-#O 12@25@OPT_WINDOWALERT@@
-#O 14@25@OPT_CENTER@@
-#O 16@25@REALTIME_DITHER@@
-#O 17@22@PCD_DEF_PB@@
-#O 19@25@EIDT_NEWPIC@@
+#O 9@25@OPT_PROFI@Wenn der Profi-Modus eingeschaltet ist, werden Warnungen vor einigen Aktionen unterdrÅckt.@
+#O 10@25@ORIGINAL_CLIP@Wenn diese Option eingeschaltet ist, wird beim Kopieren ins Clipboard immer der Bildausschnitt in originaler Farbtiefe Åbernommen.@
+#O 12@25@OPT_WINDOWALERT@Wenn die Window-Alerts eingeschaltet sind, werden die Warnungsboxen von Smurf in Fenstern ausgegeben.@
+#O 14@25@OPT_CENTER@Zentriert die Dialoge beim ôffnen in der Bildschirmmitte.@
+#O 16@25@REALTIME_DITHER@Wenn diese Checkbox selektiert ist, wird der verÑnderte Teil eines Bildes beim Redraw neu gedithert.@
+#O 17@22@PCD_DEF_PB@Hier kînnen Sie die Grîûe auswÑhlen, in der Photo CD - Bilder defaultmÑûig geladen werden sollen.@
+#O 19@25@EIDT_NEWPIC@Wenn diese Option eingeschaltet ist, werden die Ergebnisse der Bearbeitungsmodule in neue Bilder Åbernommen, das Originalbild bleibt erhalten.@
 #O 21@25@PCD_DEF_CB@@
-#O 22@26@OPT_IMPLIST@@
+#O 22@26@OPT_IMPLIST@Mit diesem Button kann eine neue Importerliste generiert werden. Diese beschleunigt das Laden von Bildern um Faktoren!@
 #O 23@20@INTERFACE_BOX@@
-#O 24@22@OUTCOL@@
+#O 24@22@OUTCOL@Hier kînnen Sie die Farbe auswÑhlen, mit der Bildfenster auûerhalb des eigentlichen Bildbereiches gefÅllt werden sollen.@
 #O 25@25@OCOL_CB@@
 #O 27@20@OCOL_DISP@@
-#O 32@25@KBEV_JOIN@@
-#O 33@25@KBEV_DELETE@@
-#O 38@25@ENV_SILLY@@
-#O 39@25@ENV_THERAPY@@
-#O 40@25@ENV_STANDARD@@
-#O 41@26@OPT_SET@@
+#O 32@25@KBEV_JOIN@Das Scrollen in Bildfenstern mit der Tastatur wird bei wiederholten TastendrÅcken schneller.@
+#O 33@25@KBEV_DELETE@Es wird beim Scrollen in Bildfenstern mit der Tastatur nur eine Tastatureingabe auf einmal verarbeitet.@
+#O 38@25@ENV_SILLY@WÑhlt ein abgefahrenes OberflÑchenaussehen aus.@
+#O 39@25@ENV_THERAPY@WÑhlt den OberflÑchenmodus 'Therapy' aus. ;-)@
+#O 40@25@ENV_STANDARD@WÑhlt ein Standard-OberflÑchenaussehen aus.@
+#O 41@26@OPT_SET@öbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieûen.@
 #O 44@20@PREVIEWS_BOX@@
-#O 46@22@PREVDIT_PB@@
-#O 47@22@PICMANDIT_PB@@
+#O 46@22@PREVDIT_PB@Hier kînnen Sie die Dithermethode fÅr Modul-Previews wÑhlen. Es sind nur Dithermethoden mîglich, mit denen nach Systempalette gedithert werden kann!@
+#O 47@22@PICMANDIT_PB@Hier kînnen Sie die Dithermethode fÅr die Thumbnails im Bildmanager eingestellt werden.@
 #O 48@25@PICMANDIT_CB@@
 #O 50@25@PREVDIT_CB@@
-#O 52@22@MOVE_PREVDIT_PB@@
+#O 52@22@MOVE_PREVDIT_PB@Hier kînnen Sie die Methode einstellen, mit der die Modulpreviews bei deren Verschieben gedithert werden sollen. Es sind nur Dithermethoden mîglich, mit denen nach Systempalette gedithert werden kann!@
 #O 53@25@MOVE_PREVDIT_CB@@
-#O 55@25@OPT_PREVS@@
-#O 56@33@OPTIONSICON@@
-#O 57@26@OPT_OK@@
-#O 58@26@OPTS_CANCEL@@
+#O 55@25@OPT_PREVS@Wenn diese Checkbox selektiert ist, werden Previews bei der énderung von Einstellungen im Einstellformular sofort neu erstellt.@
+#O 56@33@OPTIONSICON@Dies ist Design.@
+#O 57@26@OPT_OK@öbernimmt die vorgenommenen Einstellungen und schlieût das Fenster.@
+#O 58@26@OPTS_CANCEL@Schlieût den Dialog ohne öbernahme der neuen Einstellungen.@
 #O 59@20@CONVERSION_BOX@@
-#O 62@22@AUTODIT_PB@@
+#O 62@22@AUTODIT_PB@Hier kînnen Sie einstellen, mit welchem Ditheralgorithmus Bilder bei einer automatischen Farbreduktion gewandelt werden sollen.@
 #O 63@25@AUTODIT_CB@@
-#O 65@22@AUTOPAL_PB@@
+#O 65@22@AUTOPAL_PB@Hier kînnen Sie einstellen, welcher Palettenmodus fÅr automatische Farbreduktion verwendet werden soll.@
 #O 66@25@AUTOPAL_CB@@
+#O 70@25@@Hiermit wird die RGB->CMYK-Konversion mit Unterfarbenreduktion in der angegebenen StÑrke vorgenommen. Die Reduktionskurven kînnen unten eingestellt werden.@
+#O 72@20@@Hier kînnen Sie die Kurven fÅr die Unterfarbenreduktion einstellen.@
+#O 73@29@@Hiermit wird die RGB->CMYK-Konversion mit Skelettschwarz in der angegebenen StÑrke vorgenommen.@
 #T 21@2@DISPLAY_OPTIONS@@35@@
-#O 3@26@DISPLAY_SET@@
-#O 6@22@DITHER_POPBUT@@
+#O 2@33@@Dies ist Design.@
+#O 3@26@DISPLAY_SET@öbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieûen.@
+#O 6@22@DITHER_POPBUT@Hier kînnen Sie die Dithermethode angeben, mit der Bilder die im links angegebenen Farbtiefenbereich liegen fÅr die Darstellung am Bildschirm gedithert werden.@
 #O 7@25@DITHER_CB@@
-#O 8@22@COLRED_POPBUT@@
+#O 8@22@COLRED_POPBUT@Hier kînnen Sie die Palette angeben, mit der Bilder die im links angegebenen Farbtiefenbereich liegen angezeigt werden.@
 #O 9@25@COLRED_CB@@
-#O 12@26@LOAD_PAL@@
-#O 16@25@DITHER_8@@
-#O 17@25@DITHER_4@@
-#O 18@25@DITHER_24@@
-#O 23@25@PAL_MOUSE@@
-#O 25@25@PAL_TOPWIN@@
-#O 27@25@PAL_SYSTEM@@
-#O 32@26@DISPLAY_OK@@
-#O 33@29@PAL_TIMER@@
-#O 34@26@DISPOPTS_CANCEL@@
+#O 12@26@LOAD_PAL@Wenn Sie bei 'Palette' die Option 'feste Palette' gewÑhlt haben, kînnen Sie hiermit eine Palettendatei laden.@
+#O 16@25@DITHER_8@Wenn dieser Radiobutton selektiert ist, kînnen Sie die Ditheroptionen fÅr Bilder mit 17-256 Farben auswÑhlen.@
+#O 17@25@DITHER_4@Wenn dieser Radiobutton selektiert ist, kînnen Sie die Ditheroptionen fÅr Bilder mit 2-16 Farben auswÑhlen.@
+#O 18@25@DITHER_24@Wenn dieser Radiobutton selektiert ist, kînnen Sie die Ditheroptionen fÅr Bilder mit mehr als 256 Farben auswÑhlen.@
+#O 23@25@PAL_MOUSE@Wenn diese Option selektiert ist, wird die dargestellte Farbpalette in AbhÑngigkeit der Mausposition umgeschaltet.@
+#O 25@25@PAL_TOPWIN@Wenn diese Option selektiert ist, wird unabhÑngig von Dithereinstellungen und oberstem Fenster immer die Systempalette aktiviert.@
+#O 27@25@PAL_SYSTEM@Wenn diese Option selektiert ist, entspricht die dargestellte Farbpalette der des obersten Bildfensters. Ansonsten wird die Systempalette verwendet.@
+#O 32@26@DISPLAY_OK@öbernimmt die vorgenommenen Einstellungen und schlieût das Fenster.@
+#O 33@29@PAL_TIMER@Hier kînnen Sie die Zeit fÅr den globalen Timer in ms einstellen.@
+#O 34@26@DISPOPTS_CANCEL@Schlieût den Dialog ohne öbernahme der neuen Einstellungen.@
 #T 22@2@MOD_FORM@@46@@
 #O 1@20@S1_F@@
 #O 2@20@S1_R@@
@@ -308,21 +313,23 @@ ResourceMaster v3.65
 #O 44@26@MCONF_STDSAVE@@
 #O 45@26@MCONF_STDLOAD@@
 #T 23@2@EXPORT_FORM@@20@@
-#O 1@22@EXP_DITHER@@
-#O 2@22@EXP_DEPTH@@
+#O 1@22@EXP_DITHER@Hier kînnen Sie die Dithermethode wÑhlen, die verwendet werden soll, um das zu exportierende Bild auf die gewÑhlte Farbtiefe zu bringen.@
+#O 2@22@EXP_DEPTH@Hier kînnen Sie die Farbtiefe des zu exportierenden Bildes wÑhlen. Es werden nur die Farbtiefen angezeigt, die das gewÑhlte Format unterstÅtzt.@
 #O 6@22@EXPORT_COLFORMAT@@
 #O 7@25@EXP_DEPTHC@@
 #O 8@25@EXP_COLC@@
 #O 9@25@EXP_DITHERC@@
-#O 10@22@EXP_COLRED@@
+#O 10@22@EXP_COLRED@Hier kînnen Sie die Palette wÑhlen, die zum Dithern auf die gewÑhlte Farbtiefe verwendet werden soll.@
 #O 12@25@EXP_COLREDC@@
-#O 13@26@EXPORT_MORE@@
-#O 17@26@START_EXPORT@@
-#O 18@26@LOAD_EXPPAL@@
+#O 13@26@EXPORT_MORE@Wenn das gewÑhlte Exportmodul eine erweiterte Konfiguration unterstÅtzt, kînnen Sie diese mit diesem Button aufrufen.@
+#O 15@33@@Dies ist Design.@
+#O 17@26@START_EXPORT@Startet den Export mit den gewÑhlten Parametern.@
+#O 18@26@LOAD_EXPPAL@Wenn Sie bei 'Palette' die Option 'Feste Palette' gewÑhlt haben, kînnen Sie mit diesem Button eine Palettendatei wÑhlen.@
 #O 19@26@EXPFORM_CANCEL@@
 #T 24@2@MODULES@@25@@
-#O 1@26@INFO_MODULE@@
-#O 3@33@MODULESICON@@
+#O 1@26@INFO_MODULE@Hiermit kînnen Sie sich eine Information Åber das aktuell angewÑhlte Modul anzeigen lassen.@
+#O 2@20@@(Seufz...) manchmal ist ein grauer Balken eben einfach nur ein grauer Balken.@
+#O 3@33@MODULESICON@Dies ist Design.@
 #O 4@20@MODULES_BOX@@
 #O 5@25@ENTRYPARENT@@
 #O 6@21@MODULE1@@
@@ -334,15 +341,15 @@ ResourceMaster v3.65
 #O 12@21@MODULE7@@
 #O 13@21@MODULE8@@
 #O 14@21@MODULE9@@
-#O 15@27@UP_MODULE@@
+#O 15@27@UP_MODULE@Benutzen Sie diesen Knopf, um in der Liste nach oben zu Scrollen.@
 #O 16@20@SBACK_MODULE@@
-#O 17@20@SLID_MODULE@@
-#O 18@27@DN_MODULE@@
+#O 17@20@SLID_MODULE@Ziehen Sie den Slider mit festgehaltener linker Maustaste, um die Liste in Echtzeit zu Scrollen.@
+#O 18@27@DN_MODULE@Benutzen Sie diesen Knopf, um in der Liste nach unten zu Scrollen.@
 #O 19@20@GNAME_BOX@@
-#O 20@21@GOURP_NAME@@
+#O 20@21@GOURP_NAME@Dies wird einmal der Name einer Modulgruppe sein. Dieses Feature ist noch nicht implementiert.@
 #O 21@20@GBACK_BOX@@
-#O 22@31@GROUP_BACK@@
-#O 24@26@START_MODULE@@
+#O 22@31@GROUP_BACK@Sagen Sie mal, Åber was wollen Sie eigentlich noch alles eine Information haben?@
+#O 24@26@START_MODULE@Klick auf diesen Button startet das Modul. Selbiges funktioniert auch mit Doppelklick auf einen Eintrag in der Liste. Halten Sie beim Start ALT gedrÅckt um in das Exportformular zu gelangen.@
 #T 25@2@EXPORT_MODS@@24@@
 #O 1@20@EMOD_OUTER_BOX@@
 #O 2@25@EMODULES_BOX@@
@@ -355,46 +362,46 @@ ResourceMaster v3.65
 #O 9@21@EMODULE7@@
 #O 10@21@EMODULE8@@
 #O 11@21@EMODULE9@@
-#O 12@26@EXMOD_INFO@@
-#O 13@27@EMOD_UP@@
+#O 12@26@EXMOD_INFO@Hiermit kînnen Sie sich eine Information Åber das aktuell angewÑhlte Modul anzeigen lassen.@
+#O 13@27@EMOD_UP@Benutzen Sie diesen Knopf, um in der Liste nach oben zu Scrollen.@
 #O 14@20@EMODSL_PAR@@
-#O 15@20@EMOD_SLIDER@@
-#O 16@27@EMOD_DN@@
-#O 18@33@EXPORTICON@@
-#O 20@26@START_EMOD@@
-#O 22@25@EXPORT_STANDARD@@
-#O 23@26@EXPORT_OPTIONS@@
+#O 15@20@EMOD_SLIDER@Ziehen Sie den Slider mit festgehaltener linker Maustaste, um die Liste in Echtzeit zu Scrollen.@
+#O 16@27@EMOD_DN@Benutzen Sie diesen Knopf, um in der Liste nach unten zu Scrollen.@
+#O 18@33@EXPORTICON@Dies ist Design.@
+#O 20@26@START_EMOD@Klick auf diesen Button startet das Modul. Selbiges funktioniert auch mit Doppelklick auf einen Eintrag in der Liste.@
+#O 22@25@EXPORT_STANDARD@Der mit diesem Schalter markierte Exporter wird zum Standardexporter. Er wird beim Speicher via Sichern verwendet.@
+#O 23@26@EXPORT_OPTIONS@HierrÅber erreichen Sie einen Dialog in dem nÑhere Einstellung des aktuellen Exporters zur VerfÅgung stehen.@
 #T 26@2@PIC_MANAGER@@23@@
-#O 1@27@PM_UP@@
-#O 2@27@PM_DN@@
+#O 1@27@PM_UP@Klicken Sie auf diesen Button, um in der Liste nach oben zu scrollen.@
+#O 2@27@PM_DN@Klicken Sie auf diesen Button, um in der Liste nach unten zu scrollen.@
 #O 3@20@PMSL_PAR@@
-#O 4@20@PM_SLIDER@@
+#O 4@20@PM_SLIDER@Ziehen sie den Slider mit gedrÅckter linker Maustaste, um in der Liste in Echtzeit zu scrollen.@
 #O 5@20@PM_OUTER_BOX@@
 #O 6@25@PM_BOX@@
-#O 7@22@PM_PIC1@@
-#O 8@22@PM_PIC2@@
-#O 9@22@PM_PIC3@@
-#O 10@22@PM_PIC4@@
-#O 11@22@PM_PIC5@@
-#O 12@22@PM_PIC6@@
-#O 13@22@PM_PIC7@@
-#O 14@22@PM_PIC8@@
-#O 15@20@HW_BOX@@
+#O 7@22@PM_PIC1@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 8@22@PM_PIC2@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 9@22@PM_PIC3@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 10@22@PM_PIC4@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 11@22@PM_PIC5@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 12@22@PM_PIC6@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 13@22@PM_PIC7@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 14@22@PM_PIC8@Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben.@
+#O 15@20@HW_BOX@Hier werden Abmessungen und Farbtiefe des angewÑhlten Bildes angezeigt.@
 #O 16@21@X2@@
-#O 17@21@PM_DEPTH@@
+#O 17@21@PM_DEPTH@Hier wird die Farbtiefe des angewÑhlten Bildes angezeigt.@
 #O 18@21@X1@@
-#O 19@21@PM_WIDTH@@
-#O 20@21@PM_HEIGHT@@
-#O 21@20@PM_PREVBOX@@
-#O 22@20@PICMAN_PREVIEW@@
+#O 19@21@PM_WIDTH@Hier wird die Breite des angewÑhlten Bildes angezeigt.@
+#O 20@21@PM_HEIGHT@Hier wird die Hîhe des angewÑhlten Bildes angezeigt.@
+#O 21@20@PM_PREVBOX@Hier wird eine verkleinerte Vorschau des angewÑhlten Bildes gezeigt.@
+#O 22@20@PICMAN_PREVIEW@Hier wird eine verkleinerte Vorschau des angewÑhlten Bildes gezeigt.@
 #T 27@2@NEWPIC_FORM@@16@@
-#O 2@26@NEWPIC_MAKE@@
-#O 5@29@NEWPIC_WID@@
-#O 6@29@NEWPIC_HGT@@
-#O 7@29@NEWPIC_DPI@@
-#O 10@22@NP_DEPTHPOP@@
+#O 2@26@NEWPIC_MAKE@Mit Verlaub, das mÅûten Sie sich eigentlich auch selber zusammenreimen kînnen. ;-)@
+#O 5@29@NEWPIC_WID@Hier kînnen Sie die Breite des zu erzeugenden Bildes eingeben.@
+#O 6@29@NEWPIC_HGT@Hier kînnen Sie die Hîhe des zu erzeugenden Bildes eingeben.@
+#O 7@29@NEWPIC_DPI@Hier kînnen Sie eine Auflîsung einstellen, die dann wirksam wird, wenn sie die Einheit "Zoll", "Millimeter" oder "DTP-Punkt" gewÑhlt haben.@
+#O 10@22@NP_DEPTHPOP@Hier kînnen Sie die Farbtiefe des zu erzeugenden Bildes wÑhlen.@
 #O 11@25@NPDEPTH_CB@@
-#O 12@22@NP_UNITPB@@
+#O 12@22@NP_UNITPB@Hier kînnen Sie eine andere Einheit fÅr die Breite und Hîhe des zu erzeugenden Bildes wÑhlen.@
 #O 13@25@NP_UNITCB@@
 #O 15@26@NEWPIC_CANCEL@@
 #T 28@1@MENU1@@70@@
@@ -448,15 +455,15 @@ ResourceMaster v3.65
 #O 3@25@CONV_OLDPIC@@
 #O 4@21@CONV_PICNAME@@
 #O 5@21@CONV_SRCDEPTH@@
-#O 9@22@CONV_DITHPB@@
-#O 10@22@CONV_PALPB@@
+#O 9@22@CONV_DITHPB@Hier kînnen Sie den Ditheralgorithmus zum Wandeln des Bildes angeben.@
+#O 10@22@CONV_PALPB@Hier kînnen Sie den Palettensuchalgorithmus zum Wandeln des Bildes angeben.@
 #O 11@25@CONV_DITHCB@@
 #O 12@25@CONV_PALCB@@
-#O 15@22@CONV_DEPTHPB@@
+#O 15@22@CONV_DEPTHPB@Hier kînnen Sie angeben, auf welche Farbtiefe das Bild gewandelt werden soll.@
 #O 16@25@CONV_DEPTHCB@@
-#O 18@26@TFM_LOADPAL@@
-#O 20@26@CONV_START@@
-#O 21@26@TRANSFM_REDUCE@@
+#O 18@26@TFM_LOADPAL@Wenn beim Palettenmodus "feste Palette" eingestellt ist, kînnen Sie hiermit eine Palette im .PAL-Format laden.@
+#O 20@26@CONV_START@Startet das Wandeln des Bildes.@
+#O 21@26@TRANSFM_REDUCE@Mit diesem Button wird das Bild automatisch auf das gÅnstigste Datenformat und die geringste Farbtiefe gewandelt, die ohne QualitÑtsverlust mîglich sind.@
 #O 22@26@TRANSFM_CANCEL@@
 #T 30@2@ALERT_STRINGS@@53@@
 #O 1@21@VWK_ERROR@@
@@ -512,29 +519,29 @@ ResourceMaster v3.65
 #O 51@21@PAL_CHANGED@@
 #O 52@21@PREVIEW_ERR@@
 #T 31@2@BLOCK_TYPE@@11@@
-#O 2@26@BLOCK_OK@@
-#O 3@26@BLOCK_CLR@@
-#O 4@29@BLOCK_XLO@@
-#O 5@29@BLOCK_YLO@@
-#O 7@29@BLOCK_WID@@
-#O 8@29@BLOCK_HGT@@
-#O 9@29@BLOCK_XRU@@
-#O 10@29@BLOCK_YRU@@
+#O 2@26@BLOCK_OK@öbernimmt die Einstellungen und schlieût den Dialog.@
+#O 3@26@BLOCK_CLR@Hebt die Blockmarkierung im aktiven Bild auf.@
+#O 4@29@BLOCK_XLO@Hier kînnen Sie die X-Koordinate der linken oberen Ecke des Blocks im aktiven Bild eingeben.@
+#O 5@29@BLOCK_YLO@Hier kînnen Sie die Y-Koordinate der linken oberen Ecke des Blocks im aktiven Bild eingeben.@
+#O 7@29@BLOCK_WID@Hier kînnen Sie die Breite des Blocks im aktiven Bild eingeben.@
+#O 8@29@BLOCK_HGT@Hier kînnen Sie die Hîhe des Blocks im aktiven Bild eingeben.@
+#O 9@29@BLOCK_XRU@Hier kînnen Sie die X-Koordinate der rechten unteren Ecke des Blocks im aktiven Bild eingeben.@
+#O 10@29@BLOCK_YRU@Hier kînnen Sie die X-Koordinate der rechten unteren Ecke des Blocks im aktiven Bild eingeben.@
 #T 32@2@BLOCK_CONF@@26@@
 #O 2@21@_TIT@@
-#O 3@20@BCONF_F@@
-#O 4@20@BCONF_R@@
-#O 5@22@BCONF_A@@
-#O 8@26@BCONF_OK@@
-#O 9@26@BCONF_SET@@
-#O 15@25@BCONF_REPLACE@@
-#O 16@25@BCONF_ADD@@
-#O 17@25@BCONF_CLIPADD@@
-#O 18@25@BCONF_SUB@@
-#O 19@25@BCONF_CLIPSUB@@
-#O 20@25@BCONF_MULT@@
-#O 23@25@BCONF_WTRANS@@
-#O 24@25@BCONF_BTRANS@@
+#O 3@20@BCONF_F@Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird.@
+#O 4@20@BCONF_R@Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird.@
+#O 5@22@BCONF_A@Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird.@
+#O 8@26@BCONF_OK@öbernimmt die vorgenommenen Einstellungen und schlieût das Fenster.@
+#O 9@26@BCONF_SET@öbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieûen.@
+#O 15@25@BCONF_REPLACE@WÑhlt den EinfÅgemodus "ersetzen". Pixel im Ziel werden einfach durch Pixel des Blocks ersetzt (bzw. in der einstellbaren StÑrke eingerechnet).@
+#O 16@25@BCONF_ADD@WÑhlt den EinfÅgemodus "addieren". Pixel aus Quelle und Ziel werden aufeinander addiert. Ist das Ergebnis grîûer als 255 kommt es zu öberlÑufen, das Ergebnis kann recht wild aussehen.@
+#O 17@25@BCONF_CLIPADD@WÑhlt den EinfÅgemodus "clib-add". Pixel aus Quelle und Ziel werden aufeinander addiert. Ist das Ergebnis grîûer als 255, wird der Farbteil auf 255 gesetzt - das Ergebnis ist also definiert.@
+#O 18@25@BCONF_SUB@WÑhlt den EinfÅgemodus "subtrahieren". Pixel aus Quelle und Ziel werden voneinander subtrahiert. Ist das Ergebnis kleiner als 0 kommt es zu UnterlÑufen, das Ergebnis kann recht wild aussehen.@
+#O 19@25@BCONF_CLIPSUB@WÑhlt den EinfÅgemodus "clip-sub". Pixel aus Quelle und Ziel werden voneinander subtrahiert. Ist das Ergebnis kleiner als 0, wird der Farbteil auf 0 gesetzt - das Ergebnis ist also definiert.@
+#O 20@25@BCONF_MULT@WÑhlt den EinfÅgemodus "multiplizieren". Die Pixel aus Quelle und Ziel werden miteinander multipliziert.@
+#O 23@25@BCONF_WTRANS@Mit dieser Einstellung kînnen Sie Weiû zur transparenten Farbe erklÑren. Weiûe Bereiche werden somit beim EinfÅgen nicht mit Åbernommen.@
+#O 24@25@BCONF_BTRANS@Mit dieser Einstellung kînnen Sie Schwarz zur transparenten Farbe erklÑren. Schwarze Bereiche werden somit beim EinfÅgen nicht mit Åbernommen.@
 #O 25@26@BCONF_CANCEL@@
 #T 33@2@SAVE_MODCONFIG@@5@@
 #O 1@29@MODCONF_NAME@@
@@ -562,4 +569,36 @@ ResourceMaster v3.65
 #O 13@21@WT_TRANSFORM@@
 #O 14@21@WT_BTYPEIN@@
 #O 15@21@WT_BLOCKMODE@@
-#c 14057@
+#B 0@8@EDITMODULE_INFO@@8@@
+#BE0@2@Dies ist Design.@
+#BE1@1@Dies ist, wie man deutlich sieht, ein grauer Balken.@
+#BE2@3@Schlieût den Informationsdialog und kehrt zur Modulliste zurÅck.@
+#BE3@4@Dies ist der Dateiname des Moduls.@
+#BE4@15@Dies ist die Modulversion.@
+#BE5@5@Dies ist der Name des Modulautors.@
+#BE6@6@Dies sind die Bild-Farbtiefen, mit denen das Modul arbeiten kann.@
+#BE7@8@Der volle Name des Moduls.@
+#B 1@8@EXPORTMODUL_INFO@@8@@
+#BE0@1@Wieso klicken Sie eigentlich mit der rechten Maustaste auf die abwegigsten Objekte?@
+#BE1@2@Dies ist Design.@
+#BE2@3@Schlieût den Informationsdialog und kehrt zur Modulliste zurÅck.@
+#BE3@4@Dies ist der Dateiname des Moduls.@
+#BE4@5@Dies ist der Name des Modulautors.@
+#BE5@6@Dies sind die Bild-Farbtiefen, in denen Bilder in diesem Format exportiert werden kînnen.@
+#BE6@8@Der volle Name des Moduls.@
+#BE7@16@Dies ist die Modulversion.@
+#B 2@8@BILDFENSTER@@13@@
+#BE0@1@Hier kînnen sie die Grîûe der Bildschirmdarstellung fÅr dieses Bild einstellen.@
+#BE1@2@Dieser Button îffnet die Bildinformation.@
+#BE2@5@Hier wird der Rot-Wert des Pixels angezeigt, Åber dem sich der Mauszeiger befindet.@
+#BE3@6@Hier wird der GrÅn-Wert des Pixels angezeigt, Åber dem sich der Mauszeiger befindet.@
+#BE4@8@Hier wird der Blau-Wert des Pixels angezeigt, Åber dem sich der Mauszeiger befindet.@
+#BE5@11@Bei Palettenbildern wird hier der Palettenindex des Pixels unter dem Mauszeiger angezeigt.@
+#BE6@12@'x' und 'y' zeigen die Mausposition an, 'w' und 'h' die Breite und Hîhe des Blockes im Bild.@
+#BE7@17@'x' und 'y' zeigen die Mausposition an, 'w' und 'h' die Breite und Hîhe des Blockes im Bild.@
+#BE8@18@Hier wird meistens die X-Koordinate der Mausposition angezeigt. Ziehen Sie einen Block auf oder verschieben ihn, wird die X-Koordinate der linken oberen Blockecke angezeigt.@
+#BE9@19@Hier wird meistens die Y-Koordinate der Mausposition angezeigt. Ziehen Sie einen Block auf oder verschieben ihn, wird die Y-Koordinate der linken oberen Blockecke angezeigt.@
+#BE10@20@'x' und 'y' zeigen die Mausposition an, 'w' und 'h' die Breite und Hîhe des Blockes im aktiven Bild.@
+#BE11@21@Hier wird die Breite des Blocks im Bild angezeigt sofern einer aufgezogen ist.@
+#BE12@22@Hier wird die Hîhe des Blocks im Bild angezeigt sofern einer aufgezogen ist.@
+#c 11154@

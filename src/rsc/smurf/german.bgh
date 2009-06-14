@@ -1,0 +1,167 @@
+#BGH 000 000 000
+
+ BubbleGEM Help-File by RSM2OUT v1.97 fr ResourceMaster ab v2.06 by ARDISOFT
+
+#Dial 013 
+# 005 Dieser Balken zeigt den Fortschritt der momentan laufenden Aktion an. Mit Linksklick kann das Aussehen gew„hlt werden.
+#Dial 020 
+# 002 Hiermit k”nnen Sie die Registerkarte fr die Oberfl„chenkonfiguration ”ffnen.
+# 003 Hiermit k”nnen Sie die Registerkarte fr die allgmeine Konfiguration ”ffnen.
+# 004 Hiermit k”nnen Sie die Registerkarte fr die Konfiguration der Previews und Thumbnails ”ffnen.
+# 005 Hiermit k”nnen Sie die Registerkarte fr die Konfiguration von Bildkonvertierungen ”ffnen.
+# 009 Wenn der Profi-Modus eingeschaltet ist, werden Warnungen vor einigen Aktionen unterdrckt.
+# 010 Wenn diese Option eingeschaltet ist, wird beim Kopieren ins Clipboard immer der Bildausschnitt in originaler Farbtiefe bernommen.
+# 012 Wenn die Window-Alerts eingeschaltet sind, werden die Warnungsboxen von Smurf in Fenstern ausgegeben.
+# 014 Zentriert die Dialoge beim ™ffnen in der Bildschirmmitte.
+# 016 Wenn diese Checkbox selektiert ist, wird der ver„nderte Teil eines Bildes beim Redraw neu gedithert.
+# 017 Hier k”nnen Sie die Gr”e ausw„hlen, in der Photo CD - Bilder defaultm„ig geladen werden sollen.
+# 019 Wenn diese Option eingeschaltet ist, werden die Ergebnisse der Bearbeitungsmodule in neue Bilder bernommen, das Originalbild bleibt erhalten.
+# 022 Mit diesem Button kann eine neue Importerliste generiert werden. Diese beschleunigt das Laden von Bildern um Faktoren!
+# 024 Hier k”nnen Sie die Farbe ausw„hlen, mit der Bildfenster auerhalb des eigentlichen Bildbereiches gefllt werden sollen.
+# 032 Das Scrollen in Bildfenstern mit der Tastatur wird bei wiederholten Tastendrcken schneller.
+# 033 Es wird beim Scrollen in Bildfenstern mit der Tastatur nur eine Tastatureingabe auf einmal verarbeitet.
+# 038 W„hlt ein abgefahrenes Oberfl„chenaussehen aus.
+# 039 W„hlt den Oberfl„chenmodus 'Therapy' aus. ;-)
+# 040 W„hlt ein Standard-Oberfl„chenaussehen aus.
+# 041 šbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieen.
+# 046 Hier k”nnen Sie die Dithermethode fr Modul-Previews w„hlen. Es sind nur Dithermethoden m”glich, mit denen nach Systempalette gedithert werden kann!
+# 047 Hier k”nnen Sie die Dithermethode fr die Thumbnails im Bildmanager eingestellt werden.
+# 052 Hier k”nnen Sie die Methode einstellen, mit der die Modulpreviews bei deren Verschieben gedithert werden sollen. Es sind nur Dithermethoden m”glich, mit denen nach Systempalette gedithert werden kann!
+# 055 Wenn diese Checkbox selektiert ist, werden Previews bei der nderung von Einstellungen im Einstellformular sofort neu erstellt.
+# 056 Dies ist Design.
+# 057 šbernimmt die vorgenommenen Einstellungen und schliet das Fenster.
+# 058 Schliet den Dialog ohne šbernahme der neuen Einstellungen.
+# 062 Hier k”nnen Sie einstellen, mit welchem Ditheralgorithmus Bilder bei einer automatischen Farbreduktion gewandelt werden sollen.
+# 065 Hier k”nnen Sie einstellen, welcher Palettenmodus fr automatische Farbreduktion verwendet werden soll.
+# 070 Hiermit wird die RGB->CMYK-Konversion mit Unterfarbenreduktion in der angegebenen St„rke vorgenommen. Die Reduktionskurven k”nnen unten eingestellt werden.
+# 072 Hier k”nnen Sie die Kurven fr die Unterfarbenreduktion einstellen.
+# 073 Hiermit wird die RGB->CMYK-Konversion mit Skelettschwarz in der angegebenen St„rke vorgenommen.
+#Dial 021 
+# 002 Dies ist Design.
+# 003 šbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieen.
+# 006 Hier k”nnen Sie die Dithermethode angeben, mit der Bilder die im links angegebenen Farbtiefenbereich liegen fr die Darstellung am Bildschirm gedithert werden.
+# 008 Hier k”nnen Sie die Palette angeben, mit der Bilder die im links angegebenen Farbtiefenbereich liegen angezeigt werden.
+# 012 Wenn Sie bei 'Palette' die Option 'feste Palette' gew„hlt haben, k”nnen Sie hiermit eine Palettendatei laden.
+# 016 Wenn dieser Radiobutton selektiert ist, k”nnen Sie die Ditheroptionen fr Bilder mit 17-256 Farben ausw„hlen.
+# 017 Wenn dieser Radiobutton selektiert ist, k”nnen Sie die Ditheroptionen fr Bilder mit 2-16 Farben ausw„hlen.
+# 018 Wenn dieser Radiobutton selektiert ist, k”nnen Sie die Ditheroptionen fr Bilder mit mehr als 256 Farben ausw„hlen.
+# 023 Wenn diese Option selektiert ist, wird die dargestellte Farbpalette in Abh„ngigkeit der Mausposition umgeschaltet.
+# 025 Wenn diese Option selektiert ist, wird unabh„ngig von Dithereinstellungen und oberstem Fenster immer die Systempalette aktiviert.
+# 027 Wenn diese Option selektiert ist, entspricht die dargestellte Farbpalette der des obersten Bildfensters. Ansonsten wird die Systempalette verwendet.
+# 032 šbernimmt die vorgenommenen Einstellungen und schliet das Fenster.
+# 033 Hier k”nnen Sie die Zeit fr den globalen Timer in ms einstellen.
+# 034 Schliet den Dialog ohne šbernahme der neuen Einstellungen.
+#Dial 023 
+# 001 Hier k”nnen Sie die Dithermethode w„hlen, die verwendet werden soll, um das zu exportierende Bild auf die gew„hlte Farbtiefe zu bringen.
+# 002 Hier k”nnen Sie die Farbtiefe des zu exportierenden Bildes w„hlen. Es werden nur die Farbtiefen angezeigt, die das gew„hlte Format untersttzt.
+# 010 Hier k”nnen Sie die Palette w„hlen, die zum Dithern auf die gew„hlte Farbtiefe verwendet werden soll.
+# 013 Wenn das gew„hlte Exportmodul eine erweiterte Konfiguration untersttzt, k”nnen Sie diese mit diesem Button aufrufen.
+# 015 Dies ist Design.
+# 017 Startet den Export mit den gew„hlten Parametern.
+# 018 Wenn Sie bei 'Palette' die Option 'Feste Palette' gew„hlt haben, k”nnen Sie mit diesem Button eine Palettendatei w„hlen.
+#Dial 024 
+# 001 Hiermit k”nnen Sie sich eine Information ber das aktuell angew„hlte Modul anzeigen lassen.
+# 002 (Seufz...) manchmal ist ein grauer Balken eben einfach nur ein grauer Balken.
+# 003 Dies ist Design.
+# 015 Benutzen Sie diesen Knopf, um in der Liste nach oben zu Scrollen.
+# 017 Ziehen Sie den Slider mit festgehaltener linker Maustaste, um die Liste in Echtzeit zu Scrollen.
+# 018 Benutzen Sie diesen Knopf, um in der Liste nach unten zu Scrollen.
+# 020 Dies wird einmal der Name einer Modulgruppe sein. Dieses Feature ist noch nicht implementiert.
+# 022 Sagen Sie mal, ber was wollen Sie eigentlich noch alles eine Information haben?
+# 024 Klick auf diesen Button startet das Modul. Selbiges funktioniert auch mit Doppelklick auf einen Eintrag in der Liste. Halten Sie beim Start ALT gedrckt um in das Exportformular zu gelangen.
+#Dial 025 
+# 012 Hiermit k”nnen Sie sich eine Information ber das aktuell angew„hlte Modul anzeigen lassen.
+# 013 Benutzen Sie diesen Knopf, um in der Liste nach oben zu Scrollen.
+# 015 Ziehen Sie den Slider mit festgehaltener linker Maustaste, um die Liste in Echtzeit zu Scrollen.
+# 016 Benutzen Sie diesen Knopf, um in der Liste nach unten zu Scrollen.
+# 018 Dies ist Design.
+# 020 Klick auf diesen Button startet das Modul. Selbiges funktioniert auch mit Doppelklick auf einen Eintrag in der Liste.
+# 022 Der mit diesem Schalter markierte Exporter wird zum Standardexporter. Er wird beim Speicher via Sichern verwendet.
+# 023 Hierrber erreichen Sie einen Dialog in dem n„here Einstellung des aktuellen Exporters zur Verfgung stehen.
+#Dial 026 
+# 001 Klicken Sie auf diesen Button, um in der Liste nach oben zu scrollen.
+# 002 Klicken Sie auf diesen Button, um in der Liste nach unten zu scrollen.
+# 004 Ziehen sie den Slider mit gedrckter linker Maustaste, um in der Liste in Echtzeit zu scrollen.
+# 007 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 008 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 009 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 010 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 011 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 012 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 013 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 014 Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auerdem k”nnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu bergeben.
+# 015 Hier werden Abmessungen und Farbtiefe des angew„hlten Bildes angezeigt.
+# 017 Hier wird die Farbtiefe des angew„hlten Bildes angezeigt.
+# 019 Hier wird die Breite des angew„hlten Bildes angezeigt.
+# 020 Hier wird die H”he des angew„hlten Bildes angezeigt.
+# 021 Hier wird eine verkleinerte Vorschau des angew„hlten Bildes gezeigt.
+# 022 Hier wird eine verkleinerte Vorschau des angew„hlten Bildes gezeigt.
+#Dial 027 
+# 002 Mit Verlaub, das mten Sie sich eigentlich auch selber zusammenreimen k”nnen. ;-)
+# 005 Hier k”nnen Sie die Breite des zu erzeugenden Bildes eingeben.
+# 006 Hier k”nnen Sie die H”he des zu erzeugenden Bildes eingeben.
+# 007 Hier k”nnen Sie eine Aufl”sung einstellen, die dann wirksam wird, wenn sie die Einheit "Zoll", "Millimeter" oder "DTP-Punkt" gew„hlt haben.
+# 010 Hier k”nnen Sie die Farbtiefe des zu erzeugenden Bildes w„hlen.
+# 012 Hier k”nnen Sie eine andere Einheit fr die Breite und H”he des zu erzeugenden Bildes w„hlen.
+#Dial 029 
+# 009 Hier k”nnen Sie den Ditheralgorithmus zum Wandeln des Bildes angeben.
+# 010 Hier k”nnen Sie den Palettensuchalgorithmus zum Wandeln des Bildes angeben.
+# 015 Hier k”nnen Sie angeben, auf welche Farbtiefe das Bild gewandelt werden soll.
+# 018 Wenn beim Palettenmodus "feste Palette" eingestellt ist, k”nnen Sie hiermit eine Palette im .PAL-Format laden.
+# 020 Startet das Wandeln des Bildes.
+# 021 Mit diesem Button wird das Bild automatisch auf das gnstigste Datenformat und die geringste Farbtiefe gewandelt, die ohne Qualit„tsverlust m”glich sind.
+#Dial 031 
+# 002 šbernimmt die Einstellungen und schliet den Dialog.
+# 003 Hebt die Blockmarkierung im aktiven Bild auf.
+# 004 Hier k”nnen Sie die X-Koordinate der linken oberen Ecke des Blocks im aktiven Bild eingeben.
+# 005 Hier k”nnen Sie die Y-Koordinate der linken oberen Ecke des Blocks im aktiven Bild eingeben.
+# 007 Hier k”nnen Sie die Breite des Blocks im aktiven Bild eingeben.
+# 008 Hier k”nnen Sie die H”he des Blocks im aktiven Bild eingeben.
+# 009 Hier k”nnen Sie die X-Koordinate der rechten unteren Ecke des Blocks im aktiven Bild eingeben.
+# 010 Hier k”nnen Sie die X-Koordinate der rechten unteren Ecke des Blocks im aktiven Bild eingeben.
+#Dial 032 
+# 003 Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird.
+# 004 Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird.
+# 005 Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird.
+# 008 šbernimmt die vorgenommenen Einstellungen und schliet das Fenster.
+# 009 šbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieen.
+# 015 W„hlt den Einfgemodus "ersetzen". Pixel im Ziel werden einfach durch Pixel des Blocks ersetzt (bzw. in der einstellbaren St„rke eingerechnet).
+# 016 W„hlt den Einfgemodus "addieren". Pixel aus Quelle und Ziel werden aufeinander addiert. Ist das Ergebnis gr”er als 255 kommt es zu šberl„ufen, das Ergebnis kann recht wild aussehen.
+# 017 W„hlt den Einfgemodus "clib-add". Pixel aus Quelle und Ziel werden aufeinander addiert. Ist das Ergebnis gr”er als 255, wird der Farbteil auf 255 gesetzt - das Ergebnis ist also definiert.
+# 018 W„hlt den Einfgemodus "subtrahieren". Pixel aus Quelle und Ziel werden voneinander subtrahiert. Ist das Ergebnis kleiner als 0 kommt es zu Unterl„ufen, das Ergebnis kann recht wild aussehen.
+# 019 W„hlt den Einfgemodus "clip-sub". Pixel aus Quelle und Ziel werden voneinander subtrahiert. Ist das Ergebnis kleiner als 0, wird der Farbteil auf 0 gesetzt - das Ergebnis ist also definiert.
+# 020 W„hlt den Einfgemodus "multiplizieren". Die Pixel aus Quelle und Ziel werden miteinander multipliziert.
+# 023 Mit dieser Einstellung k”nnen Sie Wei zur transparenten Farbe erkl„ren. Weie Bereiche werden somit beim Einfgen nicht mit bernommen.
+# 024 Mit dieser Einstellung k”nnen Sie Schwarz zur transparenten Farbe erkl„ren. Schwarze Bereiche werden somit beim Einfgen nicht mit bernommen.
+#User 000 
+# 002 Dies ist Design.
+# 001 Dies ist, wie man deutlich sieht, ein grauer Balken.
+# 003 Schliet den Informationsdialog und kehrt zur Modulliste zurck.
+# 004 Dies ist der Dateiname des Moduls.
+# 015 Dies ist die Modulversion.
+# 005 Dies ist der Name des Modulautors.
+# 006 Dies sind die Bild-Farbtiefen, mit denen das Modul arbeiten kann.
+# 008 Der volle Name des Moduls.
+#User 001 
+# 001 Wieso klicken Sie eigentlich mit der rechten Maustaste auf die abwegigsten Objekte?
+# 002 Dies ist Design.
+# 003 Schliet den Informationsdialog und kehrt zur Modulliste zurck.
+# 004 Dies ist der Dateiname des Moduls.
+# 005 Dies ist der Name des Modulautors.
+# 006 Dies sind die Bild-Farbtiefen, in denen Bilder in diesem Format exportiert werden k”nnen.
+# 008 Der volle Name des Moduls.
+# 016 Dies ist die Modulversion.
+#User 002 
+# 001 Hier k”nnen sie die Gr”e der Bildschirmdarstellung fr dieses Bild einstellen.
+# 002 Dieser Button ”ffnet die Bildinformation.
+# 005 Hier wird der Rot-Wert des Pixels angezeigt, ber dem sich der Mauszeiger befindet.
+# 006 Hier wird der Grn-Wert des Pixels angezeigt, ber dem sich der Mauszeiger befindet.
+# 008 Hier wird der Blau-Wert des Pixels angezeigt, ber dem sich der Mauszeiger befindet.
+# 011 Bei Palettenbildern wird hier der Palettenindex des Pixels unter dem Mauszeiger angezeigt.
+# 012 'x' und 'y' zeigen die Mausposition an, 'w' und 'h' die Breite und H”he des Blockes im Bild.
+# 017 'x' und 'y' zeigen die Mausposition an, 'w' und 'h' die Breite und H”he des Blockes im Bild.
+# 018 Hier wird meistens die X-Koordinate der Mausposition angezeigt. Ziehen Sie einen Block auf oder verschieben ihn, wird die X-Koordinate der linken oberen Blockecke angezeigt.
+# 019 Hier wird meistens die Y-Koordinate der Mausposition angezeigt. Ziehen Sie einen Block auf oder verschieben ihn, wird die Y-Koordinate der linken oberen Blockecke angezeigt.
+# 020 'x' und 'y' zeigen die Mausposition an, 'w' und 'h' die Breite und H”he des Blockes im aktiven Bild.
+# 021 Hier wird die Breite des Blocks im Bild angezeigt sofern einer aufgezogen ist.
+# 022 Hier wird die H”he des Blocks im Bild angezeigt sofern einer aufgezogen ist.

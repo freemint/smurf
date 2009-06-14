@@ -155,6 +155,7 @@
 #define BW_MAIN 0  /* BOX in tree BUSY_WINDOW */
 #define BW_TXT 1  /* BOXTEXT in tree BUSY_WINDOW */
 #define BW_MEMORY 2  /* TEXT in tree BUSY_WINDOW */
+/* Dieser Balken zeigt den Fortschritt der momentan laufenden Aktion an. Mit Linksklick kann das Aussehen gewÑhlt werden. */
 #define BW_ICON 5  /* CICON in tree BUSY_WINDOW */
 #define BW_BOX 6  /* BOX in tree BUSY_WINDOW */
 
@@ -223,62 +224,103 @@
 
 #define SMURF_OPTIONS 20  /* form/dial */
 #define BUTTONS_BOX 1  /* BOX in tree SMURF_OPTIONS */
+/* Hiermit kînnen Sie die Registerkarte fÅr die OberflÑchenkonfiguration îffnen. */
 #define INTERFACE_BUTTON 2  /* BOXTEXT in tree SMURF_OPTIONS */
+/* Hiermit kînnen Sie die Registerkarte fÅr die allgmeine Konfiguration îffnen. */
 #define MISC_BUTTON 3  /* BOXTEXT in tree SMURF_OPTIONS */
+/* Hiermit kînnen Sie die Registerkarte fÅr die Konfiguration der Previews und Thumbnails îffnen. */
 #define PREVIEWS_BUTTON 4  /* BOXTEXT in tree SMURF_OPTIONS */
+/* Hiermit kînnen Sie die Registerkarte fÅr die Konfiguration von Bildkonvertierungen îffnen. */
 #define CONVERS_BUTTON 5  /* BOXTEXT in tree SMURF_OPTIONS */
 #define MISC_BOX 6  /* BOX in tree SMURF_OPTIONS */
+/* Wenn der Profi-Modus eingeschaltet ist, werden Warnungen vor einigen Aktionen unterdrÅckt. */
 #define OPT_PROFI 9  /* IBOX in tree SMURF_OPTIONS */
+/* Wenn diese Option eingeschaltet ist, wird beim Kopieren ins Clipboard immer der Bildausschnitt in originaler Farbtiefe Åbernommen. */
 #define ORIGINAL_CLIP 10  /* IBOX in tree SMURF_OPTIONS */
+/* Wenn die Window-Alerts eingeschaltet sind, werden die Warnungsboxen von Smurf in Fenstern ausgegeben. */
 #define OPT_WINDOWALERT 12  /* IBOX in tree SMURF_OPTIONS */
+/* Zentriert die Dialoge beim ôffnen in der Bildschirmmitte. */
 #define OPT_CENTER 14  /* IBOX in tree SMURF_OPTIONS */
+/* Wenn diese Checkbox selektiert ist, wird der verÑnderte Teil eines Bildes beim Redraw neu gedithert. */
 #define REALTIME_DITHER 16  /* IBOX in tree SMURF_OPTIONS */
+/* Hier kînnen Sie die Grîûe auswÑhlen, in der Photo CD - Bilder defaultmÑûig geladen werden sollen. */
 #define PCD_DEF_PB 17  /* BOXTEXT in tree SMURF_OPTIONS */
+/* Wenn diese Option eingeschaltet ist, werden die Ergebnisse der Bearbeitungsmodule in neue Bilder Åbernommen, das Originalbild bleibt erhalten. */
 #define EIDT_NEWPIC 19  /* IBOX in tree SMURF_OPTIONS */
 #define PCD_DEF_CB 21  /* IBOX in tree SMURF_OPTIONS */
+/* Mit diesem Button kann eine neue Importerliste generiert werden. Diese beschleunigt das Laden von Bildern um Faktoren! */
 #define OPT_IMPLIST 22  /* BUTTON in tree SMURF_OPTIONS */
 #define INTERFACE_BOX 23  /* BOX in tree SMURF_OPTIONS */
+/* Hier kînnen Sie die Farbe auswÑhlen, mit der Bildfenster auûerhalb des eigentlichen Bildbereiches gefÅllt werden sollen. */
 #define OUTCOL 24  /* BOXTEXT in tree SMURF_OPTIONS */
 #define OCOL_CB 25  /* IBOX in tree SMURF_OPTIONS */
 #define OCOL_DISP 27  /* BOX in tree SMURF_OPTIONS */
+/* Das Scrollen in Bildfenstern mit der Tastatur wird bei wiederholten TastendrÅcken schneller. */
 #define KBEV_JOIN 32  /* IBOX in tree SMURF_OPTIONS */
+/* Es wird beim Scrollen in Bildfenstern mit der Tastatur nur eine Tastatureingabe auf einmal verarbeitet. */
 #define KBEV_DELETE 33  /* IBOX in tree SMURF_OPTIONS */
+/* WÑhlt ein abgefahrenes OberflÑchenaussehen aus. */
 #define ENV_SILLY 38  /* IBOX in tree SMURF_OPTIONS */
+/* WÑhlt den OberflÑchenmodus 'Therapy' aus. ;-) */
 #define ENV_THERAPY 39  /* IBOX in tree SMURF_OPTIONS */
+/* WÑhlt ein Standard-OberflÑchenaussehen aus. */
 #define ENV_STANDARD 40  /* IBOX in tree SMURF_OPTIONS */
+/* öbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieûen. */
 #define OPT_SET 41  /* BUTTON in tree SMURF_OPTIONS */
 #define PREVIEWS_BOX 44  /* BOX in tree SMURF_OPTIONS */
+/* Hier kînnen Sie die Dithermethode fÅr Modul-Previews wÑhlen. Es sind nur Dithermethoden mîglich, mit denen nach Systempalette gedithert werden kann! */
 #define PREVDIT_PB 46  /* BOXTEXT in tree SMURF_OPTIONS */
+/* Hier kînnen Sie die Dithermethode fÅr die Thumbnails im Bildmanager eingestellt werden. */
 #define PICMANDIT_PB 47  /* BOXTEXT in tree SMURF_OPTIONS */
 #define PICMANDIT_CB 48  /* IBOX in tree SMURF_OPTIONS */
 #define PREVDIT_CB 50  /* IBOX in tree SMURF_OPTIONS */
+/* Hier kînnen Sie die Methode einstellen, mit der die Modulpreviews bei deren Verschieben gedithert werden sollen. Es sind nur Dithermethoden mîglich, mit denen nach Systempalette gedithert werden kann! */
 #define MOVE_PREVDIT_PB 52  /* BOXTEXT in tree SMURF_OPTIONS */
 #define MOVE_PREVDIT_CB 53  /* IBOX in tree SMURF_OPTIONS */
+/* Wenn diese Checkbox selektiert ist, werden Previews bei der énderung von Einstellungen im Einstellformular sofort neu erstellt. */
 #define OPT_PREVS 55  /* IBOX in tree SMURF_OPTIONS */
+/* Dies ist Design. */
 #define OPTIONSICON 56  /* CICON in tree SMURF_OPTIONS */
+/* öbernimmt die vorgenommenen Einstellungen und schlieût das Fenster. */
 #define OPT_OK 57  /* BUTTON in tree SMURF_OPTIONS */
+/* Schlieût den Dialog ohne öbernahme der neuen Einstellungen. */
 #define OPTS_CANCEL 58  /* BUTTON in tree SMURF_OPTIONS */
 #define CONVERSION_BOX 59  /* BOX in tree SMURF_OPTIONS */
+/* Hier kînnen Sie einstellen, mit welchem Ditheralgorithmus Bilder bei einer automatischen Farbreduktion gewandelt werden sollen. */
 #define AUTODIT_PB 62  /* BOXTEXT in tree SMURF_OPTIONS */
 #define AUTODIT_CB 63  /* IBOX in tree SMURF_OPTIONS */
+/* Hier kînnen Sie einstellen, welcher Palettenmodus fÅr automatische Farbreduktion verwendet werden soll. */
 #define AUTOPAL_PB 65  /* BOXTEXT in tree SMURF_OPTIONS */
 #define AUTOPAL_CB 66  /* IBOX in tree SMURF_OPTIONS */
 
 #define DISPLAY_OPTIONS 21  /* form/dial */
+/* öbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieûen. */
 #define DISPLAY_SET 3  /* BUTTON in tree DISPLAY_OPTIONS */
+/* Hier kînnen Sie die Dithermethode angeben, mit der Bilder die im links angegebenen Farbtiefenbereich liegen fÅr die Darstellung am Bildschirm gedithert werden. */
 #define DITHER_POPBUT 6  /* BOXTEXT in tree DISPLAY_OPTIONS */
 #define DITHER_CB 7  /* IBOX in tree DISPLAY_OPTIONS */
+/* Hier kînnen Sie die Palette angeben, mit der Bilder die im links angegebenen Farbtiefenbereich liegen angezeigt werden. */
 #define COLRED_POPBUT 8  /* BOXTEXT in tree DISPLAY_OPTIONS */
 #define COLRED_CB 9  /* IBOX in tree DISPLAY_OPTIONS */
+/* Wenn Sie bei 'Palette' die Option 'feste Palette' gewÑhlt haben, kînnen Sie hiermit eine Palettendatei laden. */
 #define LOAD_PAL 12  /* BUTTON in tree DISPLAY_OPTIONS */
+/* Wenn dieser Radiobutton selektiert ist, kînnen Sie die Ditheroptionen fÅr Bilder mit 17-256 Farben auswÑhlen. */
 #define DITHER_8 16  /* IBOX in tree DISPLAY_OPTIONS */
+/* Wenn dieser Radiobutton selektiert ist, kînnen Sie die Ditheroptionen fÅr Bilder mit 2-16 Farben auswÑhlen. */
 #define DITHER_4 17  /* IBOX in tree DISPLAY_OPTIONS */
+/* Wenn dieser Radiobutton selektiert ist, kînnen Sie die Ditheroptionen fÅr Bilder mit mehr als 256 Farben auswÑhlen. */
 #define DITHER_24 18  /* IBOX in tree DISPLAY_OPTIONS */
+/* Wenn diese Option selektiert ist, wird die dargestellte Farbpalette in AbhÑngigkeit der Mausposition umgeschaltet. */
 #define PAL_MOUSE 23  /* IBOX in tree DISPLAY_OPTIONS */
+/* Wenn diese Option selektiert ist, wird unabhÑngig von Dithereinstellungen und oberstem Fenster immer die Systempalette aktiviert. */
 #define PAL_TOPWIN 25  /* IBOX in tree DISPLAY_OPTIONS */
+/* Wenn diese Option selektiert ist, entspricht die dargestellte Farbpalette der des obersten Bildfensters. Ansonsten wird die Systempalette verwendet. */
 #define PAL_SYSTEM 27  /* IBOX in tree DISPLAY_OPTIONS */
+/* öbernimmt die vorgenommenen Einstellungen und schlieût das Fenster. */
 #define DISPLAY_OK 32  /* BUTTON in tree DISPLAY_OPTIONS */
+/* Hier kînnen Sie die Zeit fÅr den globalen Timer in ms einstellen. */
 #define PAL_TIMER 33  /* FTEXT in tree DISPLAY_OPTIONS */
+/* Schlieût den Dialog ohne öbernahme der neuen Einstellungen. */
 #define DISPOPTS_CANCEL 34  /* BUTTON in tree DISPLAY_OPTIONS */
 
 #define MOD_FORM 22  /* form/dial */
@@ -327,21 +369,29 @@
 #define MCONF_STDLOAD 45  /* BUTTON in tree MOD_FORM */
 
 #define EXPORT_FORM 23  /* form/dial */
+/* Hier kînnen Sie die Dithermethode wÑhlen, die verwendet werden soll, um das zu exportierende Bild auf die gewÑhlte Farbtiefe zu bringen. */
 #define EXP_DITHER 1  /* BOXTEXT in tree EXPORT_FORM */
+/* Hier kînnen Sie die Farbtiefe des zu exportierenden Bildes wÑhlen. Es werden nur die Farbtiefen angezeigt, die das gewÑhlte Format unterstÅtzt. */
 #define EXP_DEPTH 2  /* BOXTEXT in tree EXPORT_FORM */
 #define EXPORT_COLFORMAT 6  /* BOXTEXT in tree EXPORT_FORM */
 #define EXP_DEPTHC 7  /* IBOX in tree EXPORT_FORM */
 #define EXP_COLC 8  /* IBOX in tree EXPORT_FORM */
 #define EXP_DITHERC 9  /* IBOX in tree EXPORT_FORM */
+/* Hier kînnen Sie die Palette wÑhlen, die zum Dithern auf die gewÑhlte Farbtiefe verwendet werden soll. */
 #define EXP_COLRED 10  /* BOXTEXT in tree EXPORT_FORM */
 #define EXP_COLREDC 12  /* IBOX in tree EXPORT_FORM */
+/* Wenn das gewÑhlte Exportmodul eine erweiterte Konfiguration unterstÅtzt, kînnen Sie diese mit diesem Button aufrufen. */
 #define EXPORT_MORE 13  /* BUTTON in tree EXPORT_FORM */
+/* Startet den Export mit den gewÑhlten Parametern. */
 #define START_EXPORT 17  /* BUTTON in tree EXPORT_FORM */
+/* Wenn Sie bei 'Palette' die Option 'Feste Palette' gewÑhlt haben, kînnen Sie mit diesem Button eine Palettendatei wÑhlen. */
 #define LOAD_EXPPAL 18  /* BUTTON in tree EXPORT_FORM */
 #define EXPFORM_CANCEL 19  /* BUTTON in tree EXPORT_FORM */
 
 #define MODULES 24  /* form/dial */
+/* Hiermit kînnen Sie sich eine Information Åber das aktuell angewÑhlte Modul anzeigen lassen. */
 #define INFO_MODULE 1  /* BUTTON in tree MODULES */
+/* Dies ist Design. */
 #define MODULESICON 3  /* CICON in tree MODULES */
 #define MODULES_BOX 4  /* BOX in tree MODULES */
 #define ENTRYPARENT 5  /* IBOX in tree MODULES */
@@ -354,14 +404,20 @@
 #define MODULE7 12  /* TEXT in tree MODULES */
 #define MODULE8 13  /* TEXT in tree MODULES */
 #define MODULE9 14  /* TEXT in tree MODULES */
+/* Benutzen Sie diesen Knopf, um in der Liste nach oben zu Scrollen. */
 #define UP_MODULE 15  /* BOXCHAR in tree MODULES */
 #define SBACK_MODULE 16  /* BOX in tree MODULES */
+/* Ziehen Sie den Slider mit festgehaltener linker Maustaste, um die Liste in Echtzeit zu Scrollen. */
 #define SLID_MODULE 17  /* BOX in tree MODULES */
+/* Benutzen Sie diesen Knopf, um in der Liste nach unten zu Scrollen. */
 #define DN_MODULE 18  /* BOXCHAR in tree MODULES */
 #define GNAME_BOX 19  /* BOX in tree MODULES */
+/* Dies wird einmal der Name einer Modulgruppe sein. Dieses Feature ist noch nicht implementiert. */
 #define GOURP_NAME 20  /* TEXT in tree MODULES */
 #define GBACK_BOX 21  /* BOX in tree MODULES */
+/* Sagen Sie mal, Åber was wollen Sie eigentlich noch alles eine Information haben? */
 #define GROUP_BACK 22  /* ICON in tree MODULES */
+/* Klick auf diesen Button startet das Modul. Selbiges funktioniert auch mit Doppelklick auf einen Eintrag in der Liste. Halten Sie beim Start ALT gedrÅckt um in das Exportformular zu gelangen. */
 #define START_MODULE 24  /* BUTTON in tree MODULES */
 
 #define EXPORT_MODS 25  /* form/dial */
@@ -376,47 +432,78 @@
 #define EMODULE7 9  /* TEXT in tree EXPORT_MODS */
 #define EMODULE8 10  /* TEXT in tree EXPORT_MODS */
 #define EMODULE9 11  /* TEXT in tree EXPORT_MODS */
+/* Hiermit kînnen Sie sich eine Information Åber das aktuell angewÑhlte Modul anzeigen lassen. */
 #define EXMOD_INFO 12  /* BUTTON in tree EXPORT_MODS */
+/* Benutzen Sie diesen Knopf, um in der Liste nach oben zu Scrollen. */
 #define EMOD_UP 13  /* BOXCHAR in tree EXPORT_MODS */
 #define EMODSL_PAR 14  /* BOX in tree EXPORT_MODS */
+/* Ziehen Sie den Slider mit festgehaltener linker Maustaste, um die Liste in Echtzeit zu Scrollen. */
 #define EMOD_SLIDER 15  /* BOX in tree EXPORT_MODS */
+/* Benutzen Sie diesen Knopf, um in der Liste nach unten zu Scrollen. */
 #define EMOD_DN 16  /* BOXCHAR in tree EXPORT_MODS */
+/* Dies ist Design. */
 #define EXPORTICON 18  /* CICON in tree EXPORT_MODS */
+/* Klick auf diesen Button startet das Modul. Selbiges funktioniert auch mit Doppelklick auf einen Eintrag in der Liste. */
 #define START_EMOD 20  /* BUTTON in tree EXPORT_MODS */
+/* Der mit diesem Schalter markierte Exporter wird zum Standardexporter. Er wird beim Speicher via Sichern verwendet. */
 #define EXPORT_STANDARD 22  /* IBOX in tree EXPORT_MODS */
+/* HierrÅber erreichen Sie einen Dialog in dem nÑhere Einstellung des aktuellen Exporters zur VerfÅgung stehen. */
 #define EXPORT_OPTIONS 23  /* BUTTON in tree EXPORT_MODS */
 
 #define PIC_MANAGER 26  /* form/dial */
+/* Klicken Sie auf diesen Button, um in der Liste nach oben zu scrollen. */
 #define PM_UP 1  /* BOXCHAR in tree PIC_MANAGER */
+/* Klicken Sie auf diesen Button, um in der Liste nach unten zu scrollen. */
 #define PM_DN 2  /* BOXCHAR in tree PIC_MANAGER */
 #define PMSL_PAR 3  /* BOX in tree PIC_MANAGER */
+/* Ziehen sie den Slider mit gedrÅckter linker Maustaste, um in der Liste in Echtzeit zu scrollen. */
 #define PM_SLIDER 4  /* BOX in tree PIC_MANAGER */
 #define PM_OUTER_BOX 5  /* BOX in tree PIC_MANAGER */
 #define PM_BOX 6  /* IBOX in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC1 7  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC2 8  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC3 9  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC4 10  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC5 11  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC6 12  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC7 13  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier sind die geladenen Bilder eingetragen. Die Reihenfolge kann durch Drag&Drop umsortiert werden, auûerdem kînnen Sie einen Eintrag auf ein Modulfenster ziehen, um ein Bild an ein Modul zu Åbergeben. */
 #define PM_PIC8 14  /* BOXTEXT in tree PIC_MANAGER */
+/* Hier werden Abmessungen und Farbtiefe des angewÑhlten Bildes angezeigt. */
 #define HW_BOX 15  /* BOX in tree PIC_MANAGER */
 #define X2 16  /* TEXT in tree PIC_MANAGER */
+/* Hier wird die Farbtiefe des angewÑhlten Bildes angezeigt. */
 #define PM_DEPTH 17  /* TEXT in tree PIC_MANAGER */
 #define X1 18  /* TEXT in tree PIC_MANAGER */
+/* Hier wird die Breite des angewÑhlten Bildes angezeigt. */
 #define PM_WIDTH 19  /* TEXT in tree PIC_MANAGER */
+/* Hier wird die Hîhe des angewÑhlten Bildes angezeigt. */
 #define PM_HEIGHT 20  /* TEXT in tree PIC_MANAGER */
+/* Hier wird eine verkleinerte Vorschau des angewÑhlten Bildes gezeigt. */
 #define PM_PREVBOX 21  /* BOX in tree PIC_MANAGER */
+/* Hier wird eine verkleinerte Vorschau des angewÑhlten Bildes gezeigt. */
 #define PICMAN_PREVIEW 22  /* BOX in tree PIC_MANAGER */
 
 #define NEWPIC_FORM 27  /* form/dial */
+/* Mit Verlaub, das mÅûten Sie sich eigentlich auch selber zusammenreimen kînnen. ;-) */
 #define NEWPIC_MAKE 2  /* BUTTON in tree NEWPIC_FORM */
+/* Hier kînnen Sie die Breite des zu erzeugenden Bildes eingeben. */
 #define NEWPIC_WID 5  /* FTEXT in tree NEWPIC_FORM */
+/* Hier kînnen Sie die Hîhe des zu erzeugenden Bildes eingeben. */
 #define NEWPIC_HGT 6  /* FTEXT in tree NEWPIC_FORM */
+/* Hier kînnen Sie eine Auflîsung einstellen, die dann wirksam wird, wenn sie die Einheit "Zoll", "Millimeter" oder "DTP-Punkt" gewÑhlt haben. */
 #define NEWPIC_DPI 7  /* FTEXT in tree NEWPIC_FORM */
+/* Hier kînnen Sie die Farbtiefe des zu erzeugenden Bildes wÑhlen. */
 #define NP_DEPTHPOP 10  /* BOXTEXT in tree NEWPIC_FORM */
 #define NPDEPTH_CB 11  /* IBOX in tree NEWPIC_FORM */
+/* Hier kînnen Sie eine andere Einheit fÅr die Breite und Hîhe des zu erzeugenden Bildes wÑhlen. */
 #define NP_UNITPB 12  /* BOXTEXT in tree NEWPIC_FORM */
 #define NP_UNITCB 13  /* IBOX in tree NEWPIC_FORM */
 #define NEWPIC_CANCEL 15  /* BUTTON in tree NEWPIC_FORM */
@@ -473,14 +560,20 @@
 #define CONV_OLDPIC 3  /* IBOX in tree TRANSFORM_PIC */
 #define CONV_PICNAME 4  /* TEXT in tree TRANSFORM_PIC */
 #define CONV_SRCDEPTH 5  /* TEXT in tree TRANSFORM_PIC */
+/* Hier kînnen Sie den Ditheralgorithmus zum Wandeln des Bildes angeben. */
 #define CONV_DITHPB 9  /* BOXTEXT in tree TRANSFORM_PIC */
+/* Hier kînnen Sie den Palettensuchalgorithmus zum Wandeln des Bildes angeben. */
 #define CONV_PALPB 10  /* BOXTEXT in tree TRANSFORM_PIC */
 #define CONV_DITHCB 11  /* IBOX in tree TRANSFORM_PIC */
 #define CONV_PALCB 12  /* IBOX in tree TRANSFORM_PIC */
+/* Hier kînnen Sie angeben, auf welche Farbtiefe das Bild gewandelt werden soll. */
 #define CONV_DEPTHPB 15  /* BOXTEXT in tree TRANSFORM_PIC */
 #define CONV_DEPTHCB 16  /* IBOX in tree TRANSFORM_PIC */
+/* Wenn beim Palettenmodus "feste Palette" eingestellt ist, kînnen Sie hiermit eine Palette im .PAL-Format laden. */
 #define TFM_LOADPAL 18  /* BUTTON in tree TRANSFORM_PIC */
+/* Startet das Wandeln des Bildes. */
 #define CONV_START 20  /* BUTTON in tree TRANSFORM_PIC */
+/* Mit diesem Button wird das Bild automatisch auf das gÅnstigste Datenformat und die geringste Farbtiefe gewandelt, die ohne QualitÑtsverlust mîglich sind. */
 #define TRANSFM_REDUCE 21  /* BUTTON in tree TRANSFORM_PIC */
 #define TRANSFM_CANCEL 22  /* BUTTON in tree TRANSFORM_PIC */
 
@@ -539,29 +632,50 @@
 #define PREVIEW_ERR 52  /* TEXT in tree ALERT_STRINGS */
 
 #define BLOCK_TYPE 31  /* form/dial */
+/* öbernimmt die Einstellungen und schlieût den Dialog. */
 #define BLOCK_OK 2  /* BUTTON in tree BLOCK_TYPE */
+/* Hebt die Blockmarkierung im aktiven Bild auf. */
 #define BLOCK_CLR 3  /* BUTTON in tree BLOCK_TYPE */
+/* Hier kînnen Sie die X-Koordinate der linken oberen Ecke des Blocks im aktiven Bild eingeben. */
 #define BLOCK_XLO 4  /* FTEXT in tree BLOCK_TYPE */
+/* Hier kînnen Sie die Y-Koordinate der linken oberen Ecke des Blocks im aktiven Bild eingeben. */
 #define BLOCK_YLO 5  /* FTEXT in tree BLOCK_TYPE */
+/* Hier kînnen Sie die Breite des Blocks im aktiven Bild eingeben. */
 #define BLOCK_WID 7  /* FTEXT in tree BLOCK_TYPE */
+/* Hier kînnen Sie die Hîhe des Blocks im aktiven Bild eingeben. */
 #define BLOCK_HGT 8  /* FTEXT in tree BLOCK_TYPE */
+/* Hier kînnen Sie die X-Koordinate der rechten unteren Ecke des Blocks im aktiven Bild eingeben. */
 #define BLOCK_XRU 9  /* FTEXT in tree BLOCK_TYPE */
+/* Hier kînnen Sie die X-Koordinate der rechten unteren Ecke des Blocks im aktiven Bild eingeben. */
 #define BLOCK_YRU 10  /* FTEXT in tree BLOCK_TYPE */
 
 #define BLOCK_CONF 32  /* form/dial */
 #define _TIT 2  /* TEXT in tree BLOCK_CONF */
+/* Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird. */
 #define BCONF_F 3  /* BOX in tree BLOCK_CONF */
+/* Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird. */
 #define BCONF_R 4  /* BOX in tree BLOCK_CONF */
+/* Hier ist die Deckkraft einstellbar, mit der ein Block ins Bild eingerechnet wird. */
 #define BCONF_A 5  /* BOXTEXT in tree BLOCK_CONF */
+/* öbernimmt die vorgenommenen Einstellungen und schlieût das Fenster. */
 #define BCONF_OK 8  /* BUTTON in tree BLOCK_CONF */
+/* öbernimmt die vorgenommenen Einstellungen ohne das Fenster zu schlieûen. */
 #define BCONF_SET 9  /* BUTTON in tree BLOCK_CONF */
+/* WÑhlt den EinfÅgemodus "ersetzen". Pixel im Ziel werden einfach durch Pixel des Blocks ersetzt (bzw. in der einstellbaren StÑrke eingerechnet). */
 #define BCONF_REPLACE 15  /* IBOX in tree BLOCK_CONF */
+/* WÑhlt den EinfÅgemodus "addieren". Pixel aus Quelle und Ziel werden aufeinander addiert. Ist das Ergebnis grîûer als 255 kommt es zu öberlÑufen, das Ergebnis kann recht wild aussehen. */
 #define BCONF_ADD 16  /* IBOX in tree BLOCK_CONF */
+/* WÑhlt den EinfÅgemodus "clib-add". Pixel aus Quelle und Ziel werden aufeinander addiert. Ist das Ergebnis grîûer als 255, wird der Farbteil auf 255 gesetzt - das Ergebnis ist also definiert. */
 #define BCONF_CLIPADD 17  /* IBOX in tree BLOCK_CONF */
+/* WÑhlt den EinfÅgemodus "subtrahieren". Pixel aus Quelle und Ziel werden voneinander subtrahiert. Ist das Ergebnis kleiner als 0 kommt es zu UnterlÑufen, das Ergebnis kann recht wild aussehen. */
 #define BCONF_SUB 18  /* IBOX in tree BLOCK_CONF */
+/* WÑhlt den EinfÅgemodus "clip-sub". Pixel aus Quelle und Ziel werden voneinander subtrahiert. Ist das Ergebnis kleiner als 0, wird der Farbteil auf 0 gesetzt - das Ergebnis ist also definiert. */
 #define BCONF_CLIPSUB 19  /* IBOX in tree BLOCK_CONF */
+/* WÑhlt den EinfÅgemodus "multiplizieren". Die Pixel aus Quelle und Ziel werden miteinander multipliziert. */
 #define BCONF_MULT 20  /* IBOX in tree BLOCK_CONF */
+/* Mit dieser Einstellung kînnen Sie Weiû zur transparenten Farbe erklÑren. Weiûe Bereiche werden somit beim EinfÅgen nicht mit Åbernommen. */
 #define BCONF_WTRANS 23  /* IBOX in tree BLOCK_CONF */
+/* Mit dieser Einstellung kînnen Sie Schwarz zur transparenten Farbe erklÑren. Schwarze Bereiche werden somit beim EinfÅgen nicht mit Åbernommen. */
 #define BCONF_BTRANS 24  /* IBOX in tree BLOCK_CONF */
 #define BCONF_CANCEL 25  /* BUTTON in tree BLOCK_CONF */
 
@@ -593,3 +707,9 @@
 #define WT_TRANSFORM 13  /* TEXT in tree WINDOW_TITLES */
 #define WT_BTYPEIN 14  /* TEXT in tree WINDOW_TITLES */
 #define WT_BLOCKMODE 15  /* TEXT in tree WINDOW_TITLES */
+
+#define EDITMODULE_INFO 0  /* BubbleGEM User */
+
+#define EXPORTMODUL_INFO 1  /* BubbleGEM User */
+
+#define BILDFENSTER 2  /* BubbleGEM User */
