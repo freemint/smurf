@@ -150,6 +150,7 @@ typedef struct
     int wx, wy, ww, wh;     /* X/Y, Breite, Hîhe */ 
     char wtitle[41];        /* Fenstertitel */
     OBJECT *resource_form;  /* Modulresource-Formular */
+    int dialog_num;			/* Dialognummer in der RSC fuer BGH */
     SMURF_PIC *picture;     /* Zeigerfeld fÅr Bild/Animation */
     int xoffset, yoffset;   /* Scrolloffsets in Pixels */
     int shaded;             /* Shaded-Flag */

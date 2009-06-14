@@ -226,6 +226,8 @@ void init_MiscObs(void)
 	extern int update_OLGA(char *filename);
 	extern int dd_getheader(DD_HEADER *dd_header, int pipe_handle);
 	extern int dd_sendheader(int pipe_handle, long ext, long size, char *data_name, char *file_name);
+	extern void bubble_init(void);
+	extern void bubble_exit(void);
 	extern void bubble_gem(int windownum, int xpos, int ypos, int modulemode);
 	
 
@@ -243,6 +245,9 @@ void init_MiscObs(void)
 	Comm.ddSendheader = dd_sendheader;
 
 	Comm.updateDhst = update_dhst;
+
+	Comm.initbubbleGem = bubble_init;
+	Comm.deinitbubbleGem = bubble_exit;
 	Comm.bubbleGem = bubble_gem;
 
 	Comm.getAvserv = get_avserv;

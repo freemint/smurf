@@ -44,6 +44,17 @@
 #include "smurfobs.h"
 #include "ext_obs.h"
 #include "bindings.h"
+#include "slb.h"
+
+typedef struct
+{
+	int	 Version;
+	char  *Info;
+	unsigned long cdecl (*Load)(const char* Name, int Mode);
+	void	 cdecl (*Free)(ULONG BGH_Handle);
+	char * cdecl (*GetHelpString)(ULONG BGH_Handle, int Section, int Guppe, int Index);
+}BGH_Cookie;
+
 
 extern	WINDOW	wind_s[25];
 extern	WINDOW	picture_windows[MAX_PIC];
@@ -52,18 +63,61 @@ extern	SYSTEM_INFO	Sys_info;
 extern	char	*edit_modules[100];			/* Pfade fr bis zu 100 Edit-Module */
 
 #define BUBBLEGEM_SHOW	0xBABB
-#define	BUBBLEGEM_ACK	0xBABC
+#define BUBBLEGEM_ACK	0xBABC
 
-extern	int	obj;					/* Objekt beim loslassen des Buttons */
+extern	int	obj;					/* Objekt beim loslassen des Buttons 	*/
 
+static char BGHI_Exist;				/* BGHI_Cokkie vorhanden = TRUE			*/
+
+static ULONG Help;					/* Zeiger auf die Bubble-Help-Texte		*/
+static BGH_Cookie *BGHI_Cookie;
+static char BGHI_Slb;				/* BGHI als shared library = TRUE		*/
+static SLB_EXEC slbexec;
+static SHARED_LIB slb;
+
+void bubble_init ( void )
+{
+	long err;
+
+	BGHI_Exist=TRUE;
+	BGHI_Slb=FALSE;
+	if(!get_cookie('BGHI',&(unsigned long)BGHI_Cookie))	/* Cookie suchen					*/
+	{
+		err=Slbopen("BGH.SLB",NULL,/*0x0101L*/ 2L ,&slb,&slbexec);
+		if(err==-64L)								/* Versionsnummer zu klein ?				*/
+		{
+/*
+			ShowArrow();
+			Note(ALERT_NORM,1,BUBBLE_HELP);
+*/
+		}
+		if(err>=0)									/* šber shared library versuchen		*/
+		{
+			BGHI_Cookie=(BGH_Cookie *)(*slbexec)(slb,0L,0);
+			if(BGHI_Cookie>=0)
+				BGHI_Slb=TRUE;
+			else
+				BGHI_Exist=FALSE;
+		}
+		else
+			BGHI_Exist=FALSE;
+	}
+}
+
+void bubble_exit ( void )
+{
+	if ( BGHI_Slb )
+		Slbclose(slb);
+}
 
 void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 {
 	int klickobj;
 	char helppath[256];
 	char helpname[64];
-	char *helpstring;
+	char *helpstring, *HelpString;
 	char *help_file, *search_pos, *end_of_string, *modpath;
+	int Section, TreeId;
 	int found = 0, end = 0;
 	char num_byte[5];
 	int bubble_id, general_info=0;
@@ -79,8 +133,12 @@ void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 	extern	BASPAG *plugin_bp[11];
 	extern	char *plugin_paths[11];
 
-	obj = 0;									/* globale Objektvariable l”schen */
 
+	if ( BGHI_Exist == FALSE )
+		return;
+
+	Section = 0; TreeId = 0; klickobj = 0;
+	obj = 0;									/* globale Objektvariable l”schen */
 
 	/* 
 	 * Fensterstruktur ermitteln
@@ -118,6 +176,8 @@ void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 		cmp_string = strrchr(helpname, '.');
 		*cmp_string = 0;
 		strcat(helpname, ".hlp");
+		Section = 1; TreeId = 0; klickobj = 0;
+		
 	}
 	else
 	{
@@ -127,21 +187,41 @@ void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 		if(!modulemode && windownum != WIND_MODFORM)
 		{
 			if(windownum < 0)											/* Bildfenster */
-				windownum = 97;
+			{
+				Section = 3; TreeId = BILDFENSTER;
+			}
 			else
 				if(windownum == WIND_MODULES)
 				{
 					if(Dialog.emodList.tree[INFO_MODULE].ob_state&SELECTED)	/* Editmodul-Info */
-						windownum = 99;
+					{
+						Section = 3; TreeId = EDITMODULE_INFO;
+					}
+					else
+					{
+						Section = 1; TreeId = MODULES;
+					}
+					
 				}
 				else
 					if(windownum == WIND_EXPORT)						/* Exportmodul-Info */
 					{
-						if(Dialog.expmodList.tree[EXMOD_INFO].ob_state&SELECTED) 
-							windownum = 98;
+						if(Dialog.expmodList.tree[EXMOD_INFO].ob_state&SELECTED)
+						{
+							Section = 3; TreeId = EXPORTMODUL_INFO;
+						}
+						else
+						{
+							Section = 1; TreeId = EXPORT_MODS;
+						}
+					}
+					else
+					{
+						Section = 1;
+						TreeId = window->dialog_num;
 					}
 
-			strcpy(helpname, "\\bubble.hlp");
+			strcpy(helpname, "\\smurf.bgh");
 		}
 		/*
 		 * Modulfenster
@@ -198,6 +278,23 @@ void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 	strcat(helppath, "\\bubble");
 	strcat(helppath, helpname);
 	memset(num_byte, 0, 5);
+/* printf ("BGH: %s, %i, %i, %i\r\n", helppath, Section, TreeId, klickobj ); */
+
+/*
+	/*-------- Block wenn m”glich als global anfordern? */
+	if(Ssystem(FEATURES, 0L, 0L) != EINVFN || Sys_info.OS&MINT || Sys_info.OS&MATSCHIG)
+		helpstring = (char *)Mxalloc(257, 0x20);
+	else
+		helpstring = (char *)SMalloc(257);
+*/
+
+	Help = BGHI_Cookie->Load (helppath, 0 );
+	if(!Help)
+		return;
+	HelpString = BGHI_Cookie->GetHelpString ( Help, Section, TreeId, klickobj );
+	BGHI_Cookie->Free(Help);
+
+/*
 
 	help_file = fload(helppath, 0);
 	if(help_file == NULL)
@@ -206,11 +303,6 @@ void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 	search_pos = help_file;
 
 
-	/*-------- Block wenn m”glich als global anfordern? */
-	if(Ssystem(FEATURES, 0L, 0L) != EINVFN || Sys_info.OS&MINT || Sys_info.OS&MATSCHIG)
-		helpstring = (char *)Mxalloc(257, 0x20);
-	else
-		helpstring = (char *)SMalloc(257);
 
 	if(general_info)
 	{
@@ -288,14 +380,15 @@ void bubble_gem(int windownum, int xpos, int ypos, int modulemode)
 		memset(helpstring, 0x0, 256);
 		strncpy(helpstring, search_pos, end_of_string - search_pos);
 	}
+*/
 
 	/*------ Message an BubbleGEM schicken -----------*/
 	if((bubble_id = appl_find("BUBBLE  ")) > 0)
-		Comm.sendAESMsg(bubble_id, BUBBLEGEM_SHOW, xpos, ypos, LONG2_2INT(helpstring), -1);
+		Comm.sendAESMsg(bubble_id, BUBBLEGEM_SHOW, xpos, ypos, LONG2_2INT(HelpString), -1);
 
 	/* auf keinen Fall hier schon helpstring freigeben! */
 	/* das wird nach Antwort von Bubble-GEM durch BUBBLEGEM_ACK gemacht */
-	SMfree(help_file);
+/*	SMfree(help_file); */
 
 	return;	
 } /* bubble_gem */

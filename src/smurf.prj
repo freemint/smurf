@@ -1,1 +1,141 @@
-; ***** BEGIN LICENSE BLOCK *****;; The contents of this file are subject to the GNU General Public License; Version 2 (the "License"); you may not use this file except in compliance; with the GPL. You may obtain a copy of the License at; http://www.gnu.org/copyleft/gpl.html or the file GPL.TXT from the program; or source code package.;; Software distributed under the License is distributed on an "AS IS" basis,; WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for; the specific language governing rights and limitations under the GPL.;; The Original Code is Therapy Seriouz Software code.;; The Initial Developer of the Original Code are; Olaf Piesche, Christian Eyrich, Dale Russell and Jîrg Dittmer;; Contributor(s):;;; ***** END LICENSE BLOCK *****;************************************************************;;			Project File for SMURF Graphics Converter;;************************************************************..\SMURF.PRG; Symbol: DEBUG : If you add this, there will be writen some infos in;                 file smurf.log.C[-DDEBUG].C [-C -K -M -P].C [-I..\..\purec\include\].C [-I.\rsc].C [-I.\lib]; 12K stack is necessary, 8K were to small, this was also; the reason that FDFast and NC often crashed Smurf..L [-S=16384]=PCVSTART.O			;STUPARGV.O;;--------------------- Smurf-System --------------------;MODSMURF.C     		; HauptmodulFLOAD.C				; DateiladenFILE_SEL.C			; Load&Save mit Fileselector (X-FSEL support)DO_PCD.C			; PCD-erkennung und ladenCONFIG.C			; SMURF.CNF laden, speichernKEYBOARD.C			; Keyboardevents, EditfelderSHORTC2.C			; Tastatur-ShortcutsF_SCAN.C			; Aufbau und Init der ListenEXP_FORM.C			; Exportformular - HandlingEXPORT.C			; Exportformular - HandlingPICMAN.C			; BildmanagerTHUMBNAI.C			; Thumbnails - Erzeugen, wegwerfen, etc.PREFDIAL.C			; Preferences DialogWINDOW.C			; Window-FunktionenPICEVENT.C			; Events in BildfensternBUSYBOX.C			; Busybox-RoutinenEDIT.C				; Editmodul-Listfeld + Co.OPTIONS.C			; OptionsdialogDISPOPTS.C			; Display-Options;GDPS.C				; GDPS-ZeugUNDO.C				; UNDO-RoutinenBLOCK.CRTPREVS.CSMURFOBS.C;;--------------------- Schlumpfine ---------------------;MODULE.C			; Module starten, beenden, ModulfensterMODCONF.C			; Funktionen um die Modulkonfigurationen zu sichern;------- Plugin-SchnittstellePLUGIN\PLUGIN.C [-Z];;----------------- GEM & AES - Handling ----------------;XRSRC.C					; XRSRC-Routinen fÅr alle AuflîsungenMENU.C					; MenueventsOBJCT.C					; AES-Objekt-FunktionenRESOURCE.C				; Resource-Initialisierunglib\RADIOCHK.C			; Radiobuttons, Checkboxes und andere USERDEFslib\SYM_GEM.C			; GEM-Funktionen - Schieberegler, Listenfelder, etc.MESSAGEH.C				; AES-Message-HandlerCOLORCH.C				; Farbauswahl;;---------------------- Dithering ----------------------;DITHER.C				; Dispatcherroutinen fÅr die DithermoduleDIT_SUBD.C				; Subdispatcher fÅrs DitheringD2S.C					; Direct-2-Screen-Routinen;NVDI5RAS.CTRANSFM.C				; Bild wandeln;;------------------ Palettenanpassung -------------------;medicut\histogrm.cmedicut\medicut.sseekcol.s;;----------- Format- und Systemkonvertierung ------------;CONVERT.C				; von allen Datenformaten/Farbsystemen in alle solchenBUBBLEGM.C;**********************************;*			Assemblerroutinen;**********************************pixelins.s			; Einrechnen Blockpixel->Bildpixel;;-------------------- Ditherroutinen --------------------;GETPIX.S		; 16 Pixel ins Standardformat setzen (fÅr C-Dithers)DIT_READ.S		; Ausleseroutinen - subrouts DITREADP.S		; Ausleseroutinen - subroutsset_pixl.s		; 16 Pixel schreiben in 8Bit-Standard- und Pixelpackedsetlines.s		; beliebig viele Pixel ins Standardformat setzengetlines.sREARR.S			; Standardformat-Zeile umbauen (linker Bitrand vom Ausschneiden);;----------- Format- und Systemkonvertierung ------------;BGRTORGB.S		; Farbsystem BGR nach RGBTOOLS.C			; allgemeine ToolsBINDINGS.C		; Bindings fÅr Systemfunktionen, die in keiner Lib vorhanden sindCOMM.C			; alle fÅr die Kommunikation zustÑndige ProtokolleDESTRUCT.C		; Destruktoren fÅr diverse DatenstrukturenROTO\ROTO1.COLGA.CDEBUG.C;**********************************;*				LIBS;**********************************PCTOSLIB.LIBPCGEMLIB.LIBPCSTDLIB.LIBPCEXTLIB.LIBPCFLTLIB.LIBDEMOLIB.LIB
+; ***** BEGIN LICENSE BLOCK *****
+;
+; The contents of this file are subject to the GNU General Public License
+; Version 2 (the "License"); you may not use this file except in compliance
+; with the GPL. You may obtain a copy of the License at
+; http://www.gnu.org/copyleft/gpl.html or the file GPL.TXT from the program
+; or source code package.
+;
+; Software distributed under the License is distributed on an "AS IS" basis,
+; WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+; the specific language governing rights and limitations under the GPL.
+;
+; The Original Code is Therapy Seriouz Software code.
+;
+; The Initial Developer of the Original Code are
+; Olaf Piesche, Christian Eyrich, Dale Russell and Jîrg Dittmer
+;
+; Contributor(s):
+;
+;
+; ***** END LICENSE BLOCK *****
+;************************************************************
+;
+;			Project File for SMURF Graphics Converter
+;
+;************************************************************
+..\SMURF.PRG
+
+; Symbol: DEBUG : If you add this, there will be writen some infos in
+;                 file smurf.log
+
+.C[-DDEBUG]
+
+.C [-C -K -M -P]
+.C [-I..\..\purec\include\]
+.C [-I.\rsc]
+.C [-I.\lib]
+; 12K stack is necessary, 8K were to small, this was also
+; the reason that FDFast and NC often crashed Smurf.
+.L [-S=16384]
+=
+PCVSTART.O			;STUPARGV.O
+;
+;--------------------- Smurf-System --------------------
+;
+MODSMURF.C     		; Hauptmodul
+FLOAD.C				; Dateiladen
+FILE_SEL.C			; Load&Save mit Fileselector (X-FSEL support)
+DO_PCD.C			; PCD-erkennung und laden
+CONFIG.C			; SMURF.CNF laden, speichern
+KEYBOARD.C			; Keyboardevents, Editfelder
+SHORTC2.C			; Tastatur-Shortcuts
+F_SCAN.C			; Aufbau und Init der Listen
+EXP_FORM.C			; Exportformular - Handling
+EXPORT.C			; Exportformular - Handling
+PICMAN.C			; Bildmanager
+THUMBNAI.C			; Thumbnails - Erzeugen, wegwerfen, etc.
+PREFDIAL.C			; Preferences Dialog
+WINDOW.C			; Window-Funktionen
+PICEVENT.C			; Events in Bildfenstern
+BUSYBOX.C			; Busybox-Routinen
+EDIT.C				; Editmodul-Listfeld + Co.
+OPTIONS.C			; Optionsdialog
+DISPOPTS.C			; Display-Options
+;GDPS.C				; GDPS-Zeug
+UNDO.C				; UNDO-Routinen
+BLOCK.C
+RTPREVS.C
+SMURFOBS.C
+;
+;--------------------- Schlumpfine ---------------------
+;
+MODULE.C			; Module starten, beenden, Modulfenster
+MODCONF.C			; Funktionen um die Modulkonfigurationen zu sichern
+;------- Plugin-Schnittstelle
+PLUGIN\PLUGIN.C [-Z]
+;
+;----------------- GEM & AES - Handling ----------------
+;
+XRSRC.C					; XRSRC-Routinen fÅr alle Auflîsungen
+MENU.C					; Menuevents
+OBJCT.C					; AES-Objekt-Funktionen
+RESOURCE.C				; Resource-Initialisierung
+lib\RADIOCHK.C			; Radiobuttons, Checkboxes und andere USERDEFs
+lib\SYM_GEM.C			; GEM-Funktionen - Schieberegler, Listenfelder, etc.
+MESSAGEH.C				; AES-Message-Handler
+COLORCH.C				; Farbauswahl
+;
+;---------------------- Dithering ----------------------
+;
+DITHER.C				; Dispatcherroutinen fÅr die Dithermodule
+DIT_SUBD.C				; Subdispatcher fÅrs Dithering
+D2S.C					; Direct-2-Screen-Routinen
+;NVDI5RAS.C
+TRANSFM.C				; Bild wandeln
+;
+;------------------ Palettenanpassung -------------------
+;
+medicut\histogrm.c
+medicut\medicut.s
+seekcol.s
+;
+;----------- Format- und Systemkonvertierung ------------
+;
+CONVERT.C				; von allen Datenformaten/Farbsystemen in alle solchen
+BUBBLEGM.C
+LIB\SLB_BIND.C			; shared library
+;**********************************
+;*			Assemblerroutinen
+;**********************************
+pixelins.s			; Einrechnen Blockpixel->Bildpixel
+;
+;-------------------- Ditherroutinen --------------------
+;
+GETPIX.S		; 16 Pixel ins Standardformat setzen (fÅr C-Dithers)
+DIT_READ.S		; Ausleseroutinen - subrouts 
+DITREADP.S		; Ausleseroutinen - subrouts
+set_pixl.s		; 16 Pixel schreiben in 8Bit-Standard- und Pixelpacked
+setlines.s		; beliebig viele Pixel ins Standardformat setzen
+getlines.s
+REARR.S			; Standardformat-Zeile umbauen (linker Bitrand vom Ausschneiden)
+;
+;----------- Format- und Systemkonvertierung ------------
+;
+BGRTORGB.S		; Farbsystem BGR nach RGB
+TOOLS.C			; allgemeine Tools
+BINDINGS.C		; Bindings fÅr Systemfunktionen, die in keiner Lib vorhanden sind
+COMM.C			; alle fÅr die Kommunikation zustÑndige Protokolle
+DESTRUCT.C		; Destruktoren fÅr diverse Datenstrukturen
+ROTO\ROTO1.C
+OLGA.C
+DEBUG.C
+;**********************************
+;*				LIBS
+;**********************************
+PCTOSLIB.LIB
+PCGEMLIB.LIB
+PCSTDLIB.LIB
+PCEXTLIB.LIB
+PCFLTLIB.LIB
+DEMOLIB.LIB

@@ -356,6 +356,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_MODFORM].wnum = WIND_MODFORM;
 	strcpy(wind_s[WIND_MODFORM].wtitle, Window.titles[WT_MODCONF].TextCast);
 	wind_s[WIND_MODFORM].resource_form = module_form;
+	wind_s[WIND_MODFORM].dialog_num = MOD_FORM;
 	wind_s[WIND_MODFORM].picture = NULL;
 
 	wind_s[WIND_MODFORM].editob = ED1;
@@ -366,6 +367,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_ALERT].wnum = WIND_ALERT;
 	strcpy(wind_s[WIND_ALERT].wtitle, Window.titles[WT_ALERT].TextCast);
 	wind_s[WIND_ALERT].resource_form = alert_form;
+	wind_s[WIND_ALERT].dialog_num = WINDOW_ALERT;
 	wind_s[WIND_ALERT].picture = NULL;
 
 	wind_s[WIND_ALERT].editob = 0;
@@ -374,6 +376,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_DOPT].wnum = WIND_DOPT;
 	strcpy(wind_s[WIND_DOPT].wtitle, Window.titles[WT_DISPOPTS].TextCast);
 	wind_s[WIND_DOPT].resource_form = Dialog.dispOpt.tree;
+	wind_s[WIND_DOPT].dialog_num = DISPLAY_OPTIONS;
 	wind_s[WIND_DOPT].picture = NULL;
 
 	wind_s[WIND_DOPT].editob = PAL_TIMER;
@@ -384,6 +387,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_PICINFO].wnum = WIND_PICINFO;
 	strcpy(wind_s[WIND_PICINFO].wtitle, Window.titles[WT_PICINFO].TextCast);
 	wind_s[WIND_PICINFO].resource_form = pic_info_form;
+	wind_s[WIND_PICINFO].dialog_num = IMAGE_INFO;
 	wind_s[WIND_PICINFO].picture = NULL;
 
 	wind_s[WIND_PICINFO].editob = 0;
@@ -394,6 +398,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_OPTIONS].wnum = WIND_OPTIONS;
 	strcpy(wind_s[WIND_OPTIONS].wtitle, Window.titles[WT_OPTIONS].TextCast);
 	wind_s[WIND_OPTIONS].resource_form = Dialog.smurfOpt.tree;
+	wind_s[WIND_OPTIONS].dialog_num = SMURF_OPTIONS;
 	wind_s[WIND_OPTIONS].picture = NULL;
 
 	wind_s[WIND_OPTIONS].editob = 0;
@@ -402,6 +407,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_BUSY].wnum = WIND_BUSY;
 	strcpy(wind_s[WIND_BUSY].wtitle, Window.titles[WT_STATUS].TextCast);
 	wind_s[WIND_BUSY].resource_form = Dialog.busy.busyTree;
+	wind_s[WIND_BUSY].dialog_num = BUSY_WINDOW;
 	wind_s[WIND_BUSY].picture = NULL;
 
 	wind_s[WIND_BUSY].editob = 0;
@@ -410,6 +416,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_MODULES].wnum = WIND_MODULES;
 	strcpy(wind_s[WIND_MODULES].wtitle, Window.titles[WT_EDITMODS].TextCast);
 	wind_s[WIND_MODULES].resource_form = Dialog.emodList.tree;
+	wind_s[WIND_MODULES].dialog_num = MODULES;
 	wind_s[WIND_MODULES].picture = NULL;
 
 	wind_s[WIND_MODULES].editob = 0;
@@ -418,6 +425,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_EXPORT].wnum = WIND_EXPORT;
 	strcpy(wind_s[WIND_EXPORT].wtitle, Window.titles[WT_EXPFORMAT].TextCast);
 	wind_s[WIND_EXPORT].resource_form = Dialog.expmodList.tree;
+	wind_s[WIND_EXPORT].dialog_num = EXPORT_MODS;
 	wind_s[WIND_EXPORT].picture = NULL;
 
 	wind_s[WIND_EXPORT].editob = 0;
@@ -426,6 +434,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_INFO].wnum = WIND_INFO;
 	strcpy(wind_s[WIND_INFO].wtitle, Window.titles[WT_INFO].TextCast);
 	wind_s[WIND_INFO].resource_form = info_window;
+	wind_s[WIND_INFO].dialog_num = SMURF_INFO;
 	wind_s[WIND_INFO].picture = NULL;
 
 	wind_s[WIND_INFO].editob = 0;
@@ -434,6 +443,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_NEWPIC].wnum = WIND_NEWPIC;
 	strcpy(wind_s[WIND_NEWPIC].wtitle, Window.titles[WT_NEWPIC].TextCast);
 	wind_s[WIND_NEWPIC].resource_form = newpic_window;
+	wind_s[WIND_NEWPIC].dialog_num = NEWPIC_FORM;
 	wind_s[WIND_NEWPIC].picture = NULL;
 
 	wind_s[WIND_NEWPIC].editob = NEWPIC_WID;
@@ -447,6 +457,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_PICMAN].wnum = WIND_PICMAN;
 	strcpy(wind_s[WIND_PICMAN].wtitle, Window.titles[WT_PICMAN].TextCast);
 	wind_s[WIND_PICMAN].resource_form = Dialog.picMan.tree;
+	wind_s[WIND_PICMAN].dialog_num = PIC_MANAGER;
 	wind_s[WIND_PICMAN].picture = NULL;
 
 	wind_s[WIND_PICMAN].editob = 0;
@@ -455,11 +466,13 @@ void init_smurfrsc(char *rscpath)
 	wind_s[FORM_EXPORT].wnum = FORM_EXPORT;
 	strcpy(wind_s[FORM_EXPORT].wtitle, Window.titles[WT_EXPFORM].TextCast);
 	wind_s[FORM_EXPORT].resource_form = export_form;
+	wind_s[FORM_EXPORT].dialog_num = EXPORT_FORM;
 	wind_s[FORM_EXPORT].picture = NULL;
 
 	wind_s[WIND_TRANSFORM].wnum = WIND_TRANSFORM;
 	strcpy(wind_s[WIND_TRANSFORM].wtitle, Window.titles[WT_TRANSFORM].TextCast);
 	wind_s[WIND_TRANSFORM].resource_form = transform_window;
+	wind_s[WIND_TRANSFORM].dialog_num = TRANSFORM_PIC;
 	wind_s[WIND_TRANSFORM].picture = NULL;
 
 	wind_s[WIND_TRANSFORM].editob = 0;
@@ -470,6 +483,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_BTYPEIN].wnum = WIND_BTYPEIN;
 	strcpy(wind_s[WIND_BTYPEIN].wtitle, Window.titles[WT_BTYPEIN].TextCast);
 	wind_s[WIND_BTYPEIN].resource_form = blocktype_window;
+	wind_s[WIND_BTYPEIN].dialog_num = BLOCK_TYPE;
 	wind_s[WIND_BTYPEIN].picture = NULL;
 
 	wind_s[WIND_BTYPEIN].editob = BLOCK_XLO;
@@ -480,6 +494,7 @@ void init_smurfrsc(char *rscpath)
 	wind_s[WIND_BLOCKMODE].wnum = WIND_BLOCKMODE;
 	strcpy(wind_s[WIND_BLOCKMODE].wtitle, Window.titles[WT_BLOCKMODE].TextCast);
 	wind_s[WIND_BLOCKMODE].resource_form = blockmode_window;
+	wind_s[WIND_BLOCKMODE].dialog_num = BLOCK_CONF;
 	wind_s[WIND_BLOCKMODE].picture = NULL;
 
 	wind_s[WIND_BLOCKMODE].editob = 0;
