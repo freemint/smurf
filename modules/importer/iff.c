@@ -48,6 +48,20 @@
 /*	  UnterstÅtzung von HALFBRITE							*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "[1][Kein ILBM- oder PBM-Bild][ OK ]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][Kein ILBM- oder PBM-Bild][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][Kein ILBM- oder PBM-Bild][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -148,7 +162,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 				imgtype = 'P';
 			else
 			{
-				form_alert(0, "[1][Kein ILBM- oder PBM-Bild][ OK ]");
+				form_alert(0, ERROR1 );
 				return(M_UNKNOWN_TYPE);
 			}
 

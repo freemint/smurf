@@ -59,6 +59,23 @@
 /*	  behoben.												*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "[1][ Es werden bei RIFF Bitmap's|zur Zeit nur BMP's unterstÅtzt][ Stop ]"
+#define ERROR2 "[1][ Nicht genug Speicher um das Bild | um die Orientierung zu Ñndern ][OK]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][ At present for RIFF bitmaps|only BMP's are supported][ Stop ]"
+#define ERROR2 "[1][ Not enough memory to alter the | orientation of the picture.][OK]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][ At present for RIFF bitmaps|only BMP's are supported][ Stop ]"
+#define ERROR2 "[1][ Not enough memory to alter the | orientation of the picture.][OK]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -217,7 +234,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 			RIFF = TRUE;
 		else
 		{
-			form_alert(1,"[1][ Es werden bei RIFF Bitmap's|zur Zeit nur BMP's unterstÅtzt][ Stop ]");
+			form_alert(1, ERROR1 );
 			return(M_UNKNOWN_TYPE);
 		}
 	
@@ -1040,7 +1057,7 @@ char *SwitchOrient(char *buffer, unsigned int width, unsigned int height, char B
 	}
 
 	if((mirrbuf = SMalloc(realwidth)) == 0)
-		form_alert(1, "[1][ Nicht genug Speicher um das Bild | um die Orientierung zu Ñndern ][OK]");
+		form_alert(1, ERROR2 );
 	else
 	{
 		obuf = buffer;

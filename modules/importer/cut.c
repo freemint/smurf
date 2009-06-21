@@ -44,6 +44,23 @@
 /*	  Die Lîsung: Klaus hatte wiedermal Scheiûe erzÑhlt ...	*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "[1][Die Farbpalette konnte nicht|gefunden werden!][ OK ]"
+#define ERROR2 "[1][FÅr die Farbpalette steht nicht|genug Speicher zur VerfÅgung!][ OK ]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][The colour palette could|not be found!][ OK ]"
+#define ERROR2 "[1][Not enough memory available for|the colour palette!][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][The colour palette could|not be found!][ OK ]"
+#define ERROR2 "[1][Not enough memory available for|the colour palette!][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -247,7 +264,7 @@ void *fload(char *Path, int header)
 		
 		if((fil = Malloc((long)f_len - header)) == 0)
 		{
-			form_alert(0, "[1][FÅr die Farbpalette steht nicht|genug Speicher zur VerfÅgung!]\[ OK ]");
+			form_alert(0, ERROR2 );
 			fil = 0;
 		}
 		else

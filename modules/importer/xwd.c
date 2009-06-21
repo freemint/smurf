@@ -29,6 +29,20 @@
 /* Version 0.2  --  30.05.98								*/
 /*	  neue setpix_std_line eingebaut						*/
 /* =========================================================*/
+
+#ifdef GERMAN
+#define ERROR "[3][ Auch wenn das Bild korrekt | dargestellt werden sollte, | bitte schicken Sie es uns. |          Danke!        ][ Ok ]"
+#else
+#ifdef ENGLISH
+#define ERROR "[3][ Auch wenn das Bild korrekt | dargestellt werden sollte, | bitte schicken Sie es uns. |          Danke!        ][ Ok ]"
+#else
+#ifdef FRENCH
+#define ERROR "[3][ Auch wenn das Bild korrekt | dargestellt werden sollte, | bitte schicken Sie es uns. |          Danke!        ][ Ok ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
  
 #include <tos.h>
 #include <ext.h>
@@ -149,7 +163,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 		}
 
 		if(ByteOrder == LSB || BitOrder == LSB)
-			form_alert(1, "[3][ Auch wenn das Bild korrekt | dargestellt werden sollte, | bitte schicken Sie es uns. |          Danke!        ][ Ok ]");
+			form_alert(1, ERROR );
 
 		if(ByteOrder == LSB)
 			map = 2;

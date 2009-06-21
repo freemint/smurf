@@ -22,6 +22,26 @@
  * ***** END LICENSE BLOCK *****
  */
 
+#ifdef GERMAN
+#define ERROR1 "[1][Kein PCX Bild innerhalb|der CAS FAX Struktur][ Pech ]"
+#define ERROR2 "[1][Es kann nur das erste Bild|angezeigt werden!][ Leider ]"
+#define ERROR3 "[1][Eingebautes Bild hat|nicht das PCX Format!][ Pech ]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][No PCX image within the|CAS FAX structure!][Oh dear!]"
+#define ERROR2 "[1][Only the first image|can be displayed!][ What a pity ] "
+#define ERROR3 "[1][Incorporated image is|not in a PCX format!][ Pity ]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][No PCX image within the|CAS FAX structure!][Oh dear!]"
+#define ERROR2 "[1][Only the first image|can be displayed!][ What a pity ] "
+#define ERROR3 "[1][Incorporated image is|not in a PCX format!][ Pity ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -102,11 +122,11 @@ for (x=0; x<1024; x++)          /* Eintragen der Offsets */
 }
 if (!PicCnt)
 {
-        form_alert(1,"[1][Kein PCX Bild innerhalb|der CAS FAX Struktur]\[ Pech ]");
+        form_alert(1, ERROR1 );
         return(M_PICERR);
 }               
 if (PicCnt>1)
-        form_alert(1,"[1][Es kann nur das erste Bild|angezeigt werden !]\[ Leider ]");
+        form_alert(1, ERROR2 );
 
 strncpy(smurf_struct->smurf_pic->format_name, "CAS Fax Standard     ", 21);
 
@@ -116,7 +136,7 @@ strncpy(smurf_struct->smurf_pic->format_name, "CAS Fax Standard     ", 21);
 GetBuf=buffer+PicOffset[0];     /* 1. Bild */
 if (*(GetBuf)!=0x0a)
 {
-    form_alert(1,"[1][Eingebautes Bild hat|nicht das PCX Format!]\[ Pech ]");
+    form_alert(1, ERROR3 );
     return(M_PICERR);
 }
 KompFlag=*(GetBuf+2);

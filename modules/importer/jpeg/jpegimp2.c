@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include "..\..\import.h"
 #include "..\..\..\src\smurfine.h"
-/* #include <demolib.h> */
 
 #include "jpeglib.h"
 #include <setjmp.h>

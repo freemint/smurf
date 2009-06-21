@@ -33,6 +33,20 @@
 /*	  Nach Photoshop-Doku von Mario runderneuert			*/
 /*==========================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "[1][Versionsnummer ungleich 1! | Bild bitte an uns einschicken][ OK ]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][Version number is not 1! | Please send the picture to us.][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][Version number is not 1! | Please send the picture to us.][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -107,7 +121,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 	{
 		if(*(unsigned int *)(buffer + 4) != 1)
 		{
-			form_alert(0, "[1][Versionsnummer ungleich 1! | Bild bitte an uns einschicken]\[ OK ]");
+			form_alert(0, ERROR1 );
 			return(M_PICERR);
 		}	
 

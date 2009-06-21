@@ -35,6 +35,20 @@
 /*	  DCX-UnterstÅtzung										*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "[1][Eine Palette fehlt leider im Bild. BehelfsmÑûig | wird eine Graustufenpalette erzeugt.][ OK ]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][Sorry, a palette is missing in the image.|To help a greyscale palette will be created.][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][Sorry, a palette is missing in the image.|To help a greyscale palette will be created.][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -265,7 +279,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 								*pal++ = (char)i;
 							}
 
-							form_alert(0, "[1][Eine Palette fehlt leider im Bild. BehelfsmÑûig | wird eine Graustufenpalette erzeugt.][ OK ]");
+							form_alert(0, ERROR1 );
 						}
 					else
 						if(BitsPerPixel <= 4)

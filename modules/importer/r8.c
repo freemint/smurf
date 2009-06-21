@@ -28,6 +28,20 @@
 /*    xxx													*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR "[1][Die Farbpalette konnte nicht|geladen werden!][ Stop ]"
+#else
+#ifdef ENGLISH
+#define ERROR "[1][Die Farbpalette konnte nicht|geladen werden!][ Stop ]"
+#else
+#ifdef FRENCH
+#define ERROR "[1][Die Farbpalette konnte nicht|geladen werden!][ Stop ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -218,7 +232,7 @@ void *fload(char *Path, int header)
 	}
 	else 
 	{
-		form_alert(0, "[1][Die Farbpalette konnte nicht|geladen werden!]\[ Stop ]");
+		form_alert(0, ERROR );
 		fil = 0;
 	}                   
 

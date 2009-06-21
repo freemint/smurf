@@ -29,6 +29,20 @@
 /*	  Ein Modul aus der Reihe der 2 Minuten Decoder			*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR "[1][unbekanntes ESM. Bild bitte an uns einschicken!][ OK ]"
+#else
+#ifdef ENGLISH
+#define ERROR "[1][unbekanntes ESM. Bild bitte an uns einschicken!][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR "[1][unbekanntes ESM. Bild bitte an uns einschicken!][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>

@@ -30,6 +30,20 @@
 /*	  gespeichert, ich brauche ein Testbild!				*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR "[1][(Noch) nicht unterst》ztes Tinyformat | Bild bitte an uns einschicken][ OK ]"
+#else
+#ifdef ENGLISH
+#define ERROR "[1][(Noch) nicht unterst》ztes Tinyformat | Bild bitte an uns einschicken][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR "[1][(Noch) nicht unterst》ztes Tinyformat | Bild bitte an uns einschicken][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -122,7 +136,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 					height = 400;
 					Planes = 1;
 					break;
-			default:	form_alert(0, "[1][(Noch) nicht unterst》ztes Tinyformat | Bild bitte an uns einschicken]\[ OK ]");
+			default:	form_alert(0,  ERROR);
 						return(M_PICERR);
 		}
 		BitsPerPixel = Planes;

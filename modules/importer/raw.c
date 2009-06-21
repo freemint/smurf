@@ -36,7 +36,7 @@
 #include <string.h>
 #include <time.h>
 #include "..\import.h"
-#include "..\..\src\smurfine.h""
+#include "..\..\src\smurfine.h"
 
 /* Infostruktur fÅr Hauptmodul */
 MOD_INFO module_info = {"RAW",

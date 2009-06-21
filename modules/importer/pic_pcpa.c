@@ -40,6 +40,23 @@
 /*	  Overlay Format wird unterstÅtzt						*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "[1][Zu wenig Speicher zum Korrigieren | der Orientierung und Formatwandlung][ Ok ]"
+#define ERROR2 "[1][Zu wenig Speicher zum Korrigieren | der Orientierung][ Ok ]"
+#else
+#ifdef ENGLISH
+#define ERROR1 "[1][Not enough memory to correct the  | orientation and format conversion! ][ OK ]"
+#define ERROR2 "[1][Not enough memry to correct | the orientation!][ OK ]"
+#else
+#ifdef FRENCH
+#define ERROR1 "[1][Not enough memory to correct the  | orientation and format conversion! ][ OK ]"
+#define ERROR2 "[1][Not enough memry to correct | the orientation!][ OK ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -259,7 +276,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 			if((BitsPerPixel == 2 || BitsPerPixel == 4) && Planes == 1)
 				if((temp = tfm_pp_to_std(ziel, width, height, BitsPerPixel)) == 0)
 				{
-					form_alert(1, "[1][Zu wenig Speicher zum Korrigieren | der Orientierung und Formatwandlung][ Ok ]");
+					form_alert(1, ERROR1 );
 					SMfree(ziel);
 					return(M_MEMORY);
 				}
@@ -267,7 +284,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 					ziel = temp;
 			else
 				if(switch_orient(ziel, width, height, BitsPerPixel, Planes) != 0)
-					form_alert(1, "[1][Zu wenig Speicher zum Korrigieren | der Orientierung][ Ok ]");
+					form_alert(1, ERROR2 );
 	
 			if(BitsPerPixel <= 8)
 			{

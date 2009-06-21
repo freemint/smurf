@@ -42,6 +42,20 @@
 /*	  Testbilder dafÅr.										*/
 /*==========================================================*/
 
+#ifdef GERMAN
+#define ERROR "[1][Zu wenig Speicher zum Korrigieren | der Orientierung][ Ok ]"
+#else
+#ifdef ENGLISH
+#define ERROR "[1][Zu wenig Speicher zum Korrigieren | der Orientierung][ Ok ]"
+#else
+#ifdef FRENCH
+#define ERROR "[1][Zu wenig Speicher zum Korrigieren | der Orientierung][ Ok ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -186,7 +200,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 
 			if(!comp)
 				if(switch_orient(ziel, width, height, BitsPerPixel) != 0)
-					form_alert(1, "[1][Zu wenig Speicher zum Korrigieren | der Orientierung][ Ok ]");
+					form_alert(1, ERROR );
 			
 			if(BitsPerPixel <= 8)
 				make_pal(ziel, smurf_struct->smurf_pic->palette, BitsPerPixel, (long)width * (long)height, ColorMap);

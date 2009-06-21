@@ -34,7 +34,7 @@
 #define fehler "[1][Picture seems to be corupted.|Load it anyway?][Yes|No]"
 #else
 #ifdef FRENCH
-#define fehler "[1][Dieses Bild scheint defekt zu sein.|Trotzdem laden?][Oui|Non]"
+#define fehler "[1][Picture seems to be corupted.|Load it anyway?][Yes|No]"
 #else
 #error "Keine Sprache!"
 #endif

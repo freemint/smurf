@@ -28,6 +28,20 @@
 /*	 Ob die Bildgr”ženerkennung wohl geht?					*/
 /*==========================================================*/
 
+#ifdef GERMAN
+#define ERROR "[1][Bildteil konnte nicht|geladen werden!][ Stop ]"
+#else
+#ifdef ENGLISH
+#define ERROR "[1][Image portion could|not be loaded!][ Stop ]"
+#else
+#ifdef FRENCH
+#define ERROR "[1][Image portion could|not be loaded!][ Stop ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -204,7 +218,7 @@ void *fload(char *Path, int header)
 	}
 	else 
 	{
-		form_alert(0, "[1][Bildteil konnte nicht|geladen werden!]\[ Stop ]");
+		form_alert(0, ERROR );
 		fil = 0;
 	}                   
 

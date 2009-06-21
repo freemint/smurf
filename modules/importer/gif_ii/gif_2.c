@@ -59,7 +59,7 @@
 #include "..\..\import.h"
 #include "..\..\..\src\smurfine.h"
 #include "gif.h"
-#include <..\..\..\demolib.h>
+#include "..\..\..\src\lib\demolib.h"
 
 #define _LSCRDES	7			/* ist wegen des auffÅllens der Strukturen */
 #define _IMAGE_DES	10			/* von Compilerseite her leider nîtig */
@@ -78,7 +78,9 @@ char *read_tbase_image(char *file);
 char *read_image_descriptor(char *file);
 void invert_gif(char *buffer, unsigned int width, unsigned int height, char *pal);
 void deinterlace(char *buffer, unsigned int width, unsigned int height, char BitsPerPixel);
-extern int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char BitsPerPixel);extern int decode_lzw_fast(char *buffer, char *ziel);
+extern int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char BitsPerPixel);
+extern int decode_lzw_fast(char *buffer, char *ziel);
+
 /* Dies bastelt direct ein rol.w #8,d0 inline ein. */
 unsigned int swap_word(unsigned int w)
 	0xE058;
@@ -427,7 +429,9 @@ char *read_tbase_image(char *file)
 
 	if(coltab.depth == 8)
 		decode_lzw_fast(data, dest);
-	else		decode_lzw_normal(data, dest, image_descriptor.image_width, image_descriptor.image_height, coltab.depth);
+	else
+		decode_lzw_normal(data, dest, image_descriptor.image_width, image_descriptor.image_height, coltab.depth);
+
 	if(inter)
 		deinterlace(dest, image_descriptor.image_width, image_descriptor.image_height, coltab.depth);
 

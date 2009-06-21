@@ -33,6 +33,26 @@
 /*																																	*/
 /* =================================================================*/
 
+#ifdef GERMAN
+#define ERROR1 "Falsche Grîûe (!=1920) fÅr ein PGF!"
+#define ERROR2 "Diese Portfolio PGX-Datei enthÑlt keine|PGC Grafik."
+#define ERROR3 "Dies ist keine Portfolio PGX-Datei"
+#else
+#ifdef ENGLISH
+#define ERROR1 "Wrong size (not=1920) for a PGF!"
+#define ERROR2 "This Portfolio PGX file doesn't hold|a PGC graphic!"
+#define ERROR3 "This is not a Portfolio PGX file!"
+#else
+#ifdef FRENCH
+#define ERROR1 "Wrong size (not=1920) for a PGF!"
+#define ERROR2 "This Portfolio PGX file doesn't hold|a PGC graphic!"
+#define ERROR3 "This is not a Portfolio PGX file!"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <screen.h>
 #include <stdio.h>
@@ -110,7 +130,7 @@ int imp_module_main ( GARGAMEL *smurf_struct)
 
 	if(stricmp(fileext(fname), "PGF") == 0 && file_len != 1920L)
 	{
-		f_alert("Falsche Grîûe (!=1920) fÅr ein PGF)", "OK", NULL, NULL, 1);
+		f_alert( ERROR , "OK", NULL, NULL, 1);
 		return(M_PICERR);
 	}
 
@@ -180,7 +200,7 @@ int imp_module_main ( GARGAMEL *smurf_struct)
 	{
 		if ( buffer[0] != 'P' || buffer[1] != 'G' || buffer[2] != 'X')
 		{
-			f_alert("Dies ist keine Portfolio PGX-Datei", "OK", NULL, NULL, 1);
+			f_alert( ERROR3 , "OK", NULL, NULL, 1);
 			return(M_PICERR);
 		}
 		strncpy(smurf_struct->smurf_pic->format_name, "Portfolio Graphics, PGX",23);
@@ -190,7 +210,7 @@ int imp_module_main ( GARGAMEL *smurf_struct)
 		{
 			if ( buffer [i] == 0xff )				/* Ende erreicht?									*/
 			{
-				f_alert("Diese Portfolio PGX-Datei enthÑlt keine|PGC Grafik.", "OK", NULL, NULL, 1);
+				f_alert( ERROR2 , "OK", NULL, NULL, 1);
 				return(M_PICERR);
 			}
 			if ( buffer [i] == 0x00 )				/* PGC-Datei											*/

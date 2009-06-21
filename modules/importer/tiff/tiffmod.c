@@ -27,6 +27,32 @@
 /*			Tiff-Module zum entpacken, etc.						*/
 /*																*/
 /****************************************************************/
+#ifdef GERMAN
+#define BUSYBOX1 "wandle RGB-Planes"
+#define BUSYBOX2 "wandle 32 Bit CMYK"
+#define BUSYBOX3 "4Bit->Standard"
+#define BUSYBOX4 "2Bit->Standard"
+#define ERROR1   "[1][ *LZWdecrunch* -> Can't | allocate RAM for LZW-Tables][Stop]"
+#else
+#ifdef ENGLISH
+#define BUSYBOX1 "wandle RGB-Planes"
+#define BUSYBOX2 "wandle 32 Bit CMYK"
+#define BUSYBOX3 "4Bit->Standard"
+#define BUSYBOX4 "2Bit->Standard"
+#define ERROR1   "[1][ *LZWdecrunch* -> Can't | allocate RAM for LZW-Tables][Stop]"
+#else
+#ifdef FRENCH
+#define BUSYBOX1 "wandle RGB-Planes"
+#define BUSYBOX2 "wandle 32 Bit CMYK"
+#define BUSYBOX3 "4Bit->Standard"
+#define BUSYBOX4 "2Bit->Standard"
+#define ERROR1   "[1][ *LZWdecrunch* -> Can't | allocate RAM for LZW-Tables][Stop]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -332,7 +358,7 @@ void tiff24Planes_24Normal(GARGAMEL *smurf_struct, char *source, char *dest, lon
 	long planeoffset,x,y;
 
 
-	smurf_struct->services->reset_busybox(0, "wandle RGB-Planes"); 
+	smurf_struct->services->reset_busybox(0, BUSYBOX1 ); 
 
 	planeoffset = Width * Height;
 	if(DataCount == 3)
@@ -379,7 +405,7 @@ void tiff32CMYK_24Normal(GARGAMEL *smurf_struct, char *source, char *dest, long 
 	long x, y;
 
 
-	smurf_struct->services->reset_busybox(0, "wandle 32 Bit CMYK");
+	smurf_struct->services->reset_busybox(0, BUSYBOX2 );
 
 	if((bh = (unsigned int)(Height / 10)) == 0)	/* busy-height */
 		bh = (unsigned int)Height;
@@ -421,7 +447,7 @@ void tiff4_to_stf(GARGAMEL *smurf_struct, char *source, char *dest, long Width, 
 	long planelength;
 
 
-	smurf_struct->services->reset_busybox(0, "4Bit->Standard");
+	smurf_struct->services->reset_busybox(0, BUSYBOX3 );
 	planelength = (Width + 7) / 8 * Height;
 
 	pixbuf = (char *)SMalloc(Width + 7);
@@ -469,7 +495,7 @@ void tiff2_to_stf(GARGAMEL *smurf_struct, char *source, char *dest, long Width, 
 	long planelength;
 
 
-	smurf_struct->services->reset_busybox(0, "2Bit->Standard"); 
+	smurf_struct->services->reset_busybox(0, BUSYBOX4 ); 
 	planelength = (Width + 7) / 8 * Height;
 
 	pixbuf = (char *)SMalloc(Width + 7);
@@ -706,7 +732,7 @@ int tiffLZW_depack(GARGAMEL *smurf_struct, char *source, char *dest, long Width,
 
 	if(head == 0) 
 	{
-		form_alert(1,"[1][ *LZWdecrunch* -> Can't | allocate RAM for LZW-Tables][Stop]");
+		form_alert(1, ERROR1 );
 		return(-1);
 	}
 

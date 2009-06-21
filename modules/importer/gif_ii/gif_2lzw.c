@@ -27,9 +27,10 @@
 #include <string.h>
 #include <ext.h>
 #include <tos.h>
-#include <..\..\..\demolib.h>
+#include "..\..\..\src\lib\demolib.h"
 
-#define MaxStackSize	4096
+#define MaxStackSize	4096
+
 #define TRUE	1
 #define FALSE	0
 
@@ -44,7 +45,9 @@
 
 /* Set 16 Pixel (Standard Format) Assembler-Rout */
 int setpix_standard(char *buf16, char *dest, int depth, long planelen, int howmany);
-int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char BitsPerPixel);int decode_lzw_fast(char *buffer, char *ziel);
+int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char BitsPerPixel);
+int decode_lzw_fast(char *buffer, char *ziel);
+
 extern	void decode_fast(int *par1, long *par2);
 extern	void decode_fast020(int *par1, long *par2);
 
@@ -52,7 +55,8 @@ extern int PROCESSOR;
 extern long filelen;
 
 /* decodiert alle GIF mit 1-7 Bit */
-int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char BitsPerPixel){
+int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char BitsPerPixel)
+{
 	int *prefix;
 	char *suffix, *out, *opos, *pixbuf;
 	char data_size;
@@ -81,15 +85,26 @@ int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char Bits
 		v = 16;
 	}
 
-	/* Speicher fÅr LZW-Arrays anfordern */	prefix = (int *)malloc(MaxStackSize * sizeof(int));	suffix = (char *)malloc(MaxStackSize);	out = (char *)malloc(MaxStackSize);	pixbuf = (char *)malloc((width + 15) / 16 * 16);
-	if((prefix == (int *)NULL) ||	   (suffix == (char *)NULL) ||	   (out == (char *)NULL) ||	   (pixbuf == (char *)NULL))		return(-1);
+	/* Speicher fÅr LZW-Arrays anfordern */
+	prefix = (int *)malloc(MaxStackSize * sizeof(int));
+	suffix = (char *)malloc(MaxStackSize);
+	out = (char *)malloc(MaxStackSize);
+	pixbuf = (char *)malloc((width + 15) / 16 * 16);
+	if((prefix == (int *)NULL) ||
+	   (suffix == (char *)NULL) ||
+	   (out == (char *)NULL) ||
+	   (pixbuf == (char *)NULL))
+		return(-1);
 
 	/* Initalisieren der LZW-Variablen */
-	data_size = *buffer++;					/* aktuelle Codegrîûe auslesen */	clear = 1 << data_size;					/* Clearcode bestimmen */
+	data_size = *buffer++;					/* aktuelle Codegrîûe auslesen */
+	clear = 1 << data_size;					/* Clearcode bestimmen */
 	end_of_information = clear + 1;			/* end-of-information Code */
 	available = clear + 2;					/* erster freier Tabelleneintrag */
-	pCodeSize = data_size + 1;				/* Bitanzahl der nÑchsten Codegrîûe */	entries = 1 << pCodeSize;					/* erster Code der nÑchsten Codegrîûe */
-	pCodeMask = (1 << pCodeSize) - 1;		/* Codemaske setzen */
+	pCodeSize = data_size + 1;				/* Bitanzahl der nÑchsten Codegrîûe */
+	entries = 1 << pCodeSize;					/* erster Code der nÑchsten Codegrîûe */
+	pCodeMask = (1 << pCodeSize) - 1;		/* Codemaske setzen */
+
 	/* initialisieren der ersten 1 << Codegrîûe EintrÑge */
 	for(code = 0; code < clear; code++)
 	{
@@ -117,7 +132,8 @@ int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char Bits
 		if(pBitsLeft < pCodeSize)
 		{
 			if(pCount == 0)					/* neuen Block beginnen */
-			{				pCount = *pData++;			/* BlocklÑnge auslesen */
+			{
+				pCount = *pData++;			/* BlocklÑnge auslesen */
 				if(pCount == 0 || (len_to_go -= pCount) < 0)
 					break;
 			}
@@ -127,7 +143,8 @@ int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char Bits
 			pBitsLeft += 8;
 
 			if(pCount == 0)					/* neuen Block beginnen */
-			{				pCount = *pData++;			/* BlocklÑnge auslesen */
+			{
+				pCount = *pData++;			/* BlocklÑnge auslesen */
 				if(pCount == 0 || (len_to_go -= pCount) < 0)
 					break;
 			}
@@ -150,7 +167,8 @@ int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char Bits
 			available = clear + 2;
 			pCodeSize = data_size + 1;
 			entries = 1 << pCodeSize;
-			pCodeMask = (1 << pCodeSize) - 1;
+			pCodeMask = (1 << pCodeSize) - 1;
+
 			/* Code holen */
 			if(pBitsLeft < pCodeSize)
 			{
@@ -289,7 +307,8 @@ int decode_lzw_normal(char *buffer, char *ziel, int width, int height, char Bits
 /*
  * decodiert alle GIF mit 8 Bit 
  */
-int decode_lzw_fast(char *buffer, char *ziel){
+int decode_lzw_fast(char *buffer, char *ziel)
+{
 	char *firstcodes, *ofirstcodes;
 	int *srclen;
 	char *out, *dst;
@@ -313,16 +332,26 @@ int decode_lzw_fast(char *buffer, char *ziel){
 
 	/*
 	 * Speicher fÅr LZW-Arrays anfordern
-	 */	srclen = (int *)malloc(MaxStackSize * sizeof(int));	src = (long *)malloc(MaxStackSize * sizeof(long));	ofirstcodes = firstcodes = (char *)malloc(256);			/* maximum needed */	if((srclen == (int *)NULL) ||	   (firstcodes == (char *)NULL) ||	   (src == (long *)NULL))		return(-1);
+	 */
+	srclen = (int *)malloc(MaxStackSize * sizeof(int));
+	src = (long *)malloc(MaxStackSize * sizeof(long));
+	ofirstcodes = firstcodes = (char *)malloc(256);			/* maximum needed */
+	if((srclen == (int *)NULL) ||
+	   (firstcodes == (char *)NULL) ||
+	   (src == (long *)NULL))
+		return(-1);
 
 	/*
 	 * initalisieren der LZW-Variablen
 	 */
-	data_size = *buffer++;					/* aktuelle Codegrîûe auslesen */	clear = 1 << data_size;					/* Clearcode bestimmen */
+	data_size = *buffer++;					/* aktuelle Codegrîûe auslesen */
+	clear = 1 << data_size;					/* Clearcode bestimmen */
 	end_of_information = clear + 1;			/* end-of-information Code */
 	available = clear + 2;					/* erster freier Tabelleneintrag */
-	pCodeSize = data_size + 1;				/* Bitanzahl der nÑchsten Codegrîûe */	entries = 1 << pCodeSize;				/* erster Code der nÑchsten Codegrîûe */
-	pCodeMask = (1 << pCodeSize) - 1;		/* Codemaske setzen */
+	pCodeSize = data_size + 1;				/* Bitanzahl der nÑchsten Codegrîûe */
+	entries = 1 << pCodeSize;				/* erster Code der nÑchsten Codegrîûe */
+	pCodeMask = (1 << pCodeSize) - 1;		/* Codemaske setzen */
+
 	/*
 	 * initialisieren der ersten 1 << Codegrîûe EintrÑge
 	 */
@@ -374,7 +403,8 @@ int decode_lzw_fast(char *buffer, char *ziel){
 		if(pBitsLeft < pCodeSize)
 		{
 			if(pCount == 0)					/* neuen Block beginnen */
-			{				pCount = *pData++;			/* BlocklÑnge auslesen */
+			{
+				pCount = *pData++;			/* BlocklÑnge auslesen */
 				if(pCount == 0)
 					break;
 			}
@@ -384,7 +414,8 @@ int decode_lzw_fast(char *buffer, char *ziel){
 			pBitsLeft += 8;
 
 			if(pCount == 0)					/* neuen Block beginnen */
-			{				pCount = *pData++;			/* BlocklÑnge auslesen */
+			{
+				pCount = *pData++;			/* BlocklÑnge auslesen */
 				if(pCount == 0)
 					break;
 			}
@@ -404,17 +435,20 @@ int decode_lzw_fast(char *buffer, char *ziel){
 			available = clear + 2;
 			pCodeSize = data_size + 1;
 			entries = 1 << pCodeSize;
-			pCodeMask = (1 << pCodeSize) - 1;
+			pCodeMask = (1 << pCodeSize) - 1;
+
 			/* Code holen */
 			if(pBitsLeft < pCodeSize)
 			{
-				if(pCount == 0)					/* neuen Block beginnen */					pCount = *pData++;			/* BlocklÑnge auslesen */
+				if(pCount == 0)					/* neuen Block beginnen */
+					pCount = *pData++;			/* BlocklÑnge auslesen */
 	
 		    	pDatum |= (unsigned long)*pData++ << pBitsLeft;
 				pCount--;
 				pBitsLeft += 8;
 
-				if(pCount == 0)					/* neuen Block beginnen */					pCount = *pData++;			/* BlocklÑnge auslesen */
+				if(pCount == 0)					/* neuen Block beginnen */
+					pCount = *pData++;			/* BlocklÑnge auslesen */
 	
 		    	pDatum |= (unsigned long)*pData++ << pBitsLeft;
 				pCount--;

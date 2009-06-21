@@ -51,6 +51,41 @@
 /*	  fÅgt.													*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define DIRENTRYS    "[1][ Getting a ZERO | as IFD-counter (?)][ Crash! ]"
+#define DATAARRAY    "[ Can't allocate | RAM for DataRows][Sorry!]"
+#define WIDTH        "[1][ * Missing:|'Width/Height-Tag'][ Stop! ]"
+#define PLANARCONFIG "[1][ * Missing:|'Configuration-Tags'][ Stop! ]"
+#define PHOTO4       "[1][ Photometric-Set | 'Transparency mask' | isn't supported! ][ Oh-No! ]"
+
+#define ERROR1       "[1][ Fehler beim Entpacken ][ Abbruch ]"
+#define ERROR2       "[1][ Bildstruktur defekt ][ Abbruch ]"
+#else
+#ifdef ENGLISH
+#define DIRENTRYS    "[1][ Getting a ZERO | as IFD-counter (?)][ Crash! ]"
+#define DATAARRAY    "[ Can't allocate | RAM for DataRows][Sorry!]"
+#define WIDTH        "[1][ * Missing:|'Width/Height-Tag'][ Stop! ]"
+#define PLANARCONFIG "[1][ * Missing:|'Configuration-Tags'][ Stop! ]"
+#define PHOTO4       "[1][ Photometric-Set | 'Transparency mask' | isn't supported! ][ Oh-No! ]"
+
+#define ERROR1       "[1][ Fehler beim Entpacken ][ Abort ]"
+#define ERROR2       "[1][ Bildstruktur defekt ][ Abort ]"
+#else
+#ifdef FRENCH
+#define DIRENTRYS    "[1][ Getting a ZERO | as IFD-counter (?)][ Crash! ]"
+#define DATAARRAY    "[ Can't allocate | RAM for DataRows][Sorry!]"
+#define WIDTH        "[1][ * Missing:|'Width/Height-Tag'][ Stop! ]"
+#define PLANARCONFIG "[1][ * Missing:|'Configuration-Tags'][ Stop! ]"
+#define PHOTO4       "[1][ Photometric-Set | 'Transparency mask' | isn't supported! ][ Oh-No! ]"
+
+#define ERROR1       "[1][ Fehler beim Entpacken ][ Abort ]"
+#define ERROR2       "[1][ Bildstruktur defekt ][ Abort ]"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <ext.h>
 #include <screen.h>
@@ -204,7 +239,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 	
 	if(DirEntrys==0)
 	{
-		form_alert(1,"[1][ Getting a ZERO | as IFD-counter (?)][ Crash! ]");
+		form_alert(1, DIRENTRYS);
 		SMfree(Palette24);
 		return(M_PICERR);
 	}
@@ -309,7 +344,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 							DataArray = SMalloc(TagCount*4L);
 							if(DataArray==NULL)
 							{
-								form_alert(1,"[ Can't allocate | RAM for DataRows][Sorry!]");
+								form_alert(1, DATAARRAY );
 								SMfree(Palette24);
 								return(M_PICERR);
 							}
@@ -442,14 +477,14 @@ int imp_module_main(GARGAMEL *smurf_struct)
 
 	if(Width==0 || Height==0)
 	{
-		form_alert(1,"[1][ * Missing:|'Width/Height-Tag'][ Stop! ]");	
+		form_alert(1, WIDTH );	
 		SMfree(Palette24);
 		return(M_PICERR);
 	}
 
 	if(PlanarConfig==0 && BitsPerSample==0 && SamplePerPixel==0)
 	{
-		form_alert(1,"[1][ * Missing:|'Configuration-Tags'][ Stop! ]");
+		form_alert(1, PLANARCONFIG );
 		SMfree(Palette24);
 		return(M_PICERR);
 	}
@@ -463,7 +498,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 	if(Photo==4 || Photo==6)
 	{
 		if(Photo==4)
-			form_alert(1,"[1][ Photometric-Set | 'Transparency mask' | isn't supported! ][ Oh-No! ]");
+			form_alert(1, PHOTO4 );
 		else
 			if(Photo==6)
 				form_alert(1,"[1][ Photometric-Set | 'YCbCr-Colorsystem' | isn't supported! ][ Oh-No! ]");
@@ -712,7 +747,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 
 		if(errcode < 0)
 		{
-			form_alert(1,"[1][ Fehler beim Entpacken ][ Abbruch ]");
+			form_alert(1, ERROR1 );
 			SMfree(Palette24); 
 			SMfree(NewBuf);	
 			SMfree(DataArray);
@@ -812,7 +847,7 @@ int imp_module_main(GARGAMEL *smurf_struct)
 
 	else
 	{
-		form_alert(1,"[1][ Bildstruktur defekt ][ Abbruch ]");
+		form_alert(1, ERROR2 );
 		SMfree(Palette24); 
 		SMfree(NewBuf);	
 		SMfree(DataArray);
