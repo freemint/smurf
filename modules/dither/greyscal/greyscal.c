@@ -22,6 +22,23 @@
  * ***** END LICENSE BLOCK *****
  */
 
+#ifdef GERMAN
+#define TEXT1 "Graustufen"
+#define TEXT2 "Graustufen..."
+#else
+#ifdef ENGLISH
+#define TEXT1 "Greyscale"
+#define TEXT2 "Greyscale..."
+#else
+#ifdef FRENCH
+#define TEXT1 "Greyscale"
+#define TEXT2 "Greyscale..."
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,7 +46,7 @@
 #include <string.h>
 #include <screen.h>
 #include <ext.h>
-#include "..\..\..\sym_gem.h"
+#include "..\..\..\src\lib\sym_gem.h"
 #include "..\..\import.h"
 #include "..\..\..\src\smurfine.h"
 
@@ -50,7 +67,7 @@ long planelengthw;
 
 DITHER_MOD_INFO module_info =
 {
-    "Graustufen",
+    TEXT1,
     "Christian Eyrich",
     0x0100,                     /* Schlumpfine-Version */
     0,                          /* konfigurierbar? */
@@ -89,7 +106,7 @@ int dither_module_main(DITHER_DATA *dither)
 
     busybox = dither->services->busybox;
     
-    dither->services->reset_busybox(0, "Graustufen...");
+    dither->services->reset_busybox(0, TEXT2 );
 
 /* Struktur auslesen */
     pic_todit = dither->picture;
