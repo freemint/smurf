@@ -30,6 +30,26 @@
 /*	  Zeilenweise Assemblerleseroutine eingebaut.			*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Konform wandeln"
+#define TEXT2 "VDI-konform"
+#define TEXT3 "Hardwarekonform"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Conform convert"
+#define TEXT2 "VDI-conform"
+#define TEXT3 "Hardwareconform"
+#else
+#ifdef FRENCH
+#define TEXT1 "Conform convert"
+#define TEXT2 "VDI-conform"
+#define TEXT3 "Hardwareconform"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +58,7 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 #define VDI		1
 #define HARD	2
@@ -47,7 +67,7 @@ int (*busybox)(int pos);
 void getpix_std_line(char *std, char *buf, int depth, long planelen, int howmany);
 int setpix_std_line(char *buf, char *std, int depth, long planelen, int howmany);
 
-MOD_INFO module_info = {"konform wandeln",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",
@@ -56,8 +76,8 @@ MOD_INFO module_info = {"konform wandeln",
 						"",
 						"",
 						"",
-						"VDI-konform",
-						"hardwarekonform",
+						TEXT2,
+						TEXT3,
 						"",
 						"",
 						"",

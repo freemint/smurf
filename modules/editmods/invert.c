@@ -39,6 +39,20 @@
 /*	  wurden keine Palettenbilder mehr invertiert.			*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Invertieren"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Invertion"
+#else
+#ifdef FRENCH
+#define TEXT1 "Invertion"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,9 +61,8 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
 
-MOD_INFO module_info = {"Invertieren",
+MOD_INFO module_info = {TEXT1,
 						0x0050,
 						"Christian Eyrich",
 						"", "", "", "", "",

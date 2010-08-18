@@ -33,6 +33,23 @@
 /*	  eingestellt war.										*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Minimum/Maximum"
+#define TEXT2 "Radius"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Minimum/Maximum"
+#define TEXT2 "Radius"
+#else
+#ifdef FRENCH
+#define TEXT1 "Minimum/Maximum"
+#define TEXT2 "Radius"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,7 +58,7 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);
@@ -51,7 +68,7 @@ void max_24Bit(char *ziel, char *buffer, unsigned int width, unsigned int height
 
 int (*busybox)(int pos);
 
-MOD_INFO module_info = {"Minimum/Maximum",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",

@@ -46,11 +46,9 @@
 #include <ext.h>
 #include "..\..\import.h"
 #include "..\..\..\src\smurfine.h"
-#include <..\..\..\demolib.h>
+#include "..\..\..\src\lib\demolib.h"
 
-#define ENGLISCH 0
-
-#if ENGLISCH
+#ifdef ENGLISH
 	#include "chanel5\en\chanel5.rsh"
 	#include "chanel5\en\chanel5.rh"
 #else

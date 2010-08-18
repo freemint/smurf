@@ -33,6 +33,21 @@
 /*	  gelegt.												*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Solarisierung"
+#define TEXT2 "%Belichtung"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Solarisierung"
+#define TEXT2 "%Exposure"
+#else
+#ifdef FRENCH
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,14 +56,13 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
 
-MOD_INFO module_info = {"Solarisierung",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"%Belichtung",
+						TEXT2,
 						"",
 						"",
 						"",

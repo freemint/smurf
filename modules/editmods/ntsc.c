@@ -28,6 +28,19 @@
 /*	  16 und 24 Bit											*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "% abdunkeln"
+#else
+#ifdef ENGLISH
+#define TEXT1 "% darken"
+#else
+#ifdef FRENCH
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,14 +50,14 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 MOD_INFO module_info = {"NTSC",
 						0x0010,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"% abdunkeln",
+						TEXT1,
 						"",
 						"",
 						"",

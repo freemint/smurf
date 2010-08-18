@@ -39,6 +39,29 @@
 /*	  gelegt.												*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Weight of Color"
+#define TEXT2 "Rot"
+#define TEXT3 "GrÅn"
+#define TEXT4 "Blau"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Weight of Color"
+#define TEXT2 "Red"
+#define TEXT3 "Green"
+#define TEXT4 "Blue"
+#else
+#ifdef FRENCH
+#define TEXT1 "Weight of Color"
+#define TEXT2 "Rouge"
+#define TEXT3 "Vert"
+#define TEXT4 "Bleu"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,16 +70,16 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
-MOD_INFO module_info = {"Weight of Color",
+MOD_INFO module_info = {TEXT1,
 						0x0040,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"Rot",
-						"GrÅn",
-						"Blau",
+						TEXT2,
+						TEXT3,
+						TEXT4,
 						"",
 						"",
 						"",

@@ -25,6 +25,35 @@
 /*  -------------   Strudel V0.5    --------------- */
 /*      FÅr SMURF Bildkonverter, 19.10.95           */
 
+#ifdef GERMAN
+#define TEXT1 "Strudel"
+#define TEXT2 "Winkel"
+#define TEXT3 "Von auûen"
+#define TEXT4 "Tunnel"
+#define TEXT5 "Make tables..."
+#define TEXT6 "Twirling..."
+#else
+#ifdef ENGLISH
+#define TEXT1 "Twirl"
+#define TEXT2 "Angle"
+#define TEXT3 "Use edges"
+#define TEXT4 "Tunnel"
+#define TEXT5 "Make tables..."
+#define TEXT6 "Twirling..."
+#else
+#ifdef FRENCH
+#define TEXT1 "Twirl"
+#define TEXT2 "Angle"
+#define TEXT3 "Use edges"
+#define TEXT4 "Tunnel"
+#define TEXT5 "Make tables..."
+#define TEXT6 "Twirling..."
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +62,7 @@
 #include <aes.h>
 #include <math.h>
 #include <screen.h>
-#include "..\..\sym_gem.h"
+#include "..\..\src\lib\sym_gem.h"
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
 
@@ -44,16 +73,14 @@ BITBLK *prev(GARGAMEL *prev_struct);        /* Previewfunktion */
 void f_doit(GARGAMEL *smurfstruct);
 
 /* Infostruktur fÅr Hauptmodul */
-#ifdef ENGLISH
 MOD_INFO    module_info={
-                        "Twirl",
-												0x0100,
+                        TEXT1,
+						0x0100,
                         "Olaf Piesche",
                         "", "", "", "", "",
                         "", "", "", "", "",
-
-                        "Angle", "","","",
-                        "Use edges", "Tunnel",  "", "",
+                        TEXT2, "","","",
+                        TEXT3, TEXT4,  "", "",
                         "", "", "", "",
                         0,360,
                         0,128,
@@ -68,32 +95,6 @@ MOD_INFO    module_info={
                         0,0,0,0,
                         1
                         };
-#else
-MOD_INFO    module_info={
-                        "Strudel",
-												0x0100,
-                        "Olaf Piesche",
-                        "", "", "", "", "",
-                        "", "", "", "", "",
-
-                        "Winkel", "","","",
-                        "Von auûen", "Tunnel",  "", "",
-                        "", "", "", "",
-                        0,360,
-                        0,128,
-                        0,128,
-                        0,128,
-                        0,10,
-                        0,10,
-                        0,10,
-                        0,10,
-                        90,0,0,0,
-                        0,0,0,0,
-                        0,0,0,0,
-                        1
-                        };
-#endif
-
 
 MOD_ABILITY	module_ability=
 {
@@ -154,7 +155,7 @@ if(SmurfMessage==MSTART)
 {
 	mod_id=smurf_struct->module_number;
 
-	smurf_struct->services->reset_busybox(0, "Make tables...");
+	smurf_struct->services->reset_busybox(0, TEXT5);
 	for(t=0; t<370; t++)
 	{
 		/*
@@ -209,7 +210,7 @@ else if(SmurfMessage==MEXEC)
 	
 	if(sliderval < 0) sliderval=360+sliderval;
 
-	smurf_struct->services->reset_busybox(0, "twirling...");
+	smurf_struct->services->reset_busybox(0, TEXT6);
 
 
 	for(y=0; y<height; y++)

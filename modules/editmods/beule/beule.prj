@@ -22,6 +22,7 @@
 
 ..\..\..\modules\edit\beule.sem
 
+.C [-I..\STRUCTZ\]
 .C [-C -K -Z -M -P -S]
 .C [-I..\..\..\..\purec\include\]
 .L [-S=1024]

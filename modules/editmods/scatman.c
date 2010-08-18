@@ -36,6 +36,23 @@
 /*	  bei 24 Bit transparent.								*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Breite"
+#define TEXT2 "H”he"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Latitude"
+#define TEXT2 "Height"
+#else
+#ifdef FRENCH
+#define TEXT1 "Latitude"
+#define TEXT2 "Height"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,7 +61,7 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);
@@ -60,12 +77,12 @@ MOD_INFO module_info = {"Scatman's World",
 						"",
 						"",
 						"",
-						"clean",
+						"Clean",
 						"",
 						"",
 						"",
-						"Breite",
-						"H”he",
+						TEXT1,
+						TEXT2,
 						"",
 						"",
 						0,64,

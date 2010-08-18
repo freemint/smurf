@@ -38,7 +38,7 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 int (*busybox)(int pos);
 
@@ -127,12 +127,18 @@ void edit_module_main(GARGAMEL *smurf_struct)
 			width = smurf_struct->smurf_pic->pic_width;
 			height = smurf_struct->smurf_pic->pic_height;
 
-			histogram = (unsigned long *)malloc(256L * 4L);			map = (unsigned long *)malloc(256L * 4L);			equalize_map = (char *)malloc(256L);
-			if(histogram == 0 || map == 0 || equalize_map == 0)			{				free(histogram);
+			histogram = (unsigned long *)malloc(256L * 4L);
+			map = (unsigned long *)malloc(256L * 4L);
+			equalize_map = (char *)malloc(256L);
+
+			if(histogram == 0 || map == 0 || equalize_map == 0)
+			{
+				free(histogram);
 				free(map);
 				free(equalize_map);
 				smurf_struct->module_mode = M_MEMORY;
-				return;			}			
+				return;
+			}			
 	
 			if(BitsPerPixel != 16)
 			{
@@ -174,7 +180,10 @@ void edit_module_main(GARGAMEL *smurf_struct)
 											+ ((long)*data++ * 2929L)
 											+ ((long)*data++ * 295L)) >> 12);
 
-							histogram[greyval]++;						} while(++x < width);					} while(++y < height);				}
+							histogram[greyval]++;
+						} while(++x < width);
+					} while(++y < height);
+				}
 				else
 				{
 					i = 0;
@@ -184,24 +193,38 @@ void edit_module_main(GARGAMEL *smurf_struct)
 										+ ((long)*data++ * 2929L)
 										+ ((long)*data++ * 295L)) >> 12);
 
-						histogram[greyval]++;					}
+						histogram[greyval]++;
+					}
 				}
 
 				data = odata;
 
-				/* Integrate the histogram to get the equalization map. */				j = 0;				i = 0;
+				/* Integrate the histogram to get the equalization map. */
+				j = 0;
+				i = 0;
 				while(i < 256)
-				{					j += histogram[i];					map[i] = j;
+				{
+					j += histogram[i];
+					map[i] = j;
+
 					i++;
-				}
-				free((void *)histogram);
-				if(map[255] == 0)				{					free((void *)equalize_map);					free((void *)map);
+				}
+
+				free((void *)histogram);
+
+				if(map[255] == 0)
+				{
+					free((void *)equalize_map);
+					free((void *)map);
+
 					smurf_struct->module_mode = M_DONEEXIT;
-					return;				}
+					return;
+				}
 
 
 				/* Equalize */
-				scale_factor = (255L << 16) / map[255];				for(i = 0; i < 256; i++)
+				scale_factor = (255L << 16) / map[255];
+				for(i = 0; i < 256; i++)
 					equalize_map[i] = (char)(((map[i] * scale_factor) + (1L << 15)) >> 16);
 
 				if(BitsPerPixel == 24)
@@ -221,14 +244,20 @@ void edit_module_main(GARGAMEL *smurf_struct)
 						x = 0;
 						do
 						{
-							*data++ = equalize_map[*data];							*data++ = equalize_map[*data];							*data++ = equalize_map[*data];						} while(++x < width);
+							*data++ = equalize_map[*data];
+							*data++ = equalize_map[*data];
+							*data++ = equalize_map[*data];
+						} while(++x < width);
 					} while(++y < height);
 				}
 				else
 				{
 					while(length--)
 					{
-						*data++ = equalize_map[*data];						*data++ = equalize_map[*data];						*data++ = equalize_map[*data];					}
+						*data++ = equalize_map[*data];
+						*data++ = equalize_map[*data];
+						*data++ = equalize_map[*data];
+					}
 				}
 			}
 

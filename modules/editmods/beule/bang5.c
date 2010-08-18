@@ -27,10 +27,31 @@
 		Smurf Ausbeulen
 */
 
-#ifndef GERMAN
-#ifndef ENGLISH
-#ifndef FRENCH
-#error "keine Sprache!"
+#ifdef GERMAN
+#define TEXT1 "Beule"
+#define TEXT2 "Interpolieren"
+#define TEXT3 "Rand schwarz"
+#define TEXT4 "H”he:"
+#define TEXT5 "Radius:"
+#define TEXT6 "ausbeulen..."
+#else
+#ifdef ENGLISH
+#define TEXT1 "Beule"
+#define TEXT2 "Interpolieren"
+#define TEXT3 "Rand schwarz"
+#define TEXT4 "Height:"
+#define TEXT5 "Radius:"
+#define TEXT6 "ausbeulen..."
+#else
+#ifdef FRENCH
+#define TEXT1 "Beule"
+#define TEXT2 "Interpolieren"
+#define TEXT3 "Rand schwarz"
+#define TEXT4 "Height:"
+#define TEXT5 "Radius:"
+#define TEXT6 "ausbeulen..."
+#else
+#error "Keine Sprache!"
 #endif
 #endif
 #endif
@@ -43,39 +64,19 @@
 #include <aes.h>
 #include <math.h>
 
-#include "..\..\import.h"#include "..\..\..\src\smurfine.h"
+#include "..\..\import.h"
+#include "..\..\..\src\smurfine.h"
+
 /* Infostruktur fr Hauptmodul */
 
-#ifdef GERMAN
-MOD_INFO	module_info={"Beule",
+MOD_INFO	module_info={TEXT1,
 0x0080,	"Bj”rn Spruck",
 "","","","","",
 "","","","","",
 /* Objekttitel */
 "","","","",
-"Interpolieren","Rand schwarz","","",
-"H”he:","Radius:","","",
-#endif
-#ifdef ENGLISH
-MOD_INFO	module_info={"Beule",
-0x0080,	"Bj”rn Spruck",
-"","","","","",
-"","","","","",
-/* Objekttitel */
-"","","","",
-"Interpolate","Black Border","","",
-"Height:","Radius:","","",
-#endif
-#ifdef FRENCH
-MOD_INFO	module_info={"Beule",
-0x0080,	"Bj”rn Spruck",
-"","","","","",
-"","","","","",
-/* Objekttitel */
-"","","","",
-"Interpolieren","Rand schwarz","","",
-"H”he:","Radius:","","",
-#endif
+TEXT2,TEXT3,"","",
+TEXT4,TEXT5,"","",
 
 /* Min/Max Slider */
 0,128,0,128,0,128,0,128,
@@ -476,15 +477,7 @@ void edit_module_main(GARGAMEL *smurf_struct)
 				hoehe=(int)smurf_struct->edit1;
 				radius=(int)smurf_struct->edit2;
 				rands=smurf_struct->check2;
-#ifdef GERMAN
-				reset_busybox(0,"ausbeulen...");
-#endif
-#ifdef ENGLISH
-				reset_busybox(0,"ausbeulen...");
-#endif
-#ifdef FRENCH
-				reset_busybox(0,"ausbeulen...");
-#endif
+				reset_busybox(0, TEXT6);
 				if(smurf_struct->services->CPU_type&FPU){
 					if( smurf_struct->check1){/* Interpolieren */
 						if(bang_inter_FPU(smurf_struct->smurf_pic,

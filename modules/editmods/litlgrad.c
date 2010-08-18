@@ -47,6 +47,35 @@
 /*	  tet werden.											*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Helligkeit-Kontrast"
+#define TEXT2 "Helligkeit"
+#define TEXT3 "Kontrast"
+#define TEXT4 "rot"
+#define TEXT5 "grÅn"
+#define TEXT6 "blau"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Brightness-contrast"
+#define TEXT2 "Brightness"
+#define TEXT3 "Contrast"
+#define TEXT4 "Red"
+#define TEXT5 "Green"
+#define TEXT6 "Blue"
+#else
+#ifdef FRENCH
+#define TEXT1 "Brightness-contrast"
+#define TEXT2 "Brightness"
+#define TEXT3 "Contrast"
+#define TEXT4 "Rouge"
+#define TEXT5 "Vert"
+#define TEXT6 "Bleu"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -56,20 +85,20 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
-MOD_INFO module_info = {"Helligkeit-Kontrast",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"Helligkeit",
-						"Kontrast",
+						TEXT2,
+						TEXT3,
 						"",
 						"",
-						"rot",
-						"grÅn",
-						"blau",
+						TEXT4,
+						TEXT5,
+						TEXT6,
 						"",
 						"",
 						"",

@@ -31,6 +31,29 @@
 /*	  St„rken.												*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Wind von links"
+#define TEXT2 "Wind von rechts"
+#define TEXT3 "Sturm von links"
+#define TEXT4 "Sturm von rechts"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Wind from left"
+#define TEXT2 "Wind from right"
+#define TEXT3 "Storm from left"
+#define TEXT4 "Storm from right"
+#else
+#ifdef FRENCH
+#define TEXT1 "Wind from left"
+#define TEXT2 "Wind from right"
+#define TEXT3 "Storm from left"
+#define TEXT4 "Storm from right"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,7 +62,7 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 #define WIND	1
 #define STORM	2
@@ -60,10 +83,10 @@ MOD_INFO module_info = {"Wind",
 						"",
 						"",
 						"",
-						"Wind von links",
-						"Wind von rechts",
-						"Sturm von links",
-						"Sturm von rechts",
+						TEXT1,
+						TEXT2,
+						TEXT3,
+						TEXT4,
 						"",
 						"",
 						"",

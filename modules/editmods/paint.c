@@ -38,7 +38,7 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);

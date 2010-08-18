@@ -29,6 +29,29 @@
 /* Version 0.1  --  09.10.97								*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "s/w Schwellwert special"
+#define TEXT2 "Schwellwert"
+#define TEXT3 "Modus 1"
+#define TEXT4 "Modus 2"
+#else
+#ifdef ENGLISH
+#define TEXT1 "s/w Schwellwert special"
+#define TEXT2 "Schwellwert"
+#define TEXT3 "Mode 1"
+#define TEXT4 "Mode 2"
+#else
+#ifdef FRENCH
+#define TEXT1 "s/w Schwellwert special"
+#define TEXT2 "Schwellwert"
+#define TEXT3 "Mode 1"
+#define TEXT4 "Mode 2"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,21 +60,21 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 char box(char *data);
 
-MOD_INFO module_info = {"s/w Schwellwert special",
+MOD_INFO module_info = {TEXT1,
 						0x0010,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"Schwellwert",
+						TEXT2,
 						"",
 						"",
 						"",
-						"Modus 1",
-						"Modus 2",
+						TEXT3,
+						TEXT4,
 						"",
 						"",
 						"",

@@ -52,6 +52,47 @@
 /*	  der alten und nicht neuen Breite aufgerufen.			*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Bilderrahmen"
+#define TEXT2 "Rot"
+#define TEXT3 "GrÅn"
+#define TEXT4 "Blau"
+#define TEXT5 "zentriert"
+#define TEXT6 "Farbe benutzen"
+#define TEXT7 "links"
+#define TEXT8 "rechts"
+#define TEXT9 "oben"
+#define TEXT10 "unten"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Bilderrahmen"
+#define TEXT2 "Red"
+#define TEXT3 "Green"
+#define TEXT4 "Blue"
+#define TEXT5 "zentriert"
+#define TEXT6 "Farbe benutzen"
+#define TEXT7 "Left"
+#define TEXT8 "Right"
+#define TEXT9 "Top"
+#define TEXT10 "Bottom"
+#else
+#ifdef FRENCH
+#define TEXT1 "Bilderrahmen"
+#define TEXT2 "Rouge"
+#define TEXT3 "Vert"
+#define TEXT4 "Bleu"
+#define TEXT5 "zentriert"
+#define TEXT6 "Farbe benutzen"
+#define TEXT7 "Left"
+#define TEXT8 "Right"
+#define TEXT9 "Top"
+#define TEXT10 "Bottom"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,7 +102,7 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 void *(*SMalloc)(long amount);
 int	(*SMfree)(void *ptr);
@@ -71,23 +112,23 @@ int setpix_std_line(char *buf, char *std, int depth, long planelen, int howmany)
 void backcolor(SMURF_PIC *picture, char *data, char *buf, unsigned int newwidth, unsigned int newheight);
 void rearrange_line2(char *ptr, char *buf, long bytes, unsigned int pixels);
 
-MOD_INFO module_info = {"Bilderrahmen",
+MOD_INFO module_info = {TEXT1,
 						0x0070,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"Rot",
-						"GrÅn",
-						"Blau",
+						TEXT2,
+						TEXT3,
+						TEXT4,
 						"",
-						"zentriert",
-						"Farbe benutzen",
+						TEXT5,
+						TEXT6,
 						"",
 						"",
-						"links",
-						"rechts",
-						"oben",
-						"unten",
+						TEXT7,
+						TEXT8,
+						TEXT9,
+						TEXT10,
 						0,255,
 						0,255,
 						0,255,

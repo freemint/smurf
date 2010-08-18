@@ -49,7 +49,7 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 void rearrange_line(char *ptr, long bytes, unsigned int pixels);
 void rearrange_line2(char *ptr, char *buf, long bytes, unsigned int pixels);

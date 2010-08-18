@@ -31,6 +31,20 @@
 /*	  verwendet, wird keiner angegeben.						*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Palettenausgabe"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Palettenausgabe"
+#else
+#ifdef FRENCH
+#define TEXT1 "Palettenausgabe"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,7 +55,7 @@
 
 char *conv(char val);
 
-MOD_INFO module_info = {"Palettenausgabe",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",

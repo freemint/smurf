@@ -24,6 +24,26 @@
 
 /*  ----------- Bump Mapping-Modul V1.2 --------------  */
 /*          FÅr SMURF Bildkonverter, 26.04.96           */
+#ifdef GERMAN
+#define TEXT2 "Rot"
+#define TEXT3 "GrÅn"
+#define TEXT4 "Blau"
+#else
+#ifdef ENGLISH
+#define TEXT2 "Red"
+#define TEXT3 "Green"
+#define TEXT4 "Blue"
+#else
+#ifdef FRENCH
+#define TEXT2 "Rouge"
+#define TEXT3 "Vert"
+#define TEXT4 "Bleu"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <aes.h>
 #include <stdio.h>

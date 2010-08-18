@@ -69,11 +69,9 @@
 #include <math.h>
 #include "..\..\import.h"
 #include "..\..\..\src\smurfine.h"
-#include <..\..\..\demolib.h>
+#include "..\..\..\src\lib\demolib.h"
 
-#define ENGLISCH 0
-
-#if ENGLISCH
+#ifdef ENGLISH
 	#include "hsv\en\hsv.rsh"
 	#include "hsv\en\hsv.rh"
 #else

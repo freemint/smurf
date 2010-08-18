@@ -30,6 +30,20 @@
 /*	  jetzt auch in 16 Bit									*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Gammakorrektur"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Gammakorrektur"
+#else
+#ifdef FRENCH
+#define TEXT1 "Gammakorrektur"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,9 +53,9 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
-MOD_INFO module_info = {"Gammakorrektur",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",

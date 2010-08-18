@@ -30,6 +30,35 @@
 /*	  Die Bildgr”že kann jetzt beibehalten werden.			*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Sinuswellen"
+#define TEXT2 "St„rke"
+#define TEXT3 "Weite"
+#define TEXT4 "Horizontal"
+#define TEXT5 "vertikal"
+#define TEXT6 "Gr”že gleich"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Sinuswellen"
+#define TEXT2 "St„rke"
+#define TEXT3 "Weite"
+#define TEXT4 "Horizontal"
+#define TEXT5 "Vertical"
+#define TEXT6 "Size equal"
+#else
+#ifdef FRENCH
+#define TEXT1 "Sinuswellen"
+#define TEXT2 "St„rke"
+#define TEXT3 "Weite"
+#define TEXT4 "Horizontal"
+#define TEXT5 "Vertical"
+#define TEXT6 "Size equal"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,7 +68,7 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 #define EXTEND	0
 #define HOLD	1
@@ -57,18 +86,18 @@ char *sinus_vertikal3(char *buffer, long *sinustab, unsigned int width, unsigned
 char *sinus_horizontal(char *buffer, long *sinustab, unsigned int width, unsigned int height, unsigned int sinheight, char BitsPerPixel);
 char *sinus_horizontal3(char *buffer, long *sinustab, unsigned int width, unsigned int height, char BitsPerPixel);
 
-MOD_INFO module_info = {"Sinuswellen",
+MOD_INFO module_info = {TEXT1,
 						0x0020,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"St„rke",
-						"Weite",
+						TEXT2,
+						TEXT3,
 						"",
 						"",
-						"horizontal",
-						"vertikal",
-						"Gr”že gleich",
+						TEXT4,
+						TEXT5,
+						TEXT6,
 						"",
 						"",
 						"",

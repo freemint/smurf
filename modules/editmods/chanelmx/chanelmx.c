@@ -42,7 +42,7 @@
 #include <ext.h>
 #include "..\..\import.h"
 #include "..\..\..\src\smurfine.h"
-#include <..\..\..\demolib.h>
+#include "..\..\..\src\lib\demolib.h"
 
 #include "chanelmx.rsh"
 #include "chanelmx.rh"

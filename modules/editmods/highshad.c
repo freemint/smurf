@@ -41,7 +41,6 @@
 #include <math.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
 
 MOD_INFO module_info = {"Highlight/Shadow",
 						0x0020,

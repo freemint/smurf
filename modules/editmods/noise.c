@@ -39,6 +39,38 @@
 /*	  16 Bit												*/
 /* =========================================================*/
 
+#ifdef GERMAN
+#define TEXT1 "Noise"
+#define TEXT2 "St„rke Grau"
+#define TEXT3 "St„rke R"
+#define TEXT4 "St„rke G"
+#define TEXT5 "St„rke B"
+#define TEXT6 "Grau"
+#define TEXT7 "Farbig"
+#else
+#ifdef ENGLISH
+#define TEXT1 "Noise"
+#define TEXT2 "Grey amount"
+#define TEXT3 "R amount"
+#define TEXT4 "G amount"
+#define TEXT5 "B amount"
+#define TEXT6 "Grey"
+#define TEXT7 "Colored"
+#else
+#ifdef FRENCH
+#define TEXT1 "Noise"
+#define TEXT2 "Grey amount"
+#define TEXT3 "R amount"
+#define TEXT4 "G amount"
+#define TEXT5 "B amount"
+#define TEXT6 "Grey"
+#define TEXT7 "Colored"
+#else
+#error "Keine Sprache!"
+#endif
+#endif
+#endif
+
 #include <tos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,24 +79,24 @@
 #include <ext.h>
 #include "..\import.h"
 #include "..\..\src\smurfine.h"
-#include <..\..\demolib.h>
+#include "..\..\src\lib\demolib.h"
 
 void noise_grey(char *data, int width, int height, int amountgrey);
 void noise_color(char *data, int width, int height, int amountr, int amountg, int amountb);
 
 int (*busybox)(int pos);
 
-MOD_INFO module_info = {"Noise",
+MOD_INFO module_info = {TEXT1,
 						0x0040,
 						"Christian Eyrich",
 						"", "", "", "", "",
 						"", "", "", "", "",
-						"St„rke Grau",
-						"St„rke R",
-						"St„rke G",
-						"St„rke B",
-						"grau",
-						"farbig",
+						TEXT2,
+						TEXT3,
+						TEXT4,
+						TEXT5,
+						TEXT6,
+						TEXT7,
 						"",
 						"",
 						"",
